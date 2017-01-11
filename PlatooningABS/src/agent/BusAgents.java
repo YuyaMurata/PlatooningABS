@@ -13,13 +13,19 @@ import java.util.List;
  * @author kaeru
  */
 public class BusAgents {
-    private static List busAgents;
+    private static List<BusAgent> busAgents;
     public static void generate(int n){
         busAgents = new ArrayList();
         
-        for(int i=0; i < n; i++){
+        for(int i=0; i < 2; i++){
             busAgents.add(new BusAgent(i, "human"));
+            busAgents.get(i).busPosition(i*8, i*8);
         }
+        
+        if(n-2 > 0)
+            for(int i=0; i < n-2; i++){
+                busAgents.add(new BusAgent(i, "robot"));
+            }
         
         //Check BusStop
         busAgents.stream().forEach(System.out::println);

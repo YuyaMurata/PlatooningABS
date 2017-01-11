@@ -17,9 +17,11 @@ import park.AmusementPark;
  */
 public class BusAgent {
     public String name, type;
-    public List agentKey = new ArrayList();;
+    public List agentKey;
     public int x, y, bx, by;
     private int goal;
+    private int maxPassengers = 10;
+    private List passengers = new ArrayList();
     
     public BusAgent(int index, String type){
         this.name = "Bus_"+index;
@@ -31,6 +33,7 @@ public class BusAgent {
         
         //Init Agentkey
         String key = x+"-"+y;
+        agentKey = new ArrayList();
         agentKey.add(key);
         agentKey.add(key);
         
@@ -45,33 +48,49 @@ public class BusAgent {
         System.out.println(toString());
     }
     
-    private void planning(){
-        
+    private void planning(){      
     }
     
     private void patrol(){
-        if(agentKey.get(1).equals(BusStops.getBusStop(goal).key))
-            goal = (goal + 1) % BusStops.getNumBusStop();
+        List<BusStop> root = BusStops.getRoot("root"+name.split("_")[1]);
         
-        BusStop busStop = BusStops.getBusStop(goal);
+        if(agentKey.get(1).equals(root.get(goal).key))
+            goal = (goal + 1) % root.size();
+        
+        BusStop busStop = root.get(goal);
         
         //Test
-        System.out.println("key ag="+agentKey+" g="+BusStops.getBusStop(goal).key);
-        System.out.println("Target : "+busStop+" i="+goal);
+        //System.out.println("key ag="+agentKey+" g="+BusStops.getBusStop(goal).key);
+        //System.out.println("Target : "+busStop+" i="+goal);
         
         //Move
         deltaMove(x, busStop.x, y, busStop.y);
     }
     
+    public Boolean getOn(Object people){
+        if(maxPassengers <= passengers.size()) return false;
+        
+        passengers.add(people);
+        return true;
+    }
+    
+    public void getOff(){
+        
+    }
+    
     private void deltaMove(int xstart, int xgoal, int ystart, int ygoal){
+        int xd = xgoal - xstart;
+        int yd = ygoal - ystart;
+        
+        //if(Math.abs(xd) > Math.abs(yd)){
         //X Move
-        if(xstart < xgoal) x++;
-        else if(xstart > xgoal) x--;
-        
+            if(xd > 0) x++;
+            else if(xd < 0) x--;
+        //}else{
         //Y Move
-        if(ystart < ygoal) y++;
-        else if(ystart > ygoal) y--; 
-        
+            if(yd > 0) y++;
+            else if(yd < 0) y--; 
+        //}
         busPosition(x, y);
     }
     

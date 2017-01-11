@@ -17,8 +17,8 @@ import obj.BusStops;
  */
 public class PlatooningMain {
     public static void main(String[] args) {
-        int col = 10;
-        int row = 10;
+        int col = 9;
+        int row = 9;
         
         //Frame
         ABSFrame frame = ABSFrame.getInstance();
@@ -28,8 +28,8 @@ public class PlatooningMain {
         abs.setVisualParameter(col, row);
         
         //Agent
-        BusStops.generate(2);  //goal
-        BusAgents.generate(1); //agent
+        BusStops.generate(5);  //goal
+        BusAgents.generate(2); //agent
         abs.setAgent(BusAgents.getList(), BusStops.getList());
         
         //GUI Start
@@ -38,7 +38,10 @@ public class PlatooningMain {
         
         //Execute
         StepExecutor step = new StepExecutor(BusAgents.getList());
-        for(long time =0L; time < 10; time++)
+        long time = 0L;
+        while(true){
+            time++;
             step.execute(time);
+        }
     }
 }
