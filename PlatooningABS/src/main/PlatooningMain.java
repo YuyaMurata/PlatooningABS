@@ -5,8 +5,11 @@
  */
 package main;
 
+import agent.BusAgents;
+import exec.StepExecutor;
 import gui.ABSFrame;
 import gui.ABSVisualizer;
+import obj.BusStops;
 
 /**
  *
@@ -14,13 +17,28 @@ import gui.ABSVisualizer;
  */
 public class PlatooningMain {
     public static void main(String[] args) {
+        int col = 10;
+        int row = 10;
+        
+        //Frame
+        ABSFrame frame = ABSFrame.getInstance();
+        
+        //Line
+        ABSVisualizer abs = ABSVisualizer.getInstance();
+        abs.setVisualParameter(col, row);
+        
+        //Agent
+        BusStops.generate(2);  //goal
+        BusAgents.generate(1); //agent
+        abs.setAgent(BusAgents.getList(), BusStops.getList());
         
         //GUI Start
-        ABSFrame frame = ABSFrame.getInstance();
         frame.execute(args);
+        abs.startVisualize();
         
-        ABSVisualizer abs = ABSVisualizer.getInstance();
-        abs.setDrawParameter(10, 10);
-        abs.drawCells();
+        //Execute
+        StepExecutor step = new StepExecutor(BusAgents.getList());
+        for(long time =0L; time < 10; time++)
+            step.execute(time);
     }
 }

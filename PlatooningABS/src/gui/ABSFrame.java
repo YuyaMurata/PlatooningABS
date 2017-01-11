@@ -22,6 +22,9 @@ public class ABSFrame extends javax.swing.JFrame {
      */
     public ABSFrame() {
         initComponents();
+        
+        //Set Panel
+        ABSVisualizer.getInstance().setABSArea(absPanel);
     }
 
     /**
@@ -38,6 +41,11 @@ public class ABSFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         absPanel.setBackground(new java.awt.Color(255, 255, 255));
+        absPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                absPanelComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout absPanelLayout = new javax.swing.GroupLayout(absPanel);
         absPanel.setLayout(absPanelLayout);
@@ -63,6 +71,11 @@ public class ABSFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void absPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_absPanelComponentResized
+        // TODO add your handling code here:
+        ABSVisualizer.getInstance().resizeABSArea();
+    }//GEN-LAST:event_absPanelComponentResized
 
     /**
      * @param args the command line arguments
@@ -97,9 +110,6 @@ public class ABSFrame extends javax.swing.JFrame {
                 frame.setVisible(true);
             }
         });
-        
-        //Set Panel
-        ABSVisualizer.getInstance().setABSArea(absPanel);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

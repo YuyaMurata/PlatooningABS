@@ -29,12 +29,20 @@ public class BusAgent {
         this.y = 0;
         this.goal = 0;
         
+        //Init Agentkey
+        String key = x+"-"+y;
+        agentKey.add(key);
+        agentKey.add(key);
+        
         busPosition(0, 0);
     }
     
     public void move(){
         if(type.equals("robot")) planning();
         else patrol();
+        
+        //Test
+        System.out.println(toString());
     }
     
     private void planning(){
@@ -42,10 +50,14 @@ public class BusAgent {
     }
     
     private void patrol(){
-        if(agentKey.get(1) == BusStops.getBusStop(goal).key)
+        if(agentKey.get(1).equals(BusStops.getBusStop(goal).key))
             goal = (goal + 1) % BusStops.getNumBusStop();
         
         BusStop busStop = BusStops.getBusStop(goal);
+        
+        //Test
+        System.out.println("key ag="+agentKey+" g="+BusStops.getBusStop(goal).key);
+        System.out.println("Target : "+busStop+" i="+goal);
         
         //Move
         deltaMove(x, busStop.x, y, busStop.y);
@@ -59,19 +71,27 @@ public class BusAgent {
         //Y Move
         if(ystart < ygoal) y++;
         else if(ystart > ygoal) y--; 
+        
+        busPosition(x, y);
     }
     
     public void busPosition(int x, int y){
         //Before Position
         this.bx = this.x;
         this.by = this.y;
-        agentKey.add(0, bx+"-"+by);
+        String beforeKey = bx+"-"+by;
+        agentKey.set(0, beforeKey);
         
         //After Move
         this.x = x;
         this.y = y;
-        agentKey.add(1, x+"-"+y);
+        String key = x+"-"+y;
+        agentKey.set(1, key);
         
         AmusementPark.getInstance().setBusAgent(this);
+    }
+    
+    public String toString(){
+        return name+"<"+type+">:[x="+x+" ,y="+y+"]";
     }
 }

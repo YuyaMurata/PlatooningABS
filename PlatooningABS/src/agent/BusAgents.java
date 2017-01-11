@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package obj;
+package agent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,29 +12,28 @@ import java.util.List;
  *
  * @author kaeru
  */
-public class BusStops {
-    private static List<BusStop> busStops;
+public class BusAgents {
+    private static List busAgents;
     public static void generate(int n){
-        busStops = new ArrayList();
+        busAgents = new ArrayList();
         
         for(int i=0; i < n; i++){
-            busStops.add(new BusStop(i));
-            busStops.get(i).setBusStop(i*5, i*5);
+            busAgents.add(new BusAgent(i, "human"));
         }
         
         //Check BusStop
-        busStops.stream().forEach(System.out::println);
+        busAgents.stream().forEach(System.out::println);
     }
     
-    public static BusStop getBusStop(int i){
-        return (BusStop)busStops.get(i);
+    public static BusAgent getBusAgent(int i){
+        return (BusAgent)busAgents.get(i);
     }
     
     public static Integer getNumBusStop(){
-        return busStops.size();
+        return busAgents.size();
     }
     
-    public static List<BusStop> getList(){
-        return busStops;
+    public static List<BusAgent> getList(){
+        return busAgents;
     }
 }
