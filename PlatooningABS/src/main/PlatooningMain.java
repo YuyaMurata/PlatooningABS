@@ -48,9 +48,9 @@ public class PlatooningMain {
             time++;
             step.execute(time);
             
-            if(BusStops.finishCheck()){
+            if(step.finishCheck()){
                 OutputInstance.data.close();
-                break;
+                System.exit(0);
             }
         }
     }

@@ -20,10 +20,6 @@ public class BusStops {
     public static void generate(int n){
         busStops = new ArrayList();
         
-        //for(int i=0; i < n; i++){
-        //    busStops.add(new BusStop(i));
-        //    busStops.get(i).setBusStop(i*5, i*5);
-        //}
         busStops = fixPattern();
         rootMap = createRoot(busStops);
         
@@ -91,23 +87,19 @@ public class BusStops {
     }
     
     public static Boolean transitCheck(BusStop dept, BusStop dest){
-        Boolean c1, c2;
+        Boolean c1, c2, c3, c4;
         c1 = getRoot("root0").contains(dept);
         c2 = getRoot("root0").contains(dest);
+        c3 = getRoot("root1").contains(dept);
+        c4 = getRoot("root1").contains(dest);
         
-        return c1 & c2;
+        Boolean c12 = c1 & c2;
+        Boolean c34 = c3 & c4;
+        
+        return c12 | c34;
     }
     
     public static BusStop getHub(){
         return busStops.get(4);
-    }
-    
-    public static Boolean finishCheck(){
-        long ql = 0L;
-        for(BusStop bs : busStops)
-            ql = ql + bs.getQueue().size();
-        
-        if(ql == 0L) return true;
-        return false;
     }
 }

@@ -5,6 +5,7 @@
  */
 package obj;
 
+import exec.StepExecutor;
 import fileout.OutputInstance;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,38 +16,45 @@ import java.util.Random;
  * @author 悠也
  */
 public class People {
+    private static long pid = 0L;
     private Long waitTime, getTime;
     public BusStop destination, departure, transit;
     private List log = new ArrayList();
     
     public People(BusStop busStop){
+        pid++;
         this.departure = busStop;
         this.destination = getDestination(busStop);
-        
         this.transit = transitCheck(departure, destination);
+        
+        //Log
+        log.add("people-"+pid);
+        
         if(transit != null){
+            String str = departure.name+"->"+transit.name+"->"+destination.name;
+            log.add(str);
+        
             BusStop temp = destination;
             destination = transit;
-            transit = destination;
+            transit = temp;
+        }else{
+            String str = departure.name+"->"+"null"+"->"+destination.name;
+            log.add(str);    
         }
-        
-        log.add(departure);
-        log.add(destination);
-        log.add(transit);
     }
     
     public void queueTime(){
-        this.waitTime = System.currentTimeMillis();
+        this.waitTime = StepExecutor.step;
     }
     
     public void getOnTime(){
-        waitTime = System.currentTimeMillis() - waitTime;
-        getTime = System.currentTimeMillis();
+        waitTime = StepExecutor.step - waitTime;
+        getTime = StepExecutor.step;
     }
     
     public Boolean getOffCheck(BusStop location){
         if(destination.equals(location)){
-            getTime = System.currentTimeMillis() - getTime;
+            getTime = StepExecutor.step - getTime;
             log.add(getTime);
             log.add(waitTime);
             
@@ -55,9 +63,7 @@ public class People {
             transit(location);
             
             //Test log
-            String str = printLog();
-            if(!str.equals(""))
-                OutputInstance.data.write(str);
+            printLog();
             
             return true;
         }
@@ -86,9 +92,8 @@ public class People {
         return candidate.get(rand.nextInt(candidate.size()));
     }
     
-    public String printLog(){
+    public void printLog(){
         if(destination == null)
-            return log.toString();
-        return "";
+            OutputInstance.data.write(log.toString());
     }
 }

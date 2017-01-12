@@ -128,6 +128,10 @@ public class BusAgent {
         AmusementPark.getInstance().setBusAgent(this);
     }
     
+    public Integer numGetOn(){
+        return passengers.size();
+    }
+    
     public String toString(){
         return name+"<"+type+">:[x="+x+" ,y="+y+"]-["+passengers.size()+"]";
     }

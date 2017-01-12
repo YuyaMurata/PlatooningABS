@@ -6,7 +6,9 @@
 package exec;
 
 import agent.BusAgent;
+import agent.BusAgents;
 import java.util.List;
+import obj.BusStop;
 import obj.BusStops;
 
 /**
@@ -19,8 +21,10 @@ public class StepExecutor {
         this.execList = busLists;
     }
     
+    public static Long step = 0L;
     public void execute(long t){
         System.out.println("Step : "+t);
+        step = t;
         
         //Agent Execute
         execList.stream().forEach(bus -> ((BusAgent)bus).move());
@@ -29,9 +33,21 @@ public class StepExecutor {
         System.out.println(BusStops.getList());
         
         //Step TimeSpan
-        try {
+        /*try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
-        }
+        }*/
+    }
+    
+    public Boolean finishCheck(){
+        long ql = 0L;
+        for(BusStop bs : BusStops.getList())
+            ql = ql + bs.getQueue().size();
+        
+        for(BusAgent ba : BusAgents.getList())
+            ql = ql + ba.numGetOn();
+            
+        if(ql == 0L) return true;
+        return false;
     }
 }
