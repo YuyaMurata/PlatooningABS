@@ -5,6 +5,10 @@
  */
 package obj;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 import park.AmusementPark;
 
 /**
@@ -27,7 +31,17 @@ public class BusStop {
         AmusementPark.getInstance().setBusStop(this);
     }
     
+    public void queuePeople(People people){
+        people.queueTime();
+        queue.add(people);
+    }
+    
+    List<People> queue = new ArrayList();
+    public List<People> getQueue(){
+        return queue;
+    }
+    
     public String toString(){
-        return name+":[x="+x+" ,y="+y+"]";
+        return name+":[x="+x+" ,y="+y+"]-[QLine="+queue.size()+"]";
     }
 }

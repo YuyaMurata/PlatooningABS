@@ -7,6 +7,7 @@ package main;
 
 import agent.BusAgents;
 import exec.StepExecutor;
+import fileout.OutputInstance;
 import gui.ABSFrame;
 import gui.ABSVisualizer;
 import obj.BusStops;
@@ -17,6 +18,9 @@ import obj.BusStops;
  */
 public class PlatooningMain {
     public static void main(String[] args) {
+        //File
+        OutputInstance.NewFile("platooning_abs_log.txt");
+        
         int col = 9;
         int row = 9;
         
@@ -29,6 +33,7 @@ public class PlatooningMain {
         
         //Agent
         BusStops.generate(5);  //goal
+        BusStops.occureQueue();
         BusAgents.generate(2); //agent
         abs.setAgent(BusAgents.getList(), BusStops.getList());
         
@@ -42,6 +47,11 @@ public class PlatooningMain {
         while(true){
             time++;
             step.execute(time);
+            
+            if(BusStops.finishCheck()){
+                OutputInstance.data.close();
+                break;
+            }
         }
     }
 }

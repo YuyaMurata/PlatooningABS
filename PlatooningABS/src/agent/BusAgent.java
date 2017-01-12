@@ -6,9 +6,11 @@
 package agent;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import obj.BusStop;
 import obj.BusStops;
+import obj.People;
 import park.AmusementPark;
 
 /**
@@ -21,7 +23,8 @@ public class BusAgent {
     public int x, y, bx, by;
     private int goal;
     private int maxPassengers = 10;
-    private List passengers = new ArrayList();
+    private List<People> passengers = new ArrayList();
+    private List<BusStop> root;
     
     public BusAgent(int index, String type){
         this.name = "Bus_"+index;
@@ -38,6 +41,7 @@ public class BusAgent {
         agentKey.add(key);
         
         busPosition(0, 0);
+        root = BusStops.getRoot("root"+name.split("_")[1]);
     }
     
     public void move(){
@@ -52,10 +56,11 @@ public class BusAgent {
     }
     
     private void patrol(){
-        List<BusStop> root = BusStops.getRoot("root"+name.split("_")[1]);
-        
-        if(agentKey.get(1).equals(root.get(goal).key))
+        if(agentKey.get(1).equals(root.get(goal).key)){
+            getOn(root.get(goal));
+            getOff(root.get(goal));
             goal = (goal + 1) % root.size();
+        }
         
         BusStop busStop = root.get(goal);
         
@@ -67,15 +72,28 @@ public class BusAgent {
         deltaMove(x, busStop.x, y, busStop.y);
     }
     
-    public Boolean getOn(Object people){
-        if(maxPassengers <= passengers.size()) return false;
-        
-        passengers.add(people);
+    public Boolean getOn(BusStop busStop){
+        Iterator<People> it = busStop.getQueue().iterator();
+        while(it.hasNext()){
+            if(maxPassengers <= passengers.size()) return false;
+            
+            People people = it.next();
+            if(root.contains(people.destination)){
+                passengers.add(people);
+                people.getOnTime();
+                it.remove();
+            }
+        }
         return true;
     }
     
-    public void getOff(){
-        
+    public void getOff(BusStop busStop){
+        Iterator it = passengers.iterator();
+        while(it.hasNext()){
+            People people = (People) it.next();
+            if(people.getOffCheck(busStop))
+                it.remove();
+        }
     }
     
     private void deltaMove(int xstart, int xgoal, int ystart, int ygoal){
@@ -111,6 +129,6 @@ public class BusAgent {
     }
     
     public String toString(){
-        return name+"<"+type+">:[x="+x+" ,y="+y+"]";
+        return name+"<"+type+">:[x="+x+" ,y="+y+"]-["+passengers.size()+"]";
     }
 }

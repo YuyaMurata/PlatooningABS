@@ -83,4 +83,31 @@ public class BusStops {
     public static List<BusStop> getRoot(String rootNo){
         return (List<BusStop>) rootMap.get(rootNo);
     }
+    
+    public static void occureQueue(){
+        for(BusStop bs : busStops)
+            for(int i=0; i < 20; i++)
+                bs.queuePeople(new People(bs));
+    }
+    
+    public static Boolean transitCheck(BusStop dept, BusStop dest){
+        Boolean c1, c2;
+        c1 = getRoot("root0").contains(dept);
+        c2 = getRoot("root0").contains(dest);
+        
+        return c1 & c2;
+    }
+    
+    public static BusStop getHub(){
+        return busStops.get(4);
+    }
+    
+    public static Boolean finishCheck(){
+        long ql = 0L;
+        for(BusStop bs : busStops)
+            ql = ql + bs.getQueue().size();
+        
+        if(ql == 0L) return true;
+        return false;
+    }
 }

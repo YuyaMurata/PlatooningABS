@@ -7,6 +7,7 @@ package exec;
 
 import agent.BusAgent;
 import java.util.List;
+import obj.BusStops;
 
 /**
  *
@@ -23,6 +24,9 @@ public class StepExecutor {
         
         //Agent Execute
         execList.stream().forEach(bus -> ((BusAgent)bus).move());
+        
+        //BusStop State
+        System.out.println(BusStops.getList());
         
         //Step TimeSpan
         try {
