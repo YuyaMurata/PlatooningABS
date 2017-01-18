@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import obj.BusStop;
+import park.AmusementPark;
 
 /**
  *
@@ -25,6 +26,7 @@ public class ABSVisualizer extends Thread{
         return absImage;
     }
     
+    private AmusementPark park = AmusementPark.getInstance();
     private JPanel absArea;
     private Image screenImg;
     private Graphics screen;
@@ -117,14 +119,18 @@ public class ABSVisualizer extends Thread{
     }
     
     public void drawBusAgents(List<BusAgent> busList){
-        for(BusAgent bus : busList){
-            Point p = mappingArea(bus.x, bus.y);
-            screen.drawImage(busImg.getImage(), p.x, p.y-5, null);
+        for(List<BusAgent> busAgents : park.getBusAgents()){
+            int i = 0;
+            for(BusAgent bus : busAgents){
+                Point p = mappingArea(bus.x, bus.y);
+                screen.drawImage(busImg.getImage(), p.x+i*5, p.y-5-+i*10, null);
+                i++;
+            }
         }
     }
     
     public void drawBusStops(List<BusStop> busStopList){
-        for(BusStop busStop : busStopList){
+        for(BusStop busStop : park.getBusStops()){
             Point p = mappingArea(busStop.x, busStop.y);
             screen.drawImage(busStopImg.getImage(), p.x, p.y-5, null);
         }

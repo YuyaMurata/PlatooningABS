@@ -23,7 +23,7 @@ public class BusAgents {
         }
         
         if(n-2 > 0)
-            for(int i=0; i < n-2; i++){
+            for(int i=2; i < n; i++){
                 busAgents.add(new BusAgent(i, "robot"));
             }
         
@@ -41,5 +41,11 @@ public class BusAgents {
     
     public static List<BusAgent> getList(){
         return busAgents;
+    }
+    
+    private static int leaderNum = 0;
+    public static BusAgent getLeader(BusAgent robot){
+        //Test
+        return busAgents.get((leaderNum++) % 2);
     }
 }

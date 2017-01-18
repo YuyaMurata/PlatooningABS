@@ -20,11 +20,13 @@ import park.AmusementPark;
 public class BusAgent {
     public String name, type;
     public List agentKey;
-    public int x, y, bx, by;
-    private int goal;
+    public int x, y;
+    private int nextBusStop;
     private int maxPassengers = 10;
     private List<People> passengers = new ArrayList();
-    private List<BusStop> root;
+    public List<BusStop> root;
+    private BusAgent leader;
+    private AmusementPark park;
     
     public BusAgent(int index, String type){
         this.name = "Bus_"+index;
@@ -32,47 +34,72 @@ public class BusAgent {
         
         this.x = 0;
         this.y = 0;
-        this.goal = 0;
+        this.nextBusStop = 0;
         
         //Init Agentkey
-        String key = x+"-"+y;
+        Object key = x+"-"+y;
         agentKey = new ArrayList();
         agentKey.add(key);
         agentKey.add(key);
         
-        busPosition(0, 0);
-        root = BusStops.getRoot("root"+name.split("_")[1]);
+        park = AmusementPark.getInstance();
+        
+        if(type.equals("robot")){
+            leader = BusAgents.getLeader(this);
+            x = leader.x;
+            y = leader.y;
+            root = leader.root;
+        }else
+            root = BusStops.getRoot("root"+name.split("_")[1]);
+        
+        busPosition(x, y);
+    }
+    
+    public void setLeader(BusAgent leader){
+        this.leader = leader;
+        root = leader.root;
     }
     
     public void move(){
+        nextBusStop = busStopCheck();
+        
         if(type.equals("robot")) planning();
-        else patrol();
+        else patrol(nextBusStop);
         
         //Test
-        System.out.println(toString());
+        logPrint(toString());
     }
     
-    private void planning(){      
+    private void planning(){
+        deltaMove(x, leader.x, y, leader.y);
     }
     
-    private void patrol(){
-        if(agentKey.get(1).equals(root.get(goal).key)){
-            getOn(root.get(goal));
-            getOff(root.get(goal));
-            goal = (goal + 1) % root.size();
-        }
-        
-        BusStop busStop = root.get(goal);
+    private void patrol(int next){
+        BusStop busStop = root.get(next);
         
         //Test
-        //System.out.println("key ag="+agentKey+" g="+BusStops.getBusStop(goal).key);
-        //System.out.println("Target : "+busStop+" i="+goal);
+        //System.out.println("key ag="+agentKey+" g="+BusStops.getBusStop(next).key);
+        //System.out.println("Target : "+busStop+" i="+next);
         
         //Move
         deltaMove(x, busStop.x, y, busStop.y);
     }
     
-    public Boolean getOn(BusStop busStop){
+    private int busStopCheck(){
+        BusStop busStop = park.arrivalBusStop(agentKey.get(1));
+        if(busStop != null){
+            getOn(busStop);
+            getOff(busStop);
+            
+            //logPrint(" <Check>"+busStop.name +" "+ root.get(nextBusStop).name);
+            if(busStop == root.get(nextBusStop))
+                nextBusStop = (nextBusStop + 1) % root.size();
+        }
+        
+        return nextBusStop;
+    }
+    
+    private Boolean getOn(BusStop busStop){
         Iterator<People> it = busStop.getQueue().iterator();
         while(it.hasNext()){
             if(maxPassengers <= passengers.size()) return false;
@@ -80,14 +107,14 @@ public class BusAgent {
             People people = it.next();
             if(root.contains(people.destination)){
                 passengers.add(people);
-                people.getOnTime();
+                people.getOnTime(name);
                 it.remove();
             }
         }
         return true;
     }
     
-    public void getOff(BusStop busStop){
+    private void getOff(BusStop busStop){
         Iterator it = passengers.iterator();
         while(it.hasNext()){
             People people = (People) it.next();
@@ -100,32 +127,35 @@ public class BusAgent {
         int xd = xgoal - xstart;
         int yd = ygoal - ystart;
         
+        int bx = this.x;
+        int by = this.y;
+        
         //if(Math.abs(xd) > Math.abs(yd)){
         //X Move
-            if(xd > 0) x++;
-            else if(xd < 0) x--;
+            if(xd > 0) bx++;
+            else if(xd < 0) bx--;
         //}else{
         //Y Move
-            if(yd > 0) y++;
-            else if(yd < 0) y--; 
+            if(yd > 0) by++;
+            else if(yd < 0) by--; 
         //}
-        busPosition(x, y);
+        busPosition(bx, by);
     }
     
     public void busPosition(int x, int y){
+        agentKey.clear();
+        
         //Before Position
-        this.bx = this.x;
-        this.by = this.y;
-        String beforeKey = bx+"-"+by;
-        agentKey.set(0, beforeKey);
+        agentKey.add(this.x+"-"+this.y);
         
         //After Move
         this.x = x;
         this.y = y;
-        String key = x+"-"+y;
-        agentKey.set(1, key);
+        agentKey.add(x+"-"+y);
         
-        AmusementPark.getInstance().setBusAgent(this);
+        //logPrint("key Check<"+agentKey);
+        //Location
+        park.setBusAgent(this);
     }
     
     public Integer numGetOn(){
@@ -134,5 +164,9 @@ public class BusAgent {
     
     public String toString(){
         return name+"<"+type+">:[x="+x+" ,y="+y+"]-["+passengers.size()+"]";
+    }
+    
+    private void logPrint(String str){
+        System.out.println(name+"<"+type+">-log : "+str);
     }
 }

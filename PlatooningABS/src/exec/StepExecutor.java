@@ -33,10 +33,10 @@ public class StepExecutor {
         System.out.println(BusStops.getList());
         
         //Step TimeSpan
-        /*try {
-            Thread.sleep(1000);
+        try {
+            Thread.sleep(400);
         } catch (InterruptedException ex) {
-        }*/
+        }
     }
     
     public Boolean finishCheck(){

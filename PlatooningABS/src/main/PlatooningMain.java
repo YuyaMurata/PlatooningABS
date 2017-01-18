@@ -20,6 +20,8 @@ public class PlatooningMain {
     public static void main(String[] args) {
         //File
         OutputInstance.NewFile("platooning_abs_log.txt");
+        //Field
+        OutputInstance.data.write("PID, Root, BusTime, QueueTime");
         
         int col = 9;
         int row = 9;
@@ -34,7 +36,7 @@ public class PlatooningMain {
         //Agent
         BusStops.generate(5);  //goal
         BusStops.occureQueue();
-        BusAgents.generate(2); //agent
+        BusAgents.generate(4); //agent
         abs.setAgent(BusAgents.getList(), BusStops.getList());
         
         //GUI Start

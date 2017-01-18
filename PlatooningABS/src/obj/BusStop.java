@@ -14,11 +14,11 @@ import park.AmusementPark;
  * @author kaeru
  */
 public class BusStop {
-    public String name, key;
+    public String name;
+    public Object key;
     public int x, y;
     public BusStop(int index) {
         this.name = "BusStop_"+index;
-        setBusStop(0, 0);
     }
     
     public void setBusStop(int x, int y){
