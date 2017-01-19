@@ -11,17 +11,18 @@ import fileout.OutputInstance;
 import gui.ABSFrame;
 import gui.ABSVisualizer;
 import obj.BusStops;
+import prop.ABSSettings;
 
 /**
  *
  * @author kaeru
  */
-public class PlatooningMain {
+public class PlatooningMain extends ABSSettings{
     public static void main(String[] args) {
         //File
-        OutputInstance.NewFile("platooning_abs_log.txt");
+        OutputInstance.NewFile(fileName);
         //Field
-        OutputInstance.data.write("PID, Root, BusTime, QueueTime");
+        OutputInstance.data.write(fieldName);
         
         //Frame
         ABSFrame frame = ABSFrame.getInstance();
@@ -31,7 +32,6 @@ public class PlatooningMain {
 
         //Agent
         BusStops.generate();  //goal
-        BusStops.occureQueue();
         BusAgents.generate(); //agent
         abs.setAgent(BusAgents.getList(), BusStops.getList());
         
@@ -47,6 +47,8 @@ public class PlatooningMain {
             step.execute(time);
             
             if(step.finishCheck()){
+                OutputInstance.data.write("Finish Steps, "+time);
+                System.out.println("Finish Steps, "+time);
                 OutputInstance.data.close();
                 System.exit(0);
             }

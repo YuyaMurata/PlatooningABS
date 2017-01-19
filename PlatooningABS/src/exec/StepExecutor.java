@@ -27,6 +27,9 @@ public class StepExecutor extends ABSSettings{
         System.out.println("Step : "+t);
         step = t;
         
+        //form line
+        BusStops.occureQueue();
+        
         //Agent Execute
         execList.stream().forEach(bus -> ((BusAgent)bus).move());
         

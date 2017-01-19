@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import prop.ABSSettings;
 
 /**
@@ -18,6 +19,8 @@ import prop.ABSSettings;
 public class BusStops extends ABSSettings{
     private static List<BusStop> busStops;
     private static Map rootMap;
+    private static int amount;
+    
     public static void generate(){
         int n = numBusStops;
         
@@ -31,6 +34,10 @@ public class BusStops extends ABSSettings{
         
         //QueuePeople
         People.setRandom(seed);
+        
+        //Form Line
+        setSeed(seed);
+        amount = amountPeople;
     }
     
     public static BusStop getBusStop(int i){
@@ -86,10 +93,20 @@ public class BusStops extends ABSSettings{
         return (List<BusStop>) rootMap.get(rootNo);
     }
     
+    private static Random rand = new Random();
     public static void occureQueue(){
-        for(BusStop bs : busStops)
-            for(int i=0; i < 20; i++)
-                bs.queuePeople(new People(bs));
+        for(BusStop bs : busStops){
+            int n = rand.nextInt(maxPassengers);
+            
+            if((amount - n) <= 0) n = amount;
+            amount = amount - n;
+            
+            if(n != 0)
+                for(int i=0; i < n; i++)
+                    bs.queuePeople(new People(bs));
+            
+            System.out.println("Amount People:"+amount);
+        }
     }
     
     public static Boolean transitCheck(BusStop dept, BusStop dest){
@@ -124,5 +141,9 @@ public class BusStops extends ABSSettings{
     public static void printLog(){
         if(loggingSW)
             busStops.stream().forEach(System.out::println);
+    }
+    
+    private static void setSeed(long seed){
+        if(seed != -1) rand.setSeed(seed);
     }
 }
