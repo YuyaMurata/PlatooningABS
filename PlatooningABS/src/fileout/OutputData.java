@@ -5,11 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import prop.ABSSettings;
 
 /**
  * Output Log File
  */
-public class OutputData {
+public class OutputData extends ABSSettings{
 
     private String filename;
 
@@ -30,7 +31,8 @@ public class OutputData {
     }
 
     public void write(String str) {
-        pw.println(str);
+        if(consoleSW) System.out.println(str); 
+        else pw.println(str);
     }
 
     public void close() {

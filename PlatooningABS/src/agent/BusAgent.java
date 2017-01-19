@@ -18,11 +18,11 @@ import park.AmusementPark;
  * @author kaeru
  */
 public class BusAgent {
+    public static int maxPassengers = 10;
     public String name, type;
     public List agentKey;
     public int x, y;
     private int nextBusStop;
-    private int maxPassengers = 10;
     private List<People> passengers = new ArrayList();
     public List<BusStop> root;
     private BusAgent leader;
@@ -55,8 +55,12 @@ public class BusAgent {
         busPosition(x, y);
     }
     
-    public void setLeader(BusAgent leader){
-        this.leader = leader;
+    public void changeLeader(){
+        if(BusStops.compareRoot() > 0)
+            this.leader = BusAgents.getLeader(0);
+        else
+            this.leader = BusAgents.getLeader(1);
+        
         root = leader.root;
     }
     
@@ -65,14 +69,10 @@ public class BusAgent {
         
         if(type.equals("robot")) planning();
         else patrol(nextBusStop);
-        
-        //Test
-        logPrint(toString());
     }
     
     private void planning(){
-        if(BusStops.compareRoot() > 0)
-        
+        if(numGetOn() == 0) changeLeader();
         deltaMove(x, leader.x, y, leader.y);
     }
     

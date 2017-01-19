@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import obj.BusStop;
 
 /**
@@ -31,8 +33,8 @@ public class AmusementPark {
         this.r = row;
     }
     
-    private Map map = new HashMap<>();
-    private Map agentMap = new HashMap<>();
+    private Map map = new ConcurrentHashMap<>();
+    private Map agentMap = new ConcurrentHashMap<>();
     
     public void setBusStop(BusStop stop){
         map.put(stop.key, stop);
@@ -55,7 +57,7 @@ public class AmusementPark {
         
         //Register Map
         if(agentMap.get(putKey)== null)
-            agentMap.put(putKey, new ArrayList());
+            agentMap.put(putKey, new CopyOnWriteArrayList());
         agentList = (List) agentMap.get(putKey);
         agentList.add(bus);
         agentMap.put(putKey, agentList);

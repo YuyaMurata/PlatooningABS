@@ -12,12 +12,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import prop.ABSSettings;
 
 /**
  *
  * @author 悠也
  */
-public class People {
+public class People extends ABSSettings{
     private enum param{
         PID, BUS, ROOT, BTIME, QTIME
     }
@@ -95,7 +96,7 @@ public class People {
         location.queuePeople(this);
     }
     
-    private Random rand = new Random();
+    private static Random rand = new Random(seed);
     private BusStop getDestination(BusStop busStop){
         List<BusStop> candidate = new ArrayList();
         candidate.addAll(BusStops.getList());

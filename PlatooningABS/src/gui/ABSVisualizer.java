@@ -15,12 +15,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import obj.BusStop;
 import park.AmusementPark;
+import prop.ABSSettings;
 
 /**
  *
  * @author kaeru
  */
-public class ABSVisualizer extends Thread{
+public class ABSVisualizer extends ABSSettings implements Runnable{
     private static ABSVisualizer absImage = new ABSVisualizer();
     public static ABSVisualizer getInstance(){
         return absImage;
@@ -37,6 +38,8 @@ public class ABSVisualizer extends Thread{
         
         this.w = absArea.getWidth();
         this.h = absArea.getHeight();
+        
+        setVisualParameter();
         
         //Load AgentImage
         loadAgentImage();
@@ -55,11 +58,12 @@ public class ABSVisualizer extends Thread{
     }
     
     public void startVisualize(){
-        drawBusStops(busstopList);
-        drawBusAgents(busList);
+        drawBusStops();
+        drawBusAgents();
         drawCell();
         
-        this.start();
+        Thread thread = new Thread(this);
+        thread.start();
     }
     
     public void stopVisualize(){
@@ -76,9 +80,9 @@ public class ABSVisualizer extends Thread{
         return p;
     }
     
-    public void setVisualParameter(int col, int row){
-        this.col = col;
-        this.row = row;
+    public void setVisualParameter(){
+        this.col = colomn;
+        this.row = ROW;
     }
     
     private int col, row;
@@ -118,7 +122,7 @@ public class ABSVisualizer extends Thread{
                 Image.SCALE_SMOOTH));
     }
     
-    public void drawBusAgents(List<BusAgent> busList){
+    public void drawBusAgents(){
         for(List<BusAgent> busAgents : park.getBusAgents()){
             int i = 0;
             for(BusAgent bus : busAgents){
@@ -129,7 +133,7 @@ public class ABSVisualizer extends Thread{
         }
     }
     
-    public void drawBusStops(List<BusStop> busStopList){
+    public void drawBusStops(){
         for(BusStop busStop : park.getBusStops()){
             Point p = mappingArea(busStop.x, busStop.y);
             screen.drawImage(busStopImg.getImage(), p.x, p.y-5, null);
@@ -161,8 +165,8 @@ public class ABSVisualizer extends Thread{
         screen.setColor(absArea.getBackground());
         screen.fillRect(0, 0, w, h);
         
-        drawBusAgents(busList);
-        drawBusStops(busstopList);
+        drawBusAgents();
+        drawBusStops();
         drawCell();
         
         Graphics g = absArea.getGraphics();
@@ -176,7 +180,7 @@ public class ABSVisualizer extends Thread{
             
             try {
                 //Sleep
-                Thread.sleep(200);
+                Thread.sleep(renderTime);
             } catch (InterruptedException ex) {
             }
         }

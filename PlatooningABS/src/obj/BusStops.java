@@ -9,15 +9,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import prop.ABSSettings;
 
 /**
  *
  * @author kaeru
  */
-public class BusStops {
+public class BusStops extends ABSSettings{
     private static List<BusStop> busStops;
     private static Map rootMap;
-    public static void generate(int n){
+    public static void generate(){
+        int n = numBusStops;
+        
         busStops = new ArrayList();
         
         busStops = fixPattern();
@@ -113,5 +116,10 @@ public class BusStops {
     
     public static BusStop getHub(){
         return busStops.get(4);
+    }
+    
+    public static void printLog(){
+        if(loggingSW)
+            busStops.stream().forEach(System.out::println);
     }
 }

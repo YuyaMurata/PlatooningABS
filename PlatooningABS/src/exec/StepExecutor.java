@@ -10,12 +10,13 @@ import agent.BusAgents;
 import java.util.List;
 import obj.BusStop;
 import obj.BusStops;
+import prop.ABSSettings;
 
 /**
  *
  * @author kaeru
  */
-public class StepExecutor {
+public class StepExecutor extends ABSSettings{
     private List<BusAgent> execList;
     public StepExecutor(List<BusAgent> busLists) {
         this.execList = busLists;
@@ -29,12 +30,13 @@ public class StepExecutor {
         //Agent Execute
         execList.stream().forEach(bus -> ((BusAgent)bus).move());
         
-        //BusStop State
-        System.out.println(BusStops.getList());
+        //ABS State
+        BusStops.printLog();
+        BusAgents.printLog();
         
         //Step TimeSpan
         try {
-            Thread.sleep(400);
+            Thread.sleep(stepWaitTime);
         } catch (InterruptedException ex) {
         }
     }

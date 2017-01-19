@@ -7,14 +7,17 @@ package agent;
 
 import java.util.ArrayList;
 import java.util.List;
+import prop.ABSSettings;
 
 /**
  *
  * @author kaeru
  */
-public class BusAgents {
+public class BusAgents extends ABSSettings{
     private static List<BusAgent> busAgents;
-    public static void generate(int n){
+    public static void generate(){
+        int n = numBusAgents;
+        
         busAgents = new ArrayList();
         
         for(int i=0; i < 2; i++){
@@ -47,5 +50,16 @@ public class BusAgents {
     public static BusAgent getLeader(BusAgent robot){
         //Test
         return busAgents.get((leaderNum++) % 2);
+    }
+    
+    public static BusAgent getLeader(int rootNo){
+        //Test
+        if(rootNo == 0) return busAgents.get((0));
+        else return busAgents.get((1));
+    }
+    
+    public static void printLog(){
+        if(loggingSW)
+            busAgents.stream().forEach(System.out::println);
     }
 }

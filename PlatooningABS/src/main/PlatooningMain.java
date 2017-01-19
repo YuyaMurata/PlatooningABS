@@ -23,20 +23,16 @@ public class PlatooningMain {
         //Field
         OutputInstance.data.write("PID, Root, BusTime, QueueTime");
         
-        int col = 9;
-        int row = 9;
-        
         //Frame
         ABSFrame frame = ABSFrame.getInstance();
         
         //Line
         ABSVisualizer abs = ABSVisualizer.getInstance();
-        abs.setVisualParameter(col, row);
-        
+
         //Agent
-        BusStops.generate(5);  //goal
+        BusStops.generate();  //goal
         BusStops.occureQueue();
-        BusAgents.generate(4); //agent
+        BusAgents.generate(); //agent
         abs.setAgent(BusAgents.getList(), BusStops.getList());
         
         //GUI Start
