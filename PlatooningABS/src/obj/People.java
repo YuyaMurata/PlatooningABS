@@ -18,7 +18,7 @@ import prop.ABSSettings;
  *
  * @author 悠也
  */
-public class People extends ABSSettings{
+public class People {
     private enum param{
         PID, BUS, ROOT, BTIME, QTIME
     }
@@ -96,12 +96,16 @@ public class People extends ABSSettings{
         location.queuePeople(this);
     }
     
-    private static Random rand = new Random(seed);
+    private static Random rand = new Random();
     private BusStop getDestination(BusStop busStop){
         List<BusStop> candidate = new ArrayList();
         candidate.addAll(BusStops.getList());
         candidate.remove(busStop);
         return candidate.get(rand.nextInt(candidate.size()));
+    }
+    
+    public static void setRandom(long seed){
+        if(seed != -1) rand.setSeed(seed);
     }
     
     public void printLog(){

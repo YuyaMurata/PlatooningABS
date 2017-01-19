@@ -12,15 +12,15 @@ package prop;
 public abstract class ABSSettings {
     //File
     public String fileName = "platooning_abs_log.txt";
-    public String fieldName = "PID, Root, BusTime, QueueTime";
-    public static Boolean consoleSW = true;
+    public String fieldName = "PID, BUS, Root, BusTime, QueueTime";
+    public static Boolean consoleSW = false;
     public static Boolean loggingSW = true;
     
     //Visual
-    public long renderTime = 200;
+    public long renderTime = 200; //[ms]
     
     //Executable
-    public long stepWaitTime = 400; //[ms]
+    public long stepWaitTime = 0; //[ms]
     
     //Environment
     public int colomn = 9;
@@ -35,6 +35,6 @@ public abstract class ABSSettings {
     public static int numBusStops = 5;
     public static int queuingByStep = 20;
     
-    //People
-    public static long seed = Integer.MAX_VALUE;
+    //People -1 = random else set seed
+    public static long seed = -1;//Integer.MAX_VALUE;
 }

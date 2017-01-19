@@ -28,6 +28,9 @@ public class BusStops extends ABSSettings{
         
         //Check BusStop
         busStops.stream().forEach(System.out::println);
+        
+        //QueuePeople
+        People.setRandom(seed);
     }
     
     public static BusStop getBusStop(int i){
