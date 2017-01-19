@@ -30,6 +30,8 @@ public abstract class ABSSettings {
     public static int numBusAgents = 4;
     public static int maxPassengers = 10;
     public static enum type {human, robot};
+    public static double lostProb = -1;
+    public static Boolean commFailure = false;
     
     //BusStop
     public static int numBusStops = 5;

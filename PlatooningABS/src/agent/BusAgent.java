@@ -8,6 +8,7 @@ package agent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import obj.BusStop;
 import obj.BusStops;
 import obj.People;
@@ -18,15 +19,18 @@ import park.AmusementPark;
  * @author kaeru
  */
 public class BusAgent {
-    public static int maxPassengers = 10;
+    public static int maxPassengers;
+    public static double lostProb;
+    
     public String name, type;
     public List agentKey;
     public int x, y;
     private int nextBusStop;
     private List<People> passengers = new ArrayList();
-    public List<BusStop> root;
+    public List<BusStop> root = new ArrayList<>();
     private BusAgent leader;
     private AmusementPark park;
+    public Boolean state = true;
     
     public BusAgent(int index, String type){
         this.name = "Bus_"+index;
@@ -48,9 +52,9 @@ public class BusAgent {
             leader = BusAgents.getLeader(this);
             x = leader.x;
             y = leader.y;
-            root = leader.root;
+            root.addAll(leader.root);
         }else
-            root = BusStops.getRoot("root"+name.split("_")[1]);
+            root.addAll(BusStops.getRoot("root"+name.split("_")[1]));
         
         busPosition(x, y);
     }
@@ -61,7 +65,8 @@ public class BusAgent {
         else
             this.leader = BusAgents.getLeader(1);
         
-        root = leader.root;
+        root.clear();
+        root.addAll(leader.root);
     }
     
     public void move(){
@@ -72,7 +77,10 @@ public class BusAgent {
     }
     
     private void planning(){
-        if(numGetOn() == 0) changeLeader();
+        if((numGetOn() == 0) && (state)) changeLeader();
+        
+        if((rand.nextDouble() < lostProb) || (BusAgents.commFailure)) lost();
+        
         deltaMove(x, leader.x, y, leader.y);
     }
     
@@ -160,8 +168,21 @@ public class BusAgent {
         park.setBusAgent(this);
     }
     
+    private void lost(){
+        logPrint("Lost Leader");
+        state = false;
+        
+        leader = this;
+        root.clear();
+    }
+    
     public Integer numGetOn(){
         return passengers.size();
+    }
+    
+    private static Random rand = new Random();
+    public static void setSeed(long seed){
+        if(seed != -1) rand.setSeed(seed);
     }
     
     public String toString(){

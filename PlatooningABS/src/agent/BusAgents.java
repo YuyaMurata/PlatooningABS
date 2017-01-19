@@ -20,6 +20,8 @@ public class BusAgents extends ABSSettings{
         
         busAgents = new ArrayList();
         BusAgent.maxPassengers = maxPassengers;
+        BusAgent.setSeed(seed);
+        BusAgent.lostProb = lostProb;
         
         for(int i=0; i < 2; i++){
             busAgents.add(new BusAgent(i, "human"));

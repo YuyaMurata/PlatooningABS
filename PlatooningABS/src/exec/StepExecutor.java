@@ -37,6 +37,9 @@ public class StepExecutor extends ABSSettings{
         BusStops.printLog();
         BusAgents.printLog();
         
+        //Test
+        //if(step == 10L) commFailure = true;
+        
         //Step TimeSpan
         try {
             Thread.sleep(stepWaitTime);
