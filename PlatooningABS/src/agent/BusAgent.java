@@ -71,6 +71,8 @@ public class BusAgent {
     }
     
     private void planning(){
+        if(BusStops.compareRoot() > 0)
+        
         deltaMove(x, leader.x, y, leader.y);
     }
     

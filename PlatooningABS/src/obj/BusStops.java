@@ -99,6 +99,18 @@ public class BusStops {
         return c12 | c34;
     }
     
+    public static int compareRoot(){
+        int comp = 0;
+        for(BusStop busStop : getRoot("root0"))
+            comp = comp + busStop.getQueue().size();
+        
+        for(BusStop busStop : getRoot("root1"))
+            comp = comp - busStop.getQueue().size();
+        
+        // comp > 0 root0 > root1
+        return comp;
+    }
+    
     public static BusStop getHub(){
         return busStops.get(4);
     }
