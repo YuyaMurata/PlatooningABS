@@ -14,11 +14,18 @@ import park.AmusementPark;
  * @author kaeru
  */
 public class BusStop {
-    public String name;
-    public Object key;
+    public final String name;
     public int x, y;
-    public BusStop(int index) {
-        this.name = "BusStop_"+index;
+    
+    public transient Object key;
+    private transient List<People> queue = new ArrayList();
+    
+    public BusStop(String name, int x, int y) {
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        
+        setBusStop(x, y);
     }
     
     public void setBusStop(int x, int y){
@@ -34,12 +41,12 @@ public class BusStop {
         queue.add(people);
     }
     
-    List<People> queue = new ArrayList();
     public List<People> getQueue(){
         return queue;
     }
     
     public String toString(){
+        if(queue == null) return name+":[x="+x+" ,y="+y+"]";
         return name+":[x="+x+" ,y="+y+"]-[QLine="+queue.size()+"]";
     }
 }

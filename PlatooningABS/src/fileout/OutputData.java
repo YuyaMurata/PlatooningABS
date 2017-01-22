@@ -10,7 +10,7 @@ import prop.ABSSettings;
 /**
  * Output Log File
  */
-public class OutputData extends ABSSettings{
+public class OutputData implements ABSSettings{
 
     private String filename;
 
@@ -31,7 +31,7 @@ public class OutputData extends ABSSettings{
     }
 
     public void write(String str) {
-        if(consoleSW) System.out.println(str); 
+        if(json.param.consoleSW) System.out.println(str); 
         else pw.println(str);
     }
 

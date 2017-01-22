@@ -16,12 +16,13 @@ import javax.swing.JPanel;
 import obj.BusStop;
 import park.AmusementPark;
 import prop.ABSSettings;
+import static prop.ABSSettings.json;
 
 /**
  *
  * @author kaeru
  */
-public class ABSVisualizer extends ABSSettings implements Runnable{
+public class ABSVisualizer implements Runnable, ABSSettings{
     private static ABSVisualizer absImage = new ABSVisualizer();
     public static ABSVisualizer getInstance(){
         return absImage;
@@ -81,8 +82,8 @@ public class ABSVisualizer extends ABSSettings implements Runnable{
     }
     
     public void setVisualParameter(){
-        this.col = colomn;
-        this.row = ROW;
+        this.col = json.param.column;
+        this.row = json.param.row;
     }
     
     private int col, row;
@@ -180,7 +181,7 @@ public class ABSVisualizer extends ABSSettings implements Runnable{
             
             try {
                 //Sleep
-                Thread.sleep(renderTime);
+                Thread.sleep(json.param.renderTime);
             } catch (InterruptedException ex) {
             }
         }

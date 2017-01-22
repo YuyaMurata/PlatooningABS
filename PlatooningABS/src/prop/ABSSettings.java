@@ -5,12 +5,16 @@
  */
 package prop;
 
+import prop.json.ABSJSONReader;
+
 /**
  *
  * @author 悠也
  */
-public abstract class ABSSettings {
-    //File
+public interface ABSSettings {
+    public static ABSJSONReader json = ABSJSONReader.getInstance();
+    
+    /*//File
     public static String fileName = "platooning_abs_log.txt";
     public static String fieldName = "PID, BUS, Root, BusTime, QueueTime";
     public static Boolean consoleSW = false;
@@ -39,5 +43,5 @@ public abstract class ABSSettings {
     
     //People -1 = random else set seed
     public static long seed = -1;//Integer.MAX_VALUE;
-    public static int amountPeople = 100;
+    public static int amountPeople = 100;*/
 }

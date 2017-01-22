@@ -12,17 +12,21 @@ import gui.ABSFrame;
 import gui.ABSVisualizer;
 import obj.BusStops;
 import prop.ABSSettings;
+import static prop.ABSSettings.json;
 
 /**
  *
  * @author kaeru
  */
-public class PlatooningMain extends ABSSettings{
+public class PlatooningMain implements ABSSettings{
     public static void main(String[] args) {
+        //Parameter
+        json.absJSONReade();
+        
         //File
-        OutputInstance.NewFile(fileName);
+        OutputInstance.NewFile(json.param.fileName);
         //Field
-        OutputInstance.data.write(fieldName);
+        OutputInstance.data.write(json.param.fieldName);
         
         //Frame
         ABSFrame frame = ABSFrame.getInstance();
@@ -33,7 +37,7 @@ public class PlatooningMain extends ABSSettings{
         //Agent
         BusStops.generate();  //goal
         BusAgents.generate(); //agent
-        abs.setAgent(BusAgents.getList(), BusStops.getList());
+        abs.setAgent(BusAgents.getList(), BusStops.getBusStops());
         
         //GUI Start
         frame.execute(args);

@@ -6,30 +6,37 @@
 package agent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import prop.ABSSettings;
 
 /**
  *
  * @author kaeru
  */
-public class BusAgents extends ABSSettings{
+public class BusAgents implements ABSSettings{
     private static List<BusAgent> busAgents;
+    private static int man;
+    private static Map<Object, List<BusAgent>>busRoot;
+    
     public static void generate(){
-        int n = numBusAgents;
+        int n = json.param.numBusAgents;
+        man = json.param.numHuman;
         
         busAgents = new ArrayList();
-        BusAgent.maxPassengers = maxPassengers;
-        BusAgent.setSeed(seed);
-        BusAgent.lostProb = lostProb;
+        BusAgent.maxPassengers = json.param.maxPassengers;
+        BusAgent.setSeed(json.param.seed);
+        BusAgent.lostProb = json.param.lostProb;
+        busRoot = new HashMap();
         
-        for(int i=0; i < 2; i++){
+        for(int i=0; i < man; i++){
             busAgents.add(new BusAgent(i, "human"));
             busAgents.get(i).busPosition(i*8, i*8);
         }
         
-        if(n-2 > 0)
-            for(int i=2; i < n; i++){
+        if(n-man > 0)
+            for(int i=man; i < n; i++){
                 busAgents.add(new BusAgent(i, "robot"));
             }
         
@@ -52,7 +59,7 @@ public class BusAgents extends ABSSettings{
     private static int leaderNum = 0;
     public static BusAgent getLeader(BusAgent robot){
         //Test
-        return busAgents.get((leaderNum++) % 2);
+        return busAgents.get((leaderNum++) % man);
     }
     
     public static BusAgent getLeader(int rootNo){
@@ -61,8 +68,24 @@ public class BusAgents extends ABSSettings{
         else return busAgents.get((1));
     }
     
+    public static Boolean getCommState(){
+        return json.param.commFailure;
+    }
+    
+    public static void setRootBus(BusAgent bus){
+        if(busRoot.get(bus.root) == null)
+            busRoot.put(bus.root, new ArrayList<>());
+        
+        busRoot.get(bus.root).add(bus);
+    }
+    
+    public static BusAgent getRootBus(Object rootNo, String name){
+        int i = Math.abs(name.hashCode()) % busRoot.get(rootNo).size();
+        return busRoot.get(rootNo).get(i);
+    }
+    
     public static void printLog(){
-        if(loggingSW)
+        if(json.param.loggingSW)
             busAgents.stream().forEach(System.out::println);
     }
 }

@@ -14,9 +14,9 @@ import obj.BusStop;
 public class BusStopTest {
     public static void main(String[] args) {
         BusStop bs1,bs2,bs3, temp;
-        bs1 = new BusStop(0);
-        bs2 = new BusStop(1);
-        bs3 = new BusStop(2);
+        bs1 = new BusStop("bs0",0,0);
+        bs2 = new BusStop("bs1",0,0);
+        bs3 = new BusStop("bs2",0,0);
         
         System.out.println(bs1);
         System.out.println(bs2);

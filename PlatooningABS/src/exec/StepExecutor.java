@@ -16,7 +16,7 @@ import prop.ABSSettings;
  *
  * @author kaeru
  */
-public class StepExecutor extends ABSSettings{
+public class StepExecutor implements ABSSettings{
     private List<BusAgent> execList;
     public StepExecutor(List<BusAgent> busLists) {
         this.execList = busLists;
@@ -42,14 +42,14 @@ public class StepExecutor extends ABSSettings{
         
         //Step TimeSpan
         try {
-            Thread.sleep(stepWaitTime);
+            Thread.sleep(json.param.stepWaitTime);
         } catch (InterruptedException ex) {
         }
     }
     
     public Boolean finishCheck(){
         long ql = 0L;
-        for(BusStop bs : BusStops.getList())
+        for(BusStop bs : BusStops.getBusStops())
             ql = ql + bs.getQueue().size();
         
         for(BusAgent ba : BusAgents.getList())

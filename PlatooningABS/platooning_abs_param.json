@@ -1,0 +1,46 @@
+{
+  "fileName": "platooning_abs_log.txt",
+  "fieldName": "PID, BUS, Root, BusTime, QueueTime",
+  "consoleSW": false,
+  "loggingSW": true,
+  "renderTime": 200,
+  "stepWaitTime": 400,
+  "column": 9,
+  "row": 9,
+  "numBusAgents": 4,
+  "numHuman": 2,
+  "maxPassengers": 10,
+  "lostProb": -1.0,
+  "commFailure": false,
+  "numBusStops": 5,
+  "queuingByStep": 20,
+  "busStops": [
+    {
+      "name": "BusStop_0",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "BusStop_1",
+      "x": 0,
+      "y": 8
+    },
+    {
+      "name": "BusStop_2",
+      "x": 8,
+      "y": 8
+    },
+    {
+      "name": "BusStop_3",
+      "x": 8,
+      "y": 0
+    },
+    {
+      "name": "BusStop_4",
+      "x": 4,
+      "y": 4
+    }
+  ],
+  "seed": -1,
+  "amountPeople": 100
+}

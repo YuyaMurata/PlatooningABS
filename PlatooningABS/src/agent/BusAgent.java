@@ -22,12 +22,13 @@ public class BusAgent {
     public static int maxPassengers;
     public static double lostProb;
     
-    public String name, type;
+    public final String name, type;
     public List agentKey;
     public int x, y;
     private int nextBusStop;
     private List<People> passengers = new ArrayList();
-    public List<BusStop> root = new ArrayList<>();
+    //public List<String> root = new ArrayList<>();
+    public Object root;
     private BusAgent leader;
     private AmusementPark park;
     public Boolean state = true;
@@ -48,25 +49,35 @@ public class BusAgent {
         
         park = AmusementPark.getInstance();
         
+        //Get Root
+        root = BusStops.getRoot(name);
+        
         if(type.equals("robot")){
             leader = BusAgents.getLeader(this);
             x = leader.x;
             y = leader.y;
-            root.addAll(leader.root);
+            root = leader.root;
+            //root.addAll(leader.root);
         }else
-            root.addAll(BusStops.getRoot("root"+name.split("_")[1]));
+            BusAgents.setRootBus(this);
+        //    root.addAll(BusStops.getRoot("root"+name.split("_")[1]));
         
         busPosition(x, y);
     }
     
     public void changeLeader(){
-        if(BusStops.compareRoot() > 0)
+        /*if(BusStops.compareRoot() > 0)
             this.leader = BusAgents.getLeader(0);
         else
             this.leader = BusAgents.getLeader(1);
+        */
+        Object change = BusStops.compareRoot();
+        if(root.equals(change)) return;
         
-        root.clear();
-        root.addAll(leader.root);
+        this.leader = BusAgents.getRootBus(change, name);
+        root = leader.root;
+        //root.clear();
+        //root.addAll(leader.root);
     }
     
     public void move(){
@@ -79,13 +90,14 @@ public class BusAgent {
     private void planning(){
         if((numGetOn() == 0) && (state)) changeLeader();
         
-        if((rand.nextDouble() < lostProb) || (BusAgents.commFailure)) lost();
+        if((rand.nextDouble() < lostProb) || (BusAgents.getCommState())) lost();
         
         deltaMove(x, leader.x, y, leader.y);
     }
     
     private void patrol(int next){
-        BusStop busStop = root.get(next);
+        List<String> rootPath = BusStops.getRootPath(root);
+        BusStop busStop = BusStops.getBusStop(rootPath.get(next));
         
         //Test
         //System.out.println("key ag="+agentKey+" g="+BusStops.getBusStop(next).key);
@@ -98,39 +110,48 @@ public class BusAgent {
     private int busStopCheck(){
         BusStop busStop = park.arrivalBusStop(agentKey.get(1));
         if(busStop != null){
-            getOn(busStop);
             getOff(busStop);
+            getOn(busStop);
             
             //logPrint(" <Check>"+busStop.name +" "+ root.get(nextBusStop).name);
-            if(busStop == root.get(nextBusStop))
-                nextBusStop = (nextBusStop + 1) % root.size();
+            Object nextBusStopName = BusStops.getRootPath(root).get(nextBusStop);
+            //if(busStop.name.equals(root.get(nextBusStop)))
+            //    nextBusStop = (nextBusStop + 1) % root.size();
+            if(busStop.name.equals(nextBusStopName))
+                nextBusStop = (nextBusStop + 1) % BusStops.getRootPath(root).size();
         }
         
         return nextBusStop;
     }
     
-    private Boolean getOn(BusStop busStop){
+    private Integer getOn(BusStop busStop){
+        int num = 0;
         Iterator<People> it = busStop.getQueue().iterator();
         while(it.hasNext()){
-            if(maxPassengers <= passengers.size()) return false;
+            if(maxPassengers <= passengers.size()) return num;
             
             People people = it.next();
-            if(root.contains(people.destination)){
+            if(BusStops.getRootPath(root).contains(people.getDestination())){
                 passengers.add(people);
                 people.getOnTime(name);
                 it.remove();
+                num++;
             }
         }
-        return true;
+        return num;
     }
     
-    private void getOff(BusStop busStop){
+    private Integer getOff(BusStop busStop){
+        int num = 0;
         Iterator it = passengers.iterator();
         while(it.hasNext()){
             People people = (People) it.next();
-            if(people.getOffCheck(busStop))
+            if(people.getOffCheck(busStop)){
                 it.remove();
+                num++;
+            }
         }
+        return num;
     }
     
     private void deltaMove(int xstart, int xgoal, int ystart, int ygoal){
@@ -173,7 +194,7 @@ public class BusAgent {
         state = false;
         
         leader = this;
-        root.clear();
+        root = "";
     }
     
     public Integer numGetOn(){
