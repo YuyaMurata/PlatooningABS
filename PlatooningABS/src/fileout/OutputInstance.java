@@ -33,7 +33,7 @@ public class OutputInstance {
         dataSummary = new OutputData(filename);
         
         //Field
-        dataSummary.write("n.exp, total step, time[ms]");
+        dataSummary.write("n.exp, avg.step, time[ms]");
     }
     
     public static void close(){
