@@ -38,9 +38,13 @@ public class PlatooningABSExperiment implements ABSSettings{
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH-mm-ss");
         String dirName = json.param.folderName+"\\"+sdf.format(date)+"_"+json.param.numOfExec;
-        File dir = new File(dirName);
-        dir.mkdirs();
+        new File(dirName).mkdirs();
         OutputInstance.NewFileSummary(dirName+"\\"+"summary.txt");
+        
+        String dirTraceName = dirName+"\\trace";
+        new File(dirTraceName).mkdirs();
+        String dirLogName = dirName+"\\log";
+        new File(dirLogName).mkdirs();
         
         //Copy Setting File
         try {
@@ -60,8 +64,8 @@ public class PlatooningABSExperiment implements ABSSettings{
             System.out.println("> Experiment:"+i);
             
             //File
-            OutputInstance.NewFilePeopleLog(dirName+"\\exec_"+i+"_"+json.param.fileName);
-            OutputInstance.NewFileTraceLog(dirName+"\\exec_"+i+"_"+json.param.traceFileName);
+            OutputInstance.NewFilePeopleLog(dirTraceName+"\\exec_"+i+"_"+json.param.fileName);
+            OutputInstance.NewFileTraceLog(dirLogName+"\\exec_"+i+"_"+json.param.traceFileName);
             
             //Universe
             AmusementPark park = AmusementPark.getInstance();
