@@ -8,9 +8,9 @@ package main;
 import agent.BusAgents;
 import exec.StepExecutor;
 import fileout.OutputInstance;
-import gui.ABSFrame;
 import gui.ABSVisualizer;
 import obj.BusStops;
+import park.AmusementPark;
 import prop.ABSSettings;
 import static prop.ABSSettings.json;
 
@@ -18,29 +18,24 @@ import static prop.ABSSettings.json;
  *
  * @author kaeru
  */
-public class PlatooningMain implements ABSSettings{
+public class PlatooningABSMain implements ABSSettings{
     public static void main(String[] args) {
         //Parameter
-        json.absJSONReade();
+        json.absJSONRead();
         
         //File
         OutputInstance.NewFile(json.param.fileName);
-        //Field
-        OutputInstance.data.write(json.param.fieldName);
         
-        //Frame
-        ABSFrame frame = ABSFrame.getInstance();
+        //Universe
+        AmusementPark park = AmusementPark.getInstance();
+        park.init();
         
-        //Line
-        ABSVisualizer abs = ABSVisualizer.getInstance();
-
         //Agent
         BusStops.generate();  //goal
         BusAgents.generate(); //agent
-        abs.setAgent(BusAgents.getList(), BusStops.getBusStops());
         
         //GUI Start
-        frame.execute(args);
+        ABSVisualizer abs = ABSVisualizer.getInstance();
         abs.startVisualize();
         
         //Execute

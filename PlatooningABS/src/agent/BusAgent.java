@@ -16,7 +16,7 @@ import park.AmusementPark;
 
 /**
  *
- * @author kaeru
+ * @author murata
  */
 public class BusAgent {
     public static int maxPassengers;
@@ -25,9 +25,8 @@ public class BusAgent {
     public final String name, type;
     public List agentKey;
     public int x, y;
-    private int nextBusStop;
+    public int nextBusStop;
     private List<People> passengers = new ArrayList();
-    //public List<String> root = new ArrayList<>();
     public Object root;
     private BusAgent leader;
     private AmusementPark park;
@@ -57,38 +56,41 @@ public class BusAgent {
             x = leader.x;
             y = leader.y;
             root = leader.root;
-            //root.addAll(leader.root);
         }else
             BusAgents.setRootBus(this);
-        //    root.addAll(BusStops.getRoot("root"+name.split("_")[1]));
         
         busPosition(x, y);
     }
     
+    public void init(){
+        if(type.equals("robot")){
+            leader = BusAgents.getLeader(this);
+            x = leader.x;
+            y = leader.y;
+            root = leader.root;
+            
+            busPosition(x, y);
+        }
+    }
+    
     public void changeLeader(){
-        /*if(BusStops.compareRoot() > 0)
-            this.leader = BusAgents.getLeader(0);
-        else
-            this.leader = BusAgents.getLeader(1);
-        */
         Object change = BusStops.compareRoot();
         if(root.equals(change)) return;
         
         this.leader = BusAgents.getRootBus(change, name);
         root = leader.root;
-        //root.clear();
-        //root.addAll(leader.root);
     }
     
     public void move(){
-        nextBusStop = busStopCheck();
-        
         if(type.equals("robot")) planning();
         else patrol(nextBusStop);
+        
+        //getting on and off Process
+        nextBusStop = busStopCheck();
     }
     
     private void planning(){
-        if((numGetOn() == 0) && (state)) changeLeader();
+        if((numPassenger() == 0) && (state)) changeLeader();
         
         if((rand.nextDouble() < lostProb) || (BusAgents.getCommState())) lost();
         
@@ -113,10 +115,8 @@ public class BusAgent {
             getOff(busStop);
             getOn(busStop);
             
-            //logPrint(" <Check>"+busStop.name +" "+ root.get(nextBusStop).name);
+            //Next BusStop in Root
             Object nextBusStopName = BusStops.getRootPath(root).get(nextBusStop);
-            //if(busStop.name.equals(root.get(nextBusStop)))
-            //    nextBusStop = (nextBusStop + 1) % root.size();
             if(busStop.name.equals(nextBusStopName))
                 nextBusStop = (nextBusStop + 1) % BusStops.getRootPath(root).size();
         }
@@ -197,7 +197,7 @@ public class BusAgent {
         root = "";
     }
     
-    public Integer numGetOn(){
+    public Integer numPassenger(){
         return passengers.size();
     }
     

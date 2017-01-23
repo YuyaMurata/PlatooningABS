@@ -51,14 +51,11 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         this.state = true;
     }
     
-    private List<BusAgent> busList;
-    private List<BusStop> busstopList;
-    public void setAgent(List<BusAgent> busList, List<BusStop> busstopList){
-        this.busList = busList;
-        this.busstopList = busstopList;
-    }
-    
     public void startVisualize(){
+        //Frame
+        ABSFrame frame = ABSFrame.getInstance();
+        frame.execute();
+        
         drawBusStops();
         drawBusAgents();
         drawCell();

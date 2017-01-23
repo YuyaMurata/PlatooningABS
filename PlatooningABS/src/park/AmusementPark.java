@@ -6,9 +6,7 @@
 package park;
 
 import agent.BusAgent;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,22 +17,18 @@ import obj.BusStop;
  *
  * @author kaeru
  */
-public class AmusementPark {
-    private int c, r;
-    
+public class AmusementPark { 
     private static AmusementPark park = new AmusementPark();
     public static AmusementPark getInstance(){
         return park;
     }
     
-    public void init(int col, int row) {
-        // TODO 自動生成されたコンストラクター・スタブ
-        this.c = col;
-        this.r = row;
-    }
-    
     private Map map = new ConcurrentHashMap<>();
-    private Map agentMap = new ConcurrentHashMap<>();
+    private Map agentMap = new ConcurrentHashMap<>();;
+    public void init() {
+        if(!map.isEmpty()) map = new ConcurrentHashMap<>();
+        if(!agentMap.isEmpty()) agentMap = new ConcurrentHashMap<>();
+    }
     
     public void setBusStop(BusStop stop){
         map.put(stop.key, stop);

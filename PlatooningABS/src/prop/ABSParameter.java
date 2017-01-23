@@ -18,6 +18,7 @@ import obj.BusStop;
  */
 public class ABSParameter {
     //File
+    public String folderName = "experiments"; 
     public String fileName = "platooning_abs_log.txt";
     public String fieldName = "PID, BUS, Root, BusTime, QueueTime";
     public Boolean consoleSW = false;
@@ -27,6 +28,7 @@ public class ABSParameter {
     public long renderTime = 200; //[ms]
     
     //Executable
+    public int numOfExec = 10;
     public long stepWaitTime = 400; //[ms]
     
     //Environment

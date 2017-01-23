@@ -1,9 +1,11 @@
 {
+  "folderName": "experiments",
   "fileName": "platooning_abs_log.txt",
   "fieldName": "PID, BUS, Root, BusTime, QueueTime",
   "consoleSW": false,
   "loggingSW": true,
   "renderTime": 200,
+  "numOfExec": 10,
   "stepWaitTime": 400,
   "column": 9,
   "row": 9,
@@ -12,6 +14,18 @@
   "maxPassengers": 10,
   "lostProb": -1.0,
   "commFailure": false,
+  "root": {
+    "root0": [
+      "BusStop_0",
+      "BusStop_1",
+      "BusStop_4"
+    ],
+    "root1": [
+      "BusStop_2",
+      "BusStop_3",
+      "BusStop_4"
+    ]
+  },
   "numBusStops": 5,
   "queuingByStep": 20,
   "busStops": [

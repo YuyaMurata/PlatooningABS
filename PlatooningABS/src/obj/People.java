@@ -21,7 +21,7 @@ public class People {
         PID, BUS, ROOT, BTIME, QTIME
     }
     
-    private static long pid = 0L;
+    public static long pid;
     private Long waitTime, getTime;
     public LinkedList path = new LinkedList<>();
     private Map log = new LinkedHashMap();

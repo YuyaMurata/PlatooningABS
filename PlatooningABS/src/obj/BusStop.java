@@ -11,7 +11,7 @@ import park.AmusementPark;
 
 /**
  *
- * @author kaeru
+ * @author murata
  */
 public class BusStop {
     public final String name;

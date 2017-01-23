@@ -9,18 +9,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import obj.BusStop;
+import obj.BusStops;
 import prop.ABSSettings;
 
 /**
  *
- * @author kaeru
+ * @author murata
  */
 public class BusAgents implements ABSSettings{
     private static List<BusAgent> busAgents;
     private static int man;
     private static Map<Object, List<BusAgent>>busRoot;
+    private static int leaderNum;
     
     public static void generate(){
+        leaderNum = 0;
+        
+        if(busAgents != null) {
+            initialize();
+            return ;
+        }
+        
         int n = json.param.numBusAgents;
         man = json.param.numHuman;
         
@@ -30,11 +40,16 @@ public class BusAgents implements ABSSettings{
         BusAgent.lostProb = json.param.lostProb;
         busRoot = new HashMap();
         
+        //Human Bus Create
         for(int i=0; i < man; i++){
-            busAgents.add(new BusAgent(i, "human"));
-            busAgents.get(i).busPosition(i*8, i*8);
+            BusAgent bus = new BusAgent(i, "human"); 
+            busAgents.add(bus);
         }
         
+        //Deploy Bus at BusStop
+        deployBusAgents();
+        
+        //Robot Bus Create
         if(n-man > 0)
             for(int i=man; i < n; i++){
                 busAgents.add(new BusAgent(i, "robot"));
@@ -44,28 +59,44 @@ public class BusAgents implements ABSSettings{
         busAgents.stream().forEach(System.out::println);
     }
     
-    public static BusAgent getBusAgent(int i){
-        return (BusAgent)busAgents.get(i);
+    private static void initialize(){
+        //System.out.println("Initalize BusAgents !");
+        
+        //init Human Bus
+        deployBusAgents();
+        
+        //init Robot Bus
+        for(BusAgent bus : busAgents)
+            bus.init();
     }
     
-    public static Integer getNumBusStop(){
-        return busAgents.size();
+    private static void deployBusAgents(){
+        Map<Object, Integer> rootBusStopDeploy = new HashMap();
+        for(BusAgent bus : busAgents){
+            if(bus.type.equals("robot")) continue;
+            
+            if(rootBusStopDeploy.get(bus.root) == null)
+                rootBusStopDeploy.put(bus.root, -1);
+            List<String> rootBusStop = BusStops.getRootPath(bus.root);
+            
+            int deploy = rootBusStopDeploy.get(bus.root) + 1;
+            BusStop busStop = BusStops.getBusStop(rootBusStop.get(deploy));
+            
+            //Set Bus Position and Next BusStop
+            bus.nextBusStop = deploy;
+            bus.busPosition(busStop.x, busStop.y);
+            
+            rootBusStopDeploy.put(bus.root, deploy);
+        }
     }
     
     public static List<BusAgent> getList(){
         return busAgents;
     }
     
-    private static int leaderNum = 0;
     public static BusAgent getLeader(BusAgent robot){
         //Test
         return busAgents.get((leaderNum++) % man);
-    }
-    
-    public static BusAgent getLeader(int rootNo){
-        //Test
-        if(rootNo == 0) return busAgents.get((0));
-        else return busAgents.get((1));
     }
     
     public static Boolean getCommState(){

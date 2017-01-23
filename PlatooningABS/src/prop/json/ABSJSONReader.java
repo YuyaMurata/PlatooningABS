@@ -14,13 +14,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import prop.ABSParameter;
+import prop.ABSSettings;
 
 /**
  *
  * @author kaeru
  */
 public class ABSJSONReader {
-    private String fileName = "platooning_abs_param.json";
     private static ABSJSONReader paramJSON = new ABSJSONReader();
     public ABSParameter param;
     
@@ -30,7 +30,7 @@ public class ABSJSONReader {
     
     public void absJSONWrite() {
         try (JsonWriter writer = 
-            new JsonWriter(new BufferedWriter(new FileWriter(fileName)))) {
+            new JsonWriter(new BufferedWriter(new FileWriter(ABSSettings.settingFileName)))) {
             
             //Format JSON
             writer.setIndent("  ");
@@ -42,9 +42,9 @@ public class ABSJSONReader {
         }
     }
     
-    public void absJSONReade() {
+    public void absJSONRead() {
         try (JsonReader reader = 
-            new JsonReader(new BufferedReader(new FileReader(fileName)))) { 
+            new JsonReader(new BufferedReader(new FileReader(ABSSettings.settingFileName)))) { 
             
             // JSONからオブジェクトへの変換
             Gson gson = new Gson();
@@ -57,7 +57,8 @@ public class ABSJSONReader {
     }
     
     public static void main(String[] args) {
-        getInstance().absJSONReade();
+        getInstance().absJSONWrite();
+        getInstance().absJSONRead();
         System.out.println(getInstance().param);
     }
 }

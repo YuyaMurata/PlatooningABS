@@ -24,8 +24,8 @@ public class StepExecutor implements ABSSettings{
     
     public static Long step = 0L;
     public void execute(long t){
-        System.out.println("Step : "+t);
         step = t;
+        printLog("Step : "+step);
         
         //form line
         BusStops.occureQueue();
@@ -53,9 +53,14 @@ public class StepExecutor implements ABSSettings{
             ql = ql + bs.getQueue().size();
         
         for(BusAgent ba : BusAgents.getList())
-            ql = ql + ba.numGetOn();
+            ql = ql + ba.numPassenger();
             
         if(ql == 0L) return true;
         return false;
+    }
+    
+    public static void printLog(String str){
+        if(json.param.loggingSW)
+            System.out.println(str);
     }
 }

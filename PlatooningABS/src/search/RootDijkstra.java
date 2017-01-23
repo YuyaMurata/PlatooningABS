@@ -109,7 +109,7 @@ public class RootDijkstra implements ABSSettings{
     }
     
     public static void main(String[] args) {
-        json.absJSONReade();
+        json.absJSONRead();
         BusStops.generate();
         
         RootDijkstra dijk = new RootDijkstra();

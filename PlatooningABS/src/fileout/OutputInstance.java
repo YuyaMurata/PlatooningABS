@@ -5,6 +5,8 @@
  */
 package fileout;
 
+import static prop.ABSSettings.json;
+
 /**
  *
  * @author 悠也
@@ -13,5 +15,8 @@ public class OutputInstance {
     public static OutputData data;
     public static void NewFile(String filename){
         data = new OutputData(filename);
+        
+        //Field
+        data.write(json.param.fieldName);
     }
 }

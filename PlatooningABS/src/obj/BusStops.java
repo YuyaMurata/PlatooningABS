@@ -5,7 +5,6 @@
  */
 package obj;
 
-import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +26,16 @@ public class BusStops implements ABSSettings{
     private static int amount;
     
     public static void generate(){
+        //Initalize People
+        People.pid = 0L;
+        People.setRandom(json.param.seed);
+        amount = json.param.amountPeople;
+        
+        if(busStops != null) {
+            initialize();
+            return ;
+        }
+        
         int n = json.param.numBusStops;
         
         busStops = new HashMap();
@@ -36,6 +45,7 @@ public class BusStops implements ABSSettings{
             busStops.put(bs.name, new BusStop(bs.name, bs.x, bs.y));    
             nameList.add(bs.name);
         }
+        
         //Check BusStop
         busStops.values().stream().forEach(System.out::println);
         
@@ -45,12 +55,18 @@ public class BusStops implements ABSSettings{
         //Create Candidate People Path
         candidatePath();
         
-        //QueuePeople
-        People.setRandom(json.param.seed);
-        
         //Form Line
         setSeed(json.param.seed);
-        amount = json.param.amountPeople;
+    }
+    
+    private static void initialize(){
+        //System.out.println("Initalize BusStops !");
+        
+        //init BusStop
+        for(BusStop bs : json.param.busStops){
+            BusStop busStop = getBusStop(bs.name);
+            busStop.setBusStop(bs.x, bs.y);
+        }
     }
     
     public static Integer getNumBusStop(){
@@ -90,21 +106,10 @@ public class BusStops implements ABSSettings{
                 for(int i=0; i < n; i++)
                     bs.queuePeople(new People(bs));
             
-            System.out.println("Amount People:"+amount);
+            //Test
+            //System.out.println(bs.name+" : Amount People:"+amount);
         }
     }
-    
-    /*public static int compareRoot(){
-        int comp = 0;
-        for(String busStopName : getRoot("root0"))
-            comp = comp + getBusStop(busStopName).getQueue().size();
-        
-        for(String busStopName : getRoot("root1"))
-            comp = comp - getBusStop(busStopName).getQueue().size();
-        
-        // comp > 0 root0 > root1
-        return comp;
-    }*/
     
     public static Object compareRoot(){
         SimpleEntry<Object, Integer> compMap = new SimpleEntry("", -1);
@@ -117,8 +122,10 @@ public class BusStops implements ABSSettings{
         return compMap.getKey();
     }
     
-    private static Map<String, List> candidateRoot = new HashMap();
+    private static Map<Object, List> candidateRoot;
     private static void candidatePath(){
+        candidateRoot = new HashMap();
+        
         RootDijkstra path = new RootDijkstra();
         int[][] adjRoot = path.createAdjencyMatrix();
         
@@ -159,8 +166,7 @@ public class BusStops implements ABSSettings{
     }
     
     public static void main(String[] args) {
-        json.absJSONReade();
+        json.absJSONRead();
         BusStops.generate();
-        
     }
 }
