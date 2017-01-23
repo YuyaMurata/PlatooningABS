@@ -9,6 +9,8 @@ import agent.BusAgents;
 import exec.StepExecutor;
 import fileout.OutputInstance;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import obj.BusStops;
@@ -35,6 +37,12 @@ public class PlatooningABSExperiment implements ABSSettings{
         String dirName = json.param.folderName+"\\"+sdf.format(date);
         File dir = new File(dirName);
         dir.mkdirs();
+        //Copy Setting File
+        try {
+            Files.copy (new File(ABSSettings.settingFileName).toPath(), 
+                        new File(dirName+"\\"+ABSSettings.settingFileName).toPath());
+        } catch (IOException ex) {
+        }
         
         //Time
         Long start = System.currentTimeMillis();
