@@ -30,13 +30,18 @@ public class PlatooningABSExperiment implements ABSSettings{
         //Highspeed
         json.param.stepWaitTime = 0L;
         json.param.loggingSW = false;
+        
+        //Trace Log ON
+        json.param.traceSW = true;
 
         //log mkdir
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH-mm-ss");
-        String dirName = json.param.folderName+"\\"+sdf.format(date);
+        String dirName = json.param.folderName+"\\"+sdf.format(date)+"_"+json.param.numOfExec;
         File dir = new File(dirName);
         dir.mkdirs();
+        OutputInstance.NewFileSummary(dirName+"\\"+"summary.txt");
+        
         //Copy Setting File
         try {
             Files.copy (new File(ABSSettings.settingFileName).toPath(), 
@@ -44,8 +49,10 @@ public class PlatooningABSExperiment implements ABSSettings{
         } catch (IOException ex) {
         }
         
+        
         //Time
         Long start = System.currentTimeMillis();
+        Long totalStep = 0L;
         System.out.println("Start Platooning ABS.");
         for(int i=0; i < json.param.numOfExec; i++){
             //Start
@@ -53,7 +60,8 @@ public class PlatooningABSExperiment implements ABSSettings{
             System.out.println("> Experiment:"+i);
             
             //File
-            OutputInstance.NewFile(dirName+"\\exec_"+i+"_"+json.param.fileName);
+            OutputInstance.NewFilePeopleLog(dirName+"\\exec_"+i+"_"+json.param.fileName);
+            OutputInstance.NewFileTraceLog(dirName+"\\exec_"+i+"_"+json.param.traceFileName);
             
             //Universe
             AmusementPark park = AmusementPark.getInstance();
@@ -71,9 +79,10 @@ public class PlatooningABSExperiment implements ABSSettings{
                 step.execute(time);
             
                 if(step.finishCheck()){
-                    OutputInstance.data.write("Finish Steps, "+time);
+                    OutputInstance.dataPeopleLog.write("Finish Steps, "+time);
                     System.out.println("Finish Steps, "+time);
-                    OutputInstance.data.close();
+                    totalStep += time;
+                    OutputInstance.close();
                     break;
                 }
             }
@@ -81,10 +90,15 @@ public class PlatooningABSExperiment implements ABSSettings{
             //Stop
             Long execStop = System.currentTimeMillis() - execStart;
             System.out.println("> Finish Experiment:"+i+" time="+execStop+"[ms]");
+            OutputInstance.dataSummary.write("Experiment:"+i+", "+time+", "+execStop+", ms");
         }
         
         //Finish
         Long stop = System.currentTimeMillis() -  start;
         System.out.println("Stop Platooning ABS. Time : "+stop+" [ms]");
+        
+        Long avg = totalStep / json.param.numOfExec;
+        OutputInstance.dataSummary.write("Platooning ABS Total Experiment:"+json.param.numOfExec+", "+avg+", "+stop+", ms");
+        OutputInstance.dataSummary.close();
     }
 }

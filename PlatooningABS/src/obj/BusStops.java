@@ -161,6 +161,18 @@ public class BusStops implements ABSSettings{
             busStops.values().stream().forEach(System.out::println);
     }
     
+    public static String traceLog(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for(String bsName : busStops.keySet()){
+            sb.append(getBusStop(bsName).toString("trace"));
+            sb.append(",");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        sb.append("]");
+        return sb.toString();
+    }
+    
     private static void setSeed(long seed){
         if(seed != -1) rand.setSeed(seed);
     }

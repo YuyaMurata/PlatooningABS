@@ -82,6 +82,6 @@ public class People {
     }
     
     public void printLog(){
-        OutputInstance.data.write(log.values().toString());
+        OutputInstance.dataPeopleLog.write(log.values().toString());
     }
 }

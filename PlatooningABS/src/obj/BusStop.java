@@ -49,4 +49,8 @@ public class BusStop {
         if(queue == null) return name+":[x="+x+" ,y="+y+"]";
         return name+":[x="+x+" ,y="+y+"]-[QLine="+queue.size()+"]";
     }
+    
+    public String toString(String trace){
+        return "("+name+","+x+" ,"+y+","+queue.size()+")";
+    }
 }

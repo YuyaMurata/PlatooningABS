@@ -1,0 +1,11 @@
+Experiment:0, 65, 84, ms
+Experiment:1, 57, 11, ms
+Experiment:2, 57, 10, ms
+Experiment:3, 73, 11, ms
+Experiment:4, 49, 7, ms
+Experiment:5, 57, 7, ms
+Experiment:6, 65, 7, ms
+Experiment:7, 65, 7, ms
+Experiment:8, 57, 5, ms
+Experiment:9, 57, 5, ms
+Platooning ABS Total Experiment:10, 60, 155, ms

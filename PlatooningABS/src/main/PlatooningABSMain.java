@@ -12,11 +12,10 @@ import gui.ABSVisualizer;
 import obj.BusStops;
 import park.AmusementPark;
 import prop.ABSSettings;
-import static prop.ABSSettings.json;
 
 /**
  *
- * @author kaeru
+ * @author murata
  */
 public class PlatooningABSMain implements ABSSettings{
     public static void main(String[] args) {
@@ -24,7 +23,8 @@ public class PlatooningABSMain implements ABSSettings{
         json.absJSONRead();
         
         //File
-        OutputInstance.NewFile(json.param.fileName);
+        OutputInstance.NewFilePeopleLog(json.param.fileName);
+        OutputInstance.NewFileTraceLog(json.param.traceFileName);
         
         //Universe
         AmusementPark park = AmusementPark.getInstance();
@@ -46,9 +46,9 @@ public class PlatooningABSMain implements ABSSettings{
             step.execute(time);
             
             if(step.finishCheck()){
-                OutputInstance.data.write("Finish Steps, "+time);
+                OutputInstance.dataPeopleLog.write("Finish Steps, "+time);
                 System.out.println("Finish Steps, "+time);
-                OutputInstance.data.close();
+                OutputInstance.close();
                 System.exit(0);
             }
         }

@@ -3,7 +3,7 @@
   "fileName": "platooning_abs_log.txt",
   "fieldName": "PID, BUS, Root, BusTime, QueueTime",
   "traceFileName": "platooning_abs_tracelog.txt",
-  "traceFieldName": "STEP, BUS(name, type, x, y, n.pass, root, leader), BUSSTOP(name, x, y, queue)",
+  "traceFieldName": "STEP, BUS, BUSSTOP",
   "consoleSW": false,
   "loggingSW": true,
   "traceSW" : false,

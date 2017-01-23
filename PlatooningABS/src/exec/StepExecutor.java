@@ -7,6 +7,7 @@ package exec;
 
 import agent.BusAgent;
 import agent.BusAgents;
+import fileout.OutputInstance;
 import java.util.List;
 import obj.BusStop;
 import obj.BusStops;
@@ -25,7 +26,6 @@ public class StepExecutor implements ABSSettings{
     public static Long step = 0L;
     public void execute(long t){
         step = t;
-        printLog("Step : "+step);
         
         //form line
         BusStops.occureQueue();
@@ -33,9 +33,9 @@ public class StepExecutor implements ABSSettings{
         //Agent Execute
         execList.stream().forEach(bus -> ((BusAgent)bus).move());
         
-        //ABS State
-        BusStops.printLog();
-        BusAgents.printLog();
+        //Logging
+        printLog("Step : "+step);
+        traceLog(step);
         
         //Test
         //if(step == 10L) commFailure = true;
@@ -60,7 +60,25 @@ public class StepExecutor implements ABSSettings{
     }
     
     public static void printLog(String str){
-        if(json.param.loggingSW)
+        if(json.param.loggingSW){
             System.out.println(str);
+            
+            //ABS State
+            BusStops.printLog();
+            BusAgents.printLog();
+        }
+    }
+    
+    public static void traceLog(Long step){
+        if(json.param.traceSW){
+            StringBuilder sb = new StringBuilder();
+            sb.append(step);
+            sb.append(",");
+            sb.append(BusAgents.traceLog());
+            sb.append(",");
+            sb.append(BusStops.traceLog());
+            
+            OutputInstance.dataTraceLog.write(sb.toString());
+        }
     }
 }

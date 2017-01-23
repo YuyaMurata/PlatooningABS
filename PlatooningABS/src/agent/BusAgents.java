@@ -119,4 +119,16 @@ public class BusAgents implements ABSSettings{
         if(json.param.loggingSW)
             busAgents.stream().forEach(System.out::println);
     }
+    
+    public static String traceLog(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for(BusAgent bus : busAgents){
+            sb.append(bus.toString("trace"));
+            sb.append(",");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        sb.append("]");
+        return sb.toString();
+    }
 }

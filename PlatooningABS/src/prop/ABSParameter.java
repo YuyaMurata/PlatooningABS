@@ -21,8 +21,12 @@ public class ABSParameter {
     public String folderName = "experiments"; 
     public String fileName = "platooning_abs_log.txt";
     public String fieldName = "PID, BUS, Root, BusTime, QueueTime";
+    public String traceFileName = "platooning_abs_tracelog.txt";
+    public String traceFieldName = 
+            "STEP, BUS(name, type, x, y, n.pass, root, leader), BUSSTOP(name, x, y, queue)";
     public Boolean consoleSW = false;
     public Boolean loggingSW = true;
+    public Boolean traceSW = true;
     
     //Visual
     public long renderTime = 200; //[ms]

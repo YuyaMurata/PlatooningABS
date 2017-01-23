@@ -50,6 +50,7 @@ public class BusAgent {
         
         //Get Root
         root = BusStops.getRoot(name);
+        leader = null;
         
         if(type.equals("robot")){
             leader = BusAgents.getLeader(this);
@@ -208,6 +209,12 @@ public class BusAgent {
     
     public String toString(){
         return name+"<"+type+">:[x="+x+" ,y="+y+"]-["+passengers.size()+"]";
+    }
+    
+    public String toString(String trace){
+        String leaderName = "--";
+        if(type.equals("robot")) leaderName = leader.name;
+        return "("+name+","+type+","+x+","+y+","+passengers.size()+","+root+","+leaderName+")";
     }
     
     private void logPrint(String str){
