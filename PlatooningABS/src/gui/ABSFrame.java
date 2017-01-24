@@ -22,9 +22,6 @@ public class ABSFrame extends javax.swing.JFrame {
      */
     public ABSFrame() {
         initComponents();
-        
-        //Set Panel
-        ABSVisualizer.getInstance().setABSArea(absPanel);
     }
 
     /**
@@ -74,7 +71,8 @@ public class ABSFrame extends javax.swing.JFrame {
 
     private void absPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_absPanelComponentResized
         // TODO add your handling code here:
-        ABSVisualizer.getInstance().resizeABSArea();
+        if(ABSVisualizer.state)
+            ABSVisualizer.getInstance().resizeABSArea();
     }//GEN-LAST:event_absPanelComponentResized
 
     public void execute() {
@@ -112,4 +110,8 @@ public class ABSFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel absPanel;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JPanel getABSPanel(){
+        return absPanel;
+    }
 }

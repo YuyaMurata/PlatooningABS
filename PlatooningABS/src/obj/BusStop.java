@@ -45,6 +45,11 @@ public class BusStop {
         return queue;
     }
     
+    public int getQueueLength(){
+        if(queue == null) return 0;
+        return queue.size();
+    }
+    
     public String toString(){
         if(queue == null) return name+":[x="+x+" ,y="+y+"]";
         return name+":[x="+x+" ,y="+y+"]-[QLine="+queue.size()+"]";

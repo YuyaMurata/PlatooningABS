@@ -30,6 +30,22 @@ public class ABSParameter {
     
     //Visual
     public long renderTime = 200; //[ms]
+    public Map<Integer, String> busStopIMG = new HashMap(){
+        {put(0, "./img/busstop/s_137785.png");}
+        {put(10, "./img/busstop/s_137785b.png");}
+        {put(20, "./img/busstop/s_137785lb.png");}
+        {put(30, "./img/busstop/s_137785g.png");}
+        {put(40, "./img/busstop/s_137785y.png");}
+        {put(50, "./img/busstop/s_137785o.png");}
+        {put(60, "./img/busstop/s_137785r.png");}
+        };
+    public List<String> busIMG = Arrays.asList(
+            "./img/bus/s_121278.png",
+            "./img/bus/s_121278r.png",
+            "./img/bus/s_121278b.png",
+            "./img/bus/s_121278g.png",
+            "./img/bus/s_121278y.png"
+            );
     
     //Executable
     public int numOfExec = 10;

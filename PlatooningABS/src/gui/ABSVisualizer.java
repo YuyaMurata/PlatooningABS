@@ -10,7 +10,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import obj.BusStop;
@@ -24,6 +26,12 @@ import static prop.ABSSettings.json;
  */
 public class ABSVisualizer implements Runnable, ABSSettings{
     private static ABSVisualizer absImage = new ABSVisualizer();
+    private ABSFrame frame = ABSFrame.getInstance();
+    private ABSVisualizer(){
+        //Frame
+        frame.execute();
+    }
+    
     public static ABSVisualizer getInstance(){
         return absImage;
     }
@@ -47,14 +55,30 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         
         //ABS Area Image
         resizeABSArea();
+    }
+    
+    public static Boolean state = false;
+    public void resizeABSArea(){
+        //Get Size
+        w = absArea.getWidth();
+        h = absArea.getHeight();
         
-        this.state = true;
+        //off screen
+        screenImg = absArea.createImage(w, h);
+        screen = screenImg.getGraphics();
+        
+        //Image size
+        int img_w = w / col;
+        int img_h = h / row;
+        
+        resizeAgentImage(img_w, img_h);
     }
     
     public void startVisualize(){
-        //Frame
-        ABSFrame frame = ABSFrame.getInstance();
-        frame.execute();
+        setABSArea(frame.getABSPanel());
+        
+        //
+        this.state = true;
         
         drawBusStops();
         drawBusAgents();
@@ -100,66 +124,70 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         }
     }
     
-    private ImageIcon busImg, busStopImg, origBusImg, origBusStopImg;
+    private List<ImageIcon> busImg, origBusImg;
+    private TreeMap<Integer, ImageIcon> busStopImg, origBusStopImg;
     private void loadAgentImage(){
-        origBusImg = new ImageIcon("./img/bus/s_121278.png");
-        origBusStopImg = new ImageIcon("./img/busstop/s_137785.png");
+        origBusImg = new ArrayList<>();
+        for(String img : json.param.busIMG)
+            origBusImg.add(new ImageIcon(img));
+        
+        origBusStopImg = new TreeMap<>();
+        for(Integer th : json.param.busStopIMG.keySet())
+            origBusStopImg.put(th, new ImageIcon(json.param.busStopIMG.get(th)));
     }
     
     private void resizeAgentImage(int imgw, int imgh){
-        double scale = (double)imgw / origBusImg.getIconWidth();
+        double scaleBus = (double)imgw / origBusImg.get(0).getIconWidth();
         
-        busImg = new ImageIcon(origBusImg.getImage().getScaledInstance(
-                (int)(origBusImg.getIconWidth() * scale), 
-                (int)(origBusImg.getIconHeight()* scale), 
+        int i=0;
+        for(ImageIcon img : origBusImg){
+            ImageIcon icon = new ImageIcon(img.getImage().getScaledInstance(
+                (int)(img.getIconWidth() * scaleBus), 
+                (int)(img.getIconHeight()* scaleBus), 
                 Image.SCALE_SMOOTH));
+            
+            if(busImg == null) busImg = new ArrayList<>();
+            if(!state) busImg.add(icon);
+            else busImg.set(i++, icon);
+            
+        }
         
-        busStopImg = new ImageIcon(origBusStopImg.getImage().getScaledInstance(
-                (int)(origBusStopImg.getIconWidth() * scale), 
-                (int)(origBusStopImg.getIconHeight()* scale),
-                Image.SCALE_SMOOTH));
+        double scaleBusStop = (double)imgh / origBusStopImg.get(0).getIconHeight();
+        busStopImg = new TreeMap();
+        for(Integer th : origBusStopImg.keySet())
+            busStopImg.put(th, new ImageIcon(origBusStopImg.get(th).getImage().getScaledInstance(
+                (int)(origBusStopImg.get(th).getIconWidth() * scaleBus), 
+                (int)(origBusStopImg.get(th).getIconHeight()* scaleBus),
+                Image.SCALE_SMOOTH)));
     }
     
     public void drawBusAgents(){
+        int img_w = w / col/ 5;
+        int img_h = h / row / 5;
+        
         for(List<BusAgent> busAgents : park.getBusAgents()){
             int i = 0;
             for(BusAgent bus : busAgents){
                 Point p = mappingArea(bus.x, bus.y);
-                screen.drawImage(busImg.getImage(), p.x+i*5, p.y-5-+i*10, null);
+                screen.drawImage(busImg.get(0).getImage(), p.x+i*img_h, p.y-img_h-+i*img_w, null);
                 i++;
             }
         }
     }
     
     public void drawBusStops(){
+        int img_w = w / col / 5;
+        int img_h = h / row / 5;
+        
         for(BusStop busStop : park.getBusStops()){
             Point p = mappingArea(busStop.x, busStop.y);
-            screen.drawImage(busStopImg.getImage(), p.x, p.y-5, null);
+            screen.drawImage(
+                busStopImg.ceilingEntry(busStop.getQueueLength()).getValue().getImage(),
+                p.x, p.y-img_h, null);
         }
     }
     
-    public void resizeABSArea(){
-        if(!state) return ;
-        
-        //Get Size
-        w = absArea.getWidth();
-        h = absArea.getHeight();
-        
-        //off screen
-        screenImg = absArea.createImage(w, h);
-        screen = screenImg.getGraphics();
-        
-        //Image size
-        int img_w = w / col;
-        int img_h = h / row;
-        
-        resizeAgentImage(img_w, img_h);
-    }
-    
-    private Boolean state = false;
     public void redrawABS(){
-        if(!state) return;
-        
         screen.setColor(absArea.getBackground());
         screen.fillRect(0, 0, w, h);
         

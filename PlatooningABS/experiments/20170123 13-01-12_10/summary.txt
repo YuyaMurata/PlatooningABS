@@ -1,0 +1,12 @@
+n.exp, avg.step, time[ms]
+Experiment:0, 57, 77, ms
+Experiment:1, 49, 12, ms
+Experiment:2, 57, 13, ms
+Experiment:3, 65, 9, ms
+Experiment:4, 65, 6, ms
+Experiment:5, 73, 7, ms
+Experiment:6, 49, 7, ms
+Experiment:7, 73, 7, ms
+Experiment:8, 65, 6, ms
+Experiment:9, 57, 4, ms
+Platooning ABS Total Experiment:10, 61, 149, ms

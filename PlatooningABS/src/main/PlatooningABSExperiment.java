@@ -30,16 +30,13 @@ public class PlatooningABSExperiment implements ABSSettings{
         //Highspeed
         json.param.stepWaitTime = 0L;
         json.param.loggingSW = false;
-        
-        //Trace Log ON
-        json.param.traceSW = true;
 
         //log mkdir
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH-mm-ss");
         String dirName = json.param.folderName+"\\"+sdf.format(date)+"_"+json.param.numOfExec;
         new File(dirName).mkdirs();
-        OutputInstance.NewFileSummary(dirName+"\\"+"summary.txt");
+        OutputInstance.NewFileSummary(dirName+"\\"+"summary.csv");
         
         String dirTraceName = dirName+"\\trace";
         new File(dirTraceName).mkdirs();
@@ -64,8 +61,8 @@ public class PlatooningABSExperiment implements ABSSettings{
             System.out.println("> Experiment:"+i);
             
             //File
-            OutputInstance.NewFilePeopleLog(dirTraceName+"\\exec_"+i+"_"+json.param.fileName);
-            OutputInstance.NewFileTraceLog(dirLogName+"\\exec_"+i+"_"+json.param.traceFileName);
+            OutputInstance.NewFilePeopleLog(dirLogName+"\\exec_"+i+"_"+json.param.fileName);
+            OutputInstance.NewFileTraceLog(dirTraceName+"\\exec_"+i+"_"+json.param.traceFileName);
             
             //Universe
             AmusementPark park = AmusementPark.getInstance();

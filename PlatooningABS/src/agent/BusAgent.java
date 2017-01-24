@@ -28,6 +28,7 @@ public class BusAgent {
     public int nextBusStop;
     private List<People> passengers = new ArrayList();
     public Object root;
+    public Integer rootNO;
     private BusAgent leader;
     private AmusementPark park;
     public Boolean state = true;
@@ -50,6 +51,7 @@ public class BusAgent {
         
         //Get Root
         root = BusStops.getRoot(name);
+        rootNO = Integer.valueOf(((String)root).split("root")[1]);
         leader = null;
         
         if(type.equals("robot")){
@@ -80,6 +82,7 @@ public class BusAgent {
         
         this.leader = BusAgents.getRootBus(change, name);
         root = leader.root;
+        rootNO = Integer.valueOf(((String)root).split("root")[1]);
     }
     
     public void move(){
