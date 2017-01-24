@@ -10,12 +10,12 @@
   "renderTime": 200,
   "busStopIMG": {
     "0": "./img/busstop/s_137785.png",
-    "10": "./img/busstop/s_137785b.png",
-    "20": "./img/busstop/s_137785lb.png",
-    "30": "./img/busstop/s_137785g.png",
-    "40": "./img/busstop/s_137785y.png",
-    "50": "./img/busstop/s_137785o.png",
-    "60": "./img/busstop/s_137785r.png"
+    "1": "./img/busstop/s_137785b.png",
+    "10": "./img/busstop/s_137785lb.png",
+    "20": "./img/busstop/s_137785g.png",
+    "30": "./img/busstop/s_137785y.png",
+    "40": "./img/busstop/s_137785o.png",
+    "50": "./img/busstop/s_137785r.png"
   },
   "busIMG": [
     "./img/bus/s_121278.png",
@@ -24,15 +24,16 @@
     "./img/bus/s_121278g.png",
     "./img/bus/s_121278y.png"
   ],
-  "numOfExec": 10,
+  "numOfExec": 100,
   "stepWaitTime": 400,
   "column": 9,
   "row": 9,
-  "numBusAgents": 4,
+  "numBusAgents": 2,
   "numHuman": 2,
   "maxPassengers": 10,
   "lostProb": -1.0,
   "commFailure": false,
+  "changeLineSW" : false,
   "root": {
     "root0": [
       "BusStop_0",
@@ -75,5 +76,5 @@
     }
   ],
   "seed": -1,
-  "amountPeople": 100
+  "amountPeople": 1000
 }

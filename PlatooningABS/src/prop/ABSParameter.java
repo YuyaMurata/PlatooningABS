@@ -62,6 +62,7 @@ public class ABSParameter {
     public enum type {human, robot};
     public double lostProb = -1;
     public Boolean commFailure = false;
+    public Boolean changeLineSW = true;
     
     //Bus Root
     public Map<Object, List<String>> root = new HashMap(){

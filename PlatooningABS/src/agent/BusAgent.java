@@ -94,7 +94,8 @@ public class BusAgent {
     }
     
     private void planning(){
-        if((numPassenger() == 0) && (state)) changeLeader();
+        if((numPassenger() == 0) && (state) && BusAgents.changeLineSW)
+            changeLeader();
         
         if((rand.nextDouble() < lostProb) || (BusAgents.getCommState())) lost();
         

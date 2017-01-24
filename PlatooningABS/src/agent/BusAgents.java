@@ -22,6 +22,7 @@ public class BusAgents implements ABSSettings{
     private static int man;
     private static Map<Object, List<BusAgent>>busRoot;
     private static int leaderNum;
+    public static Boolean changeLineSW;
     
     public static void generate(){
         leaderNum = 0;
@@ -33,6 +34,7 @@ public class BusAgents implements ABSSettings{
         
         int n = json.param.numBusAgents;
         man = json.param.numHuman;
+        changeLineSW = json.param.changeLineSW;
         
         busAgents = new ArrayList();
         BusAgent.maxPassengers = json.param.maxPassengers;

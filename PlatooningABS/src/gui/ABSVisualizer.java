@@ -132,6 +132,7 @@ public class ABSVisualizer implements Runnable, ABSSettings{
             origBusImg.add(new ImageIcon(img));
         
         origBusStopImg = new TreeMap<>();
+        busStopImg = new TreeMap();
         for(Integer th : json.param.busStopIMG.keySet())
             origBusStopImg.put(th, new ImageIcon(json.param.busStopIMG.get(th)));
     }
@@ -153,7 +154,6 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         }
         
         double scaleBusStop = (double)imgh / origBusStopImg.get(0).getIconHeight();
-        busStopImg = new TreeMap();
         for(Integer th : origBusStopImg.keySet())
             busStopImg.put(th, new ImageIcon(origBusStopImg.get(th).getImage().getScaledInstance(
                 (int)(origBusStopImg.get(th).getIconWidth() * scaleBus), 
@@ -182,7 +182,7 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         for(BusStop busStop : park.getBusStops()){
             Point p = mappingArea(busStop.x, busStop.y);
             screen.drawImage(
-                busStopImg.ceilingEntry(busStop.getQueueLength()).getValue().getImage(),
+                busStopImg.floorEntry(busStop.getQueueLength()).getValue().getImage(),
                 p.x, p.y-img_h, null);
         }
     }
