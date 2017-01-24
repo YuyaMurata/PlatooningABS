@@ -28,7 +28,7 @@
   "stepWaitTime": 400,
   "column": 9,
   "row": 9,
-  "numBusAgents": 2,
+  "numBusAgents": 10,
   "numHuman": 2,
   "maxPassengers": 10,
   "lostProb": -1.0,
