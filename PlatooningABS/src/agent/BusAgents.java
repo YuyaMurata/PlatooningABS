@@ -81,7 +81,8 @@ public class BusAgents implements ABSSettings{
                 rootBusStopDeploy.put(bus.root, -1);
             List<String> rootBusStop = BusStops.getRootPath(bus.root);
             
-            int deploy = rootBusStopDeploy.get(bus.root) + 1;
+            //BusStopのみに順に配置
+            int deploy = (rootBusStopDeploy.get(bus.root) + 1) % rootBusStop.size();
             BusStop busStop = BusStops.getBusStop(rootBusStop.get(deploy));
             
             //Set Bus Position and Next BusStop
