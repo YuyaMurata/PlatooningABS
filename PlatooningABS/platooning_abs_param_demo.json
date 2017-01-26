@@ -28,8 +28,8 @@
   "stepWaitTime": 400,
   "column": 9,
   "row": 9,
-  "numBusAgents": 4,
-  "numHuman": 2,
+  "numBusAgents": 8,
+  "numHuman": 4,
   "maxPassengers": 10,
   "lostProb": -1.0,
   "commFailure": false,
@@ -38,12 +38,26 @@
     "root0": [
       "BusStop_0",
       "BusStop_1",
-      "BusStop_4"
+      "BusStop_4",
+      "BusStop_3"
     ],
     "root1": [
+      "BusStop_1",
       "BusStop_2",
-      "BusStop_3",
+      "BusStop_5",
       "BusStop_4"
+    ],
+    "root2": [
+      "BusStop_3",
+      "BusStop_4",
+      "BusStop_7",
+      "BusStop_6"
+    ],
+    "root3": [
+      "BusStop_4",
+      "BusStop_5",
+      "BusStop_8",
+      "BusStop_7"
     ]
   },
   "numBusStops": 5,
@@ -56,23 +70,43 @@
     },
     {
       "name": "BusStop_1",
-      "x": 0,
-      "y": 8
+      "x": 4,
+      "y": 0
     },
     {
       "name": "BusStop_2",
       "x": 8,
-      "y": 8
+      "y": 0
     },
     {
       "name": "BusStop_3",
-      "x": 8,
-      "y": 0
+      "x": 0,
+      "y": 4
     },
     {
       "name": "BusStop_4",
       "x": 4,
       "y": 4
+    },
+    {
+      "name": "BusStop_5",
+      "x": 8,
+      "y": 4
+    },
+    {
+      "name": "BusStop_6",
+      "x": 0,
+      "y": 8
+    },
+    {
+      "name": "BusStop_7",
+      "x": 4,
+      "y": 8
+    },
+    {
+      "name": "BusStop_8",
+      "x": 8,
+      "y": 8
     }
   ],
   "seed": -1,
