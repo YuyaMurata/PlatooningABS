@@ -5,15 +5,13 @@
  */
 package obj;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import prop.ABSSettings;
-import search.BusStopVertex;
-import search.RootDijkstra;
+import root.RootManager;
 
 /**
  *
@@ -22,7 +20,6 @@ import search.RootDijkstra;
 public class BusStops implements ABSSettings{
     private static Map<String, BusStop> busStops;
     private static List<String>nameList;
-    private static Map rootMap;
     private static int amount;
     
     public static void generate(){
@@ -49,14 +46,12 @@ public class BusStops implements ABSSettings{
         //Check BusStop
         busStops.values().stream().forEach(System.out::println);
         
-        //root
-        rootMap = json.param.root;
-        
         //Create Candidate People Path
-        candidatePath();
+        RootManager.getInstance().createRoot(json.param.root);
         
         //Form Line
         setSeed(json.param.seed);
+        RootManager.setSeed(json.param.seed);
     }
     
     private static void initialize(){
@@ -86,12 +81,15 @@ public class BusStops implements ABSSettings{
     }
     
     public static List<String> getRootPath(Object rootNo){
-        return (List<String>) rootMap.get(rootNo);
+        return RootManager.getInstance().getRootPath(rootNo);
     }
     
-    public static Object getRoot(String busName){
-        int i = Math.abs(busName.hashCode()) % rootMap.size();
-        return rootMap.keySet().toArray()[i];
+    public static Object getRootNO(String busName){
+        return RootManager.getInstance().getRoot(busName);
+    }
+    
+    public static Object getRootNO(String deptBusStop, String destBusStop){
+        return RootManager.getInstance().getRoot(deptBusStop, destBusStop);
     }
     
     private static Random rand = new Random();
@@ -105,55 +103,20 @@ public class BusStops implements ABSSettings{
             if(n != 0)
                 for(int i=0; i < n; i++)
                     bs.queuePeople(new People(bs));
-            
-            //Test
-            //System.out.println(bs.name+" : Amount People:"+amount);
         }
     }
     
     public static Object compareRoot(){
-        SimpleEntry<Object, Integer> compMap = new SimpleEntry("", -1);
-        for(Object rootNo : rootMap.keySet()){
-            int comp = 0;
-            for(String busStopName : getRootPath(rootNo))
-                comp = comp + getBusStop(busStopName).getQueue().size();
-            if(compMap.getValue() < comp) compMap = new SimpleEntry(rootNo, comp);
-        }
-        return compMap.getKey();
-    }
-    
-    private static Map<Object, List> candidateRoot;
-    private static void candidatePath(){
-        candidateRoot = new HashMap();
-        
-        RootDijkstra path = new RootDijkstra();
-        int[][] adjRoot = path.createAdjencyMatrix();
-        
-        for(int i=0; i < adjRoot.length; i++){
-            List rootShort = new ArrayList();
-            BusStopVertex[] busStopPath = path.dijkstra(adjRoot, i);
-            for(int j=0; j < adjRoot.length; j++){
-                if(i == j) continue;
-                
-                //Vertex -> BusStopName
-                List rootBusStopNames = new ArrayList();
-                for(BusStopVertex v : path.getShortestPath(busStopPath, j))
-                    rootBusStopNames.add(getBusStop(v.to).name);
-                
-                rootShort.add(rootBusStopNames);      
-            }
-            
-            candidateRoot.put(getBusStop(i).name, rootShort);
-        }
-        
-        //Check
-        for(Object key : candidateRoot.keySet())
-            System.out.println(key+":"+candidateRoot.get(key));
+        return RootManager.getInstance().compareRoot();
     }
     
     public static List<String> getCandidatePath(String bsName){
-        int n = candidateRoot.get(bsName).size();
-        return (List<String>) candidateRoot.get(bsName).get(rand.nextInt(n));
+        return RootManager.getInstance().getCandidatePath(bsName);
+    }
+    
+    public static Boolean finish(){
+        return busStops.values().stream()
+                .allMatch(stop -> (stop.getAllQueueLength() == 0));
     }
     
     public static void printLog(){

@@ -182,7 +182,7 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         for(BusStop busStop : park.getBusStops()){
             Point p = mappingArea(busStop.x, busStop.y);
             screen.drawImage(
-                busStopImg.floorEntry(busStop.getQueueLength()).getValue().getImage(),
+                busStopImg.floorEntry(busStop.getAllQueueLength()).getValue().getImage(),
                 p.x, p.y-img_h, null);
         }
     }

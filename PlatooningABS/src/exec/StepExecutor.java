@@ -5,11 +5,8 @@
  */
 package exec;
 
-import agent.BusAgent;
 import agent.BusAgents;
 import fileout.OutputInstance;
-import java.util.List;
-import obj.BusStop;
 import obj.BusStops;
 import prop.ABSSettings;
 
@@ -18,9 +15,7 @@ import prop.ABSSettings;
  * @author kaeru
  */
 public class StepExecutor implements ABSSettings{
-    private List<BusAgent> execList;
-    public StepExecutor(List<BusAgent> busLists) {
-        this.execList = busLists;
+    public StepExecutor() {
     }
     
     public static Long step = 0L;
@@ -31,7 +26,7 @@ public class StepExecutor implements ABSSettings{
         BusStops.occureQueue();
         
         //Agent Execute
-        execList.stream().forEach(bus -> ((BusAgent)bus).move());
+        BusAgents.execute();
         
         //Logging
         printLog("Step : "+step);
@@ -48,15 +43,7 @@ public class StepExecutor implements ABSSettings{
     }
     
     public Boolean finishCheck(){
-        long ql = 0L;
-        for(BusStop bs : BusStops.getBusStops())
-            ql = ql + bs.getQueue().size();
-        
-        for(BusAgent ba : BusAgents.getList())
-            ql = ql + ba.numPassenger();
-            
-        if(ql == 0L) return true;
-        return false;
+        return BusAgents.finish() && BusStops.finish();
     }
     
     public static void printLog(String str){

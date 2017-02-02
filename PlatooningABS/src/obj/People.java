@@ -25,7 +25,8 @@ public class People {
     private Long waitTime, getTime;
     public LinkedList path = new LinkedList<>();
     private Map log = new LinkedHashMap();
-    private static Random rand = new Random();  
+    private static Random rand = new Random();
+    private Object dept;
     public People(BusStop deptBusStop){
         //People ID
         pid++;
@@ -38,7 +39,8 @@ public class People {
         log.put(param.BUS, "bus");
         
         //Depart
-        log.put(param.ROOT, path.poll());
+        dept = path.poll();
+        log.put(param.ROOT, dept);
     }
     
     public void queueTime(){
@@ -64,7 +66,7 @@ public class People {
             log.put(param.ROOT, log.get(param.ROOT)+"->"+destination);
             
             //Check
-            path.poll();
+            dept = path.poll();
             if(!path.isEmpty()) location.queuePeople(this);
             else printLog();
             
@@ -75,6 +77,10 @@ public class People {
     
     public String getDestination(){
         return (String) path.peek();
+    }
+    
+    public String getDeprture(){
+        return (String) dept;
     }
     
     public static void setRandom(long seed){

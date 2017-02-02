@@ -39,7 +39,7 @@ public class PlatooningABSMain implements ABSSettings{
         abs.startVisualize();
         
         //Execute
-        StepExecutor step = new StepExecutor(BusAgents.getList());
+        StepExecutor step = new StepExecutor();
         long time = 0L;
         while(true){
             time++;

@@ -118,6 +118,15 @@ public class BusAgents implements ABSSettings{
         return busRoot.get(rootNo).get(i);
     }
     
+    public static void execute(){
+        busAgents.stream().forEach(bus -> ((BusAgent)bus).move());
+    }
+    
+    public static Boolean finish(){
+        return busAgents.stream()
+                .allMatch(bus -> (bus.numPassenger() == 0));
+    }
+    
     public static void printLog(){
         if(json.param.loggingSW)
             busAgents.stream().forEach(System.out::println);

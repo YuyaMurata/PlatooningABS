@@ -5,6 +5,7 @@
  */
 package agent;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,7 @@ public class BusAgent {
     private BusAgent leader;
     private AmusementPark park;
     public Boolean state = true;
+    public Boolean process = true;
     
     public BusAgent(int index, String type){
         this.name = "Bus_"+index;
@@ -50,7 +52,7 @@ public class BusAgent {
         park = AmusementPark.getInstance();
         
         //Get Root
-        root = BusStops.getRoot(name);
+        root = BusStops.getRootNO(name);
         rootNO = Integer.valueOf(((String)root).split("root")[1]);
         leader = null;
         
@@ -77,48 +79,52 @@ public class BusAgent {
     }
     
     public void changeLeader(){
+        if(agentKey.get(1).equals(leader.agentKey.get(0)))
+            process = true;
+            
         Object change = BusStops.compareRoot();
         if(root.equals(change)) return;
         
         this.leader = BusAgents.getRootBus(change, name);
         root = leader.root;
         rootNO = Integer.valueOf(((String)root).split("root")[1]);
+        process = false;
     }
     
     public void move(){
-        if(type.equals("robot")) planning();
-        else patrol(nextBusStop);
+        Point target;
+        
+        if(type.equals("robot")) target = planning();
+        else target = patrol(nextBusStop);
+        
+        //Move
+        deltaMove(x, target.x, y, target.y);
         
         //getting on and off Process
         nextBusStop = busStopCheck();
     }
     
-    private void planning(){
+    private Point planning(){
         if((numPassenger() == 0) && (state) && BusAgents.changeLineSW)
             changeLeader();
         
         if((rand.nextDouble() < lostProb) || (BusAgents.getCommState())) lost();
-        
-        deltaMove(x, leader.x, y, leader.y);
+
+        return  new Point(leader.x, leader.y);
     }
     
-    private void patrol(int next){
+    private Point patrol(int next){
         List<String> rootPath = BusStops.getRootPath(root);
         BusStop busStop = BusStops.getBusStop(rootPath.get(next));
         
-        //Test
-        //System.out.println("key ag="+agentKey+" g="+BusStops.getBusStop(next).key);
-        //System.out.println("Target : "+busStop+" i="+next);
-        
-        //Move
-        deltaMove(x, busStop.x, y, busStop.y);
+        return  new Point(busStop.x, busStop.y);
     }
     
     private int busStopCheck(){
         BusStop busStop = park.arrivalBusStop(agentKey.get(1));
         if(busStop != null){
             getOff(busStop);
-            getOn(busStop);
+            if(process) getOn(busStop);
             
             //Next BusStop in Root
             Object nextBusStopName = BusStops.getRootPath(root).get(nextBusStop);
@@ -131,7 +137,7 @@ public class BusAgent {
     
     private Integer getOn(BusStop busStop){
         int num = 0;
-        Iterator<People> it = busStop.getQueue().iterator();
+        Iterator<People> it = busStop.getQueue(root).iterator();
         while(it.hasNext()){
             if(maxPassengers <= passengers.size()) return num;
             

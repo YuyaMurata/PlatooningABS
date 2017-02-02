@@ -6,7 +6,9 @@
 package obj;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import park.AmusementPark;
 
 /**
@@ -18,7 +20,7 @@ public class BusStop {
     public int x, y;
     
     public transient Object key;
-    private transient List<People> queue = new ArrayList();
+    private transient Map<Object, List<People>> queue = new HashMap<>();;
     
     public BusStop(String name, int x, int y) {
         this.name = name;
@@ -38,24 +40,36 @@ public class BusStop {
     
     public void queuePeople(People people){
         people.queueTime();
-        queue.add(people);
+        
+        Object rootNo = BusStops.getRootNO(people.getDeprture(), people.getDestination());
+        if(queue.get(rootNo) == null)
+            queue.put(rootNo, new ArrayList<>());
+        
+        queue.get(rootNo).add(people);
     }
     
-    public List<People> getQueue(){
-        return queue;
+    public List<People> getQueue(Object rootNo){
+        if(queue.get(rootNo) == null) return new ArrayList();
+        return queue.get(rootNo);
     }
     
-    public int getQueueLength(){
+    public int getQueueLength(Object rootNo){
         if(queue == null) return 0;
-        return queue.size();
+        else if(queue.get(rootNo) == null) return 0;
+        return queue.get(rootNo).size();
+    }
+    
+    public int getAllQueueLength(){
+        if(queue == null) return 0;
+        return queue.values().stream().mapToInt(q -> q.size()).sum();
     }
     
     public String toString(){
         if(queue == null) return name+":[x="+x+" ,y="+y+"]";
-        return name+":[x="+x+" ,y="+y+"]-[QLine="+queue.size()+"]";
+        return name+":[x="+x+" ,y="+y+"]-[QLine="+getAllQueueLength()+"]";
     }
     
     public String toString(String trace){
-        return "("+name+","+x+" ,"+y+","+queue.size()+")";
+        return "("+name+","+x+" ,"+y+","+getAllQueueLength()+")";
     }
 }
