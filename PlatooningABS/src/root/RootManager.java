@@ -5,6 +5,7 @@
  */
 package root;
 
+import exec.StepExecutor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,21 +84,44 @@ public class RootManager{
         return v.getKey();
     }
     
+    private Long nstep = 0L;
+    private Map<Object, Integer> ncompMap = new HashMap();
+    private Entry<Object, Integer> vq;
     public Object compareRootQueue(){
+        long step = StepExecutor.step;
+        if(step == nstep){
+            if(vq == null) return null;
+            else return vq.getKey();
+        }
+        
         Map<Object, Integer> compMap = new HashMap();
         for(Object rootNo : root.keySet()){
             int comp = 0;
             for(String busStopName : root.get(rootNo))
-                comp = comp + BusStops.getBusStop(busStopName).getQueueLength(rootNo);
+                comp = comp + BusStops.getBusStop(busStopName).getStepQueue(rootNo).intValue();
             compMap.put(rootNo, comp);
         }
         
-        System.out.println(compMap);
+        System.out.println("comp="+compMap);
         
-        Entry<Object, Integer> v = compMap.entrySet().stream()
-                                                    .max((e1,e2) -> e1.getValue() - e2.getValue()).get();
+        // M/M/1 W= L/λ
+        Map<Object, Integer> wmap = new HashMap();
+        for(Object rootNo : ncompMap.keySet()){
+            int l = compMap.get(rootNo);
+            System.out.println("L="+l+" step="+step+", "+nstep);
+            int w = (int) (l / (step - nstep));
+            
+            wmap.put(rootNo, w);
+        }
         
-        return v.getKey();
+        nstep = step;
+        
+        if(!wmap.isEmpty()){
+            vq = wmap.entrySet().stream()
+                                    .max((e1,e2) -> e1.getValue() - e2.getValue()).get();
+            return vq.getKey();
+        }else
+            return null;
     }
     
     //BusName -> Root

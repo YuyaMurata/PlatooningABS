@@ -38,6 +38,7 @@ public class BusStop {
         AmusementPark.getInstance().setBusStop(this);
     }
     
+    private Map<Object, Long> countStepQueue = new HashMap<>();
     public void queuePeople(People people){
         people.queueTime();
         
@@ -46,6 +47,20 @@ public class BusStop {
             queue.put(rootNo, new ArrayList<>());
         
         queue.get(rootNo).add(people);
+        
+        Long count = 0L;
+        if(countStepQueue.get(rootNo) != null)
+            count = countStepQueue.get(rootNo) + 1;
+        
+        countStepQueue.put(rootNo, count);
+    }
+    
+    public Long getStepQueue(Object rootNo){
+        Long queuePeople = countStepQueue.get(rootNo);
+        countStepQueue = new HashMap<>();
+        if(queuePeople != null)
+            return queuePeople;
+        return 0L;
     }
     
     public List<People> getQueue(Object rootNo){

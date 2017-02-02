@@ -83,7 +83,7 @@ public class BusAgent {
             process = true;
             
         Object change = BusStops.compareRoot();
-        if(root.equals(change)) return;
+        if(root.equals(change) || change == null) return;
         
         this.leader = BusAgents.getRootBus(change, name);
         root = leader.root;
