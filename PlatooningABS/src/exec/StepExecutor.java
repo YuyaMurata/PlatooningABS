@@ -6,6 +6,7 @@
 package exec;
 
 import agent.BusAgents;
+import center.ControlCenter;
 import fileout.OutputInstance;
 import obj.BusStops;
 import prop.ABSSettings;
@@ -25,15 +26,17 @@ public class StepExecutor implements ABSSettings{
         //form line
         BusStops.occureQueue();
         
+        System.out.println(ControlCenter.comm().toString());
+        
         //Agent Execute
         BusAgents.execute();
+        
+        //Test
+        //if(step == 10L) commFailure = true;
         
         //Logging
         printLog("Step : "+step);
         traceLog(step);
-        
-        //Test
-        //if(step == 10L) commFailure = true;
         
         //Step TimeSpan
         try {

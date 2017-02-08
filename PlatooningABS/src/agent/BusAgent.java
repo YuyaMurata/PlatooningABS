@@ -64,7 +64,7 @@ public class BusAgent {
         }else
             BusAgents.setRootBus(this);
         
-        busPosition(x, y);
+        setBusPos(x, y);
     }
     
     public void init(){
@@ -74,7 +74,7 @@ public class BusAgent {
             y = leader.y;
             root = leader.root;
             
-            busPosition(x, y);
+            setBusPos(x, y);
         }
     }
     
@@ -181,10 +181,10 @@ public class BusAgent {
             if(yd > 0) by++;
             else if(yd < 0) by--; 
         //}
-        busPosition(bx, by);
+        setBusPos(bx, by);
     }
     
-    public void busPosition(int x, int y){
+    public void setBusPos(int x, int y){
         agentKey.clear();
         
         //Before Position
@@ -198,6 +198,10 @@ public class BusAgent {
         //logPrint("key Check<"+agentKey);
         //Location
         park.setBusAgent(this);
+    }
+    
+    public Point getBusPos(){
+        return new Point(x, y);
     }
     
     private void lost(){

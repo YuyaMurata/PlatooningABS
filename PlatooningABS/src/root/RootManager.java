@@ -7,6 +7,7 @@ package root;
 
 import exec.StepExecutor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,6 +123,11 @@ public class RootManager{
             return vq.getKey();
         }else
             return null;
+    }
+    
+    //Root List
+    public List getRootList(){
+        return new ArrayList(root.keySet());
     }
     
     //BusName -> Root

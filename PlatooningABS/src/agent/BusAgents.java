@@ -87,13 +87,13 @@ public class BusAgents implements ABSSettings{
             
             //Set Bus Position and Next BusStop
             bus.nextBusStop = deploy;
-            bus.busPosition(busStop.x, busStop.y);
+            bus.setBusPos(busStop.x, busStop.y);
             
             rootBusStopDeploy.put(bus.root, deploy);
         }
     }
     
-    public static List<BusAgent> getList(){
+    public static List<BusAgent> getBuses(){
         return busAgents;
     }
     
