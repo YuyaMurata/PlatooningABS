@@ -1,4 +1,4 @@
-/*
+/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,7 +17,9 @@ import root.RootManager;
  *
  * @author murata
  */
-public class ControlCenter {
+public class ControlCenter{
+    public static Boolean commfailur = true;
+    
     public static CenterInfo comm(){
         //start
         long start = System.currentTimeMillis();
@@ -60,7 +62,8 @@ public class ControlCenter {
         map.put(CenterInfo.paramID.CALC_TIME, stop-start);
         
         //Set CenterInformation
-        info.setParam(map);
+        if(commfailur) info.setParam(map);
+        else info.setParam(null);
         
         return info;
     }

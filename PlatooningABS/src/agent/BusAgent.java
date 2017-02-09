@@ -5,6 +5,7 @@
  */
 package agent;
 
+import center.CenterInfo;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -91,9 +92,9 @@ public class BusAgent {
         process = false;
     }
     
-    public void move(){
+    public void move(CenterInfo info){
+        //BusAgent Control
         Point target;
-        
         if(type.equals("robot")) target = planning();
         else target = patrol(nextBusStop);
         
@@ -105,12 +106,14 @@ public class BusAgent {
     }
     
     private Point planning(){
+        //Change Root
         if((numPassenger() == 0) && (state) && BusAgents.changeLineSW)
             changeLeader();
         
         if((rand.nextDouble() < lostProb) || (BusAgents.getCommState())) lost();
 
         return  new Point(leader.x, leader.y);
+        
     }
     
     private Point patrol(int next){

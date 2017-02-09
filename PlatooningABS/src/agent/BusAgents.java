@@ -5,6 +5,7 @@
  */
 package agent;
 
+import center.CenterInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,8 +119,8 @@ public class BusAgents implements ABSSettings{
         return busRoot.get(rootNo).get(i);
     }
     
-    public static void execute(){
-        busAgents.stream().forEach(bus -> ((BusAgent)bus).move());
+    public static void execute(CenterInfo info){
+        busAgents.stream().forEach(bus -> ((BusAgent)bus).move(info));
     }
     
     public static Boolean finish(){

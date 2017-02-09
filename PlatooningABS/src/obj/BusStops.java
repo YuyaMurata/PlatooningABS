@@ -107,8 +107,8 @@ public class BusStops implements ABSSettings{
     }
     
     public static Object compareRoot(){
-        return RootManager.getInstance().compareRoot();
-        //return RootManager.getInstance().compareRootQueue();
+        //return RootManager.getInstance().compareRoot();
+        return RootManager.getInstance().compareRootQueue();
     }
     
     public static List<String> getCandidatePath(String bsName){

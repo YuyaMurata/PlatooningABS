@@ -6,6 +6,7 @@
 package exec;
 
 import agent.BusAgents;
+import center.CenterInfo;
 import center.ControlCenter;
 import fileout.OutputInstance;
 import obj.BusStops;
@@ -26,10 +27,12 @@ public class StepExecutor implements ABSSettings{
         //form line
         BusStops.occureQueue();
         
-        System.out.println(ControlCenter.comm().toString());
+        //Center Communication
+        CenterInfo info = ControlCenter.comm();
+        System.out.println(info.toString());
         
         //Agent Execute
-        BusAgents.execute();
+        BusAgents.execute(info);
         
         //Test
         //if(step == 10L) commFailure = true;
