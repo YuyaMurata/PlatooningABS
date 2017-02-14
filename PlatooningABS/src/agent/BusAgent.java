@@ -58,7 +58,7 @@ public class BusAgent {
         leader = null;
         
         if(type.equals("robot")){
-            leader = BusAgents.getLeader(this);
+            leader = (BusAgent) BusAgents.getLeader(this);
             x = leader.x;
             y = leader.y;
             root = leader.root;
@@ -70,7 +70,7 @@ public class BusAgent {
     
     public void init(){
         if(type.equals("robot")){
-            leader = BusAgents.getLeader(this);
+            leader = (BusAgent) BusAgents.getLeader(this);
             x = leader.x;
             y = leader.y;
             root = leader.root;
@@ -112,8 +112,7 @@ public class BusAgent {
         
         if((rand.nextDouble() < lostProb) || (BusAgents.getCommState())) lost();
 
-        return  new Point(leader.x, leader.y);
-        
+        return  new Point(leader.x, leader.y);    
     }
     
     private Point patrol(int next){
@@ -200,7 +199,7 @@ public class BusAgent {
         
         //logPrint("key Check<"+agentKey);
         //Location
-        park.setBusAgent(this);
+        //park.setBusAgent(this);
     }
     
     public Point getBusPos(){

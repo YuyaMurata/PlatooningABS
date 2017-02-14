@@ -5,12 +5,13 @@
  */
 package agent;
 
+import bus.SampleBusAgent;
+import bus.SampleRobotBusAgent;
 import center.CenterInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import obj.BusStop;
 import obj.BusStops;
 import prop.ABSSettings;
 
@@ -19,7 +20,7 @@ import prop.ABSSettings;
  * @author murata
  */
 public class BusAgents implements ABSSettings{
-    private static List<BusAgent> busAgents;
+    private static List<AbstractBusAgent> busAgents;
     private static int man;
     private static Map<Object, List<BusAgent>>busRoot;
     private static int leaderNum;
@@ -38,24 +39,28 @@ public class BusAgents implements ABSSettings{
         changeLineSW = json.param.changeLineSW;
         
         busAgents = new ArrayList();
-        BusAgent.maxPassengers = json.param.maxPassengers;
-        BusAgent.setSeed(json.param.seed);
-        BusAgent.lostProb = json.param.lostProb;
         busRoot = new HashMap();
+        
+        AbstractBusAgent.setParam(json.param.maxPassengers, 
+                                   json.param.lostProb,
+                                   json.param.seed);
         
         //Human Bus Create
         for(int i=0; i < man; i++){
-            BusAgent bus = new BusAgent(i, "human"); 
+            //BusAgent bus = new BusAgent(i, "human"); 
+            String name = "BUS_"+i;
+            AbstractBusAgent bus = new SampleBusAgent(name);
             busAgents.add(bus);
         }
         
         //Deploy Bus at BusStop
-        deployBusAgents();
+        //deployBusAgents();
         
         //Robot Bus Create
         if(n-man > 0)
             for(int i=man; i < n; i++){
-                busAgents.add(new BusAgent(i, "robot"));
+                String name = "BUS_RB_"+i;
+                busAgents.add(new SampleRobotBusAgent(name));
             }
         
         //Check BusStop
@@ -66,13 +71,14 @@ public class BusAgents implements ABSSettings{
         //System.out.println("Initalize BusAgents !");
         
         //init Human Bus
-        deployBusAgents();
+        //deployBusAgents();
         
         //init Robot Bus
-        for(BusAgent bus : busAgents)
-            bus.init();
+        //for(BusAgent bus : busAgents)
+        //    bus.init();
     }
     
+    /*
     private static void deployBusAgents(){
         Map<Object, Integer> rootBusStopDeploy = new HashMap();
         for(BusAgent bus : busAgents){
@@ -92,15 +98,16 @@ public class BusAgents implements ABSSettings{
             
             rootBusStopDeploy.put(bus.root, deploy);
         }
-    }
+    }*/
     
-    public static List<BusAgent> getBuses(){
+    public static List<AbstractBusAgent> getBuses(){
         return busAgents;
     }
     
-    public static BusAgent getLeader(BusAgent robot){
+    public static Object getLeader(Object robot){
         //Test
         return busAgents.get((leaderNum++) % man);
+        //return null;
     }
     
     public static Boolean getCommState(){
@@ -119,13 +126,16 @@ public class BusAgents implements ABSSettings{
         return busRoot.get(rootNo).get(i);
     }
     
-    public static void execute(CenterInfo info){
-        busAgents.stream().forEach(bus -> ((BusAgent)bus).move(info));
+    public static void execute(String type, CenterInfo info){
+        busAgents.stream()
+                .filter(bus -> bus.type.equals(type))
+                .forEach(bus -> ((AbstractBusAgent)bus).move(info));
     }
     
     public static Boolean finish(){
         return busAgents.stream()
-                .allMatch(bus -> (bus.numPassenger() == 0));
+                .allMatch(bus -> bus.finish());
+    
     }
     
     public static void printLog(){
@@ -136,8 +146,8 @@ public class BusAgents implements ABSSettings{
     public static String traceLog(){
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for(BusAgent bus : busAgents){
-            sb.append(bus.toString("trace"));
+        for(AbstractBusAgent bus : busAgents){
+            sb.append(bus.toString());
             sb.append(",");
         }
         sb.deleteCharAt(sb.length()-1);

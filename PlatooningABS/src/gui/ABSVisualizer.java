@@ -5,7 +5,7 @@
  */
 package gui;
 
-import agent.BusAgent;
+import agent.AbstractBusAgent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -21,12 +21,30 @@ import prop.ABSSettings;
 import static prop.ABSSettings.json;
 
 /**
- *
+ * ABSを可視化するためのクラス
+ * ABSFrame から参照される
  * @author kaeru
  */
 public class ABSVisualizer implements Runnable, ABSSettings{
     private static ABSVisualizer absImage = new ABSVisualizer();
     private ABSFrame frame = ABSFrame.getInstance();
+    
+    //遊園地クラスの取得
+    private static AmusementPark park = AmusementPark.getInstance();
+    
+    public static Boolean state = false; //実行状態 true = 実行可能
+    
+    private JPanel absArea; //GUI Panel
+    private Image screenImg; //ダブルバッファ用
+    private Graphics screen; //ダブルバッファ用
+    private int w, h; //width , Height
+    private int col, row; //セルの行と列数
+    
+    //Agent & Object Image 用
+    private List<ImageIcon> busImg, origBusImg;
+    private TreeMap<Integer, ImageIcon> busStopImg, origBusStopImg;
+    
+    //Singleton
     private ABSVisualizer(){
         //Frame
         frame.execute();
@@ -36,18 +54,16 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         return absImage;
     }
     
-    private AmusementPark park = AmusementPark.getInstance();
-    private JPanel absArea;
-    private Image screenImg;
-    private Graphics screen;
-    private int w, h;
+    //GUI Frame , Agent & Object Image, パラメータ初期化
     public void setABSArea(JPanel area){       
         //Init
         absArea = area;
         
+        //ウィンドウサイズの取得
         this.w = absArea.getWidth();
         this.h = absArea.getHeight();
         
+        //可視化パラメータの設定
         setVisualParameter();
         
         //Load AgentImage
@@ -57,7 +73,6 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         resizeABSArea();
     }
     
-    public static Boolean state = false;
     public void resizeABSArea(){
         //Get Size
         w = absArea.getWidth();
@@ -71,43 +86,49 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         int img_w = w / col;
         int img_h = h / row;
         
+        //AgentImageを現在のウィンドウサイズに合わせる
         resizeAgentImage(img_w, img_h);
     }
     
+    //可視化のスタート
     public void startVisualize(){
+        //初期化
         setABSArea(frame.getABSPanel());
         
-        //
+        //状態を実行可能に変更
         this.state = true;
         
-        drawBusStops();
-        drawBusAgents();
-        drawCell();
+        //ABSの状態を描画
+        redrawABS();
         
+        //可視化の実行
         Thread thread = new Thread(this);
         thread.start();
     }
     
+    //可視化の終了
     public void stopVisualize(){
         state = false;
     }
     
-    
+    //ABS座標　→　フレーム座標　に変換
     public Point mappingArea(int pc, int pr){
         Point p = new Point();
-
+        
+        //e.g. X = Width / セルの全列数 * セルの列番号
         p.x = w / col * pc;
         p.y = h / row * pr;
         
         return p;
     }
     
+    //パラメータ設定
     public void setVisualParameter(){
         this.col = json.param.column;
         this.row = json.param.row;
     }
     
-    private int col, row;
+    //セルの罫線を描画
     public void drawCell(){
         screen.setColor(Color.BLACK);
         
@@ -124,22 +145,24 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         }
     }
     
-    private List<ImageIcon> busImg, origBusImg;
-    private TreeMap<Integer, ImageIcon> busStopImg, origBusStopImg;
+    //Agent Imageの読み込み
     private void loadAgentImage(){
+        //BusAgent Image
         origBusImg = new ArrayList<>();
         for(String img : json.param.busIMG)
             origBusImg.add(new ImageIcon(img));
         
+        //BusStop Image
         origBusStopImg = new TreeMap<>();
         busStopImg = new TreeMap();
         for(Integer th : json.param.busStopIMG.keySet())
             origBusStopImg.put(th, new ImageIcon(json.param.busStopIMG.get(th)));
     }
     
+    //Agent Image サイズ変更
     private void resizeAgentImage(int imgw, int imgh){
+        //BusAgent Image Resize
         double scaleBus = (double)imgw / origBusImg.get(0).getIconWidth();
-        
         int i=0;
         for(ImageIcon img : origBusImg){
             ImageIcon icon = new ImageIcon(img.getImage().getScaledInstance(
@@ -150,10 +173,9 @@ public class ABSVisualizer implements Runnable, ABSSettings{
             if(busImg == null) busImg = new ArrayList<>();
             if(!state) busImg.add(icon);
             else busImg.set(i++, icon);
-            
         }
         
-        double scaleBusStop = (double)imgh / origBusStopImg.get(0).getIconHeight();
+        //BusStop Image Resize バスのスケールに合わすためウィンドウサイズによってはずれる
         for(Integer th : origBusStopImg.keySet())
             busStopImg.put(th, new ImageIcon(origBusStopImg.get(th).getImage().getScaledInstance(
                 (int)(origBusStopImg.get(th).getIconWidth() * scaleBus), 
@@ -161,13 +183,15 @@ public class ABSVisualizer implements Runnable, ABSSettings{
                 Image.SCALE_SMOOTH)));
     }
     
+    //BusAgent Image 描画
     public void drawBusAgents(){
         int img_w = w / col/ 5;
         int img_h = h / row / 5;
         
-        for(List<BusAgent> busAgents : park.getBusAgents()){
+        //busImg.get(n) nを変更することでバスの画像を変更可能
+        for(List<AbstractBusAgent> busAgents : park.getBusAgents()){
             int i = 0;
-            for(BusAgent bus : busAgents){
+            for(AbstractBusAgent bus : busAgents){
                 Point p = mappingArea(bus.x, bus.y);
                 screen.drawImage(busImg.get(0).getImage(), p.x+i*img_h, p.y-img_h-+i*img_w, null);
                 i++;
@@ -175,6 +199,7 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         }
     }
     
+    //BusStop Image 描画
     public void drawBusStops(){
         int img_w = w / col / 5;
         int img_h = h / row / 5;
@@ -187,19 +212,24 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         }
     }
     
+    //ABSの描画
     public void redrawABS(){
+        //描画の初期化
         screen.setColor(absArea.getBackground());
         screen.fillRect(0, 0, w, h);
         
+        //Cell & Image 描画 
         drawBusAgents();
         drawBusStops();
         drawCell();
         
+        //ダブルバッファ
         Graphics g = absArea.getGraphics();
         g.drawImage(screenImg, 0, 0, absArea);
         g.dispose();
     }
     
+    //描画の非同期実行
     public void run(){
         while(state){
             redrawABS();

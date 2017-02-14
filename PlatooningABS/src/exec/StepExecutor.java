@@ -13,26 +13,31 @@ import obj.BusStops;
 import prop.ABSSettings;
 
 /**
- *
+ * 単一ステップの実行用クラス
  * @author kaeru
  */
 public class StepExecutor implements ABSSettings{
+    public static Long step = 0L; //Step数
+    
     public StepExecutor() {
     }
     
-    public static Long step = 0L;
+    //1Step 実行処理
     public void execute(long t){
         step = t;
         
-        //form line
+        //バス停の人の発生処理
         BusStops.occureQueue();
+        
+        //Agent Execute (man)
+        BusAgents.execute("man", null);
         
         //Center Communication
         CenterInfo info = ControlCenter.comm();
         System.out.println(info.toString());
         
-        //Agent Execute
-        BusAgents.execute(info);
+        //Agent Execute (robot)
+        BusAgents.execute("robot", info);
         
         //Test
         //if(step == 10L) commFailure = true;
@@ -48,10 +53,12 @@ public class StepExecutor implements ABSSettings{
         }
     }
     
+    //終了可能か確認
     public Boolean finishCheck(){
         return BusAgents.finish() && BusStops.finish();
     }
     
+    //ログの出力
     public static void printLog(String str){
         if(json.param.loggingSW){
             System.out.println(str);
@@ -62,6 +69,7 @@ public class StepExecutor implements ABSSettings{
         }
     }
     
+    //追跡用のログ出力
     public static void traceLog(Long step){
         if(json.param.traceSW){
             StringBuilder sb = new StringBuilder();

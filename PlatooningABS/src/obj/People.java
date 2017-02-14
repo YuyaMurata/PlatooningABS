@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
+import root.RootManager;
 
 /**
  *
@@ -32,7 +33,7 @@ public class People {
         pid++;
         
         //Get Path
-        path.addAll(BusStops.getCandidatePath(deptBusStop.name));
+        path.addAll(RootManager.getInstance().getCandidatePath(deptBusStop.name));
         
         //Log
         log.put(param.PID, "people-"+pid);

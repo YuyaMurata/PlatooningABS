@@ -9,12 +9,13 @@ import fileout.OutputInstance;
 
 
 /**
- *
- * @author kaeru
+ * ABS可視化用のフォーム
+ * @author murata
  */
 public class ABSFrame extends javax.swing.JFrame {
     private static final ABSFrame frame = new ABSFrame();
     
+    //Singleton
     public static ABSFrame getInstance(){
         return frame;
     }
@@ -76,15 +77,18 @@ public class ABSFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //ウィンドウサイズ変更時の処理
     private void absPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_absPanelComponentResized
         // TODO add your handling code here:
+        //ABSが可視化状態かつサイズ変更時に再描画する
         if(ABSVisualizer.state)
             ABSVisualizer.getInstance().resizeABSArea();
     }//GEN-LAST:event_absPanelComponentResized
 
+    //ウィンドウ終了時の処理
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-        OutputInstance.close();
+        //OutputInstance.close();
     }//GEN-LAST:event_formWindowClosed
 
     public void execute() {
@@ -122,7 +126,8 @@ public class ABSFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel absPanel;
     // End of variables declaration//GEN-END:variables
-
+    
+    //ABSの描画エリアの取得
     public javax.swing.JPanel getABSPanel(){
         return absPanel;
     }

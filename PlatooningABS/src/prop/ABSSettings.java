@@ -8,10 +8,12 @@ package prop;
 import prop.json.ABSJSONReader;
 
 /**
- *
- * @author 悠也
+ * ABSで用いられる実験パラメータを管理するクラス
+ * @author murata
  */
 public interface ABSSettings {
-    public static String settingFileName = "platooning_abs_param_demo.json";
+    //実験パラメータの設定ファイル
+    public static String settingFileName = "platooning_abs_param.json";
+    //JSONファイルのリーダー
     public static ABSJSONReader json = ABSJSONReader.getInstance();
 }

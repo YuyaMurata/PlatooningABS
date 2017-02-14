@@ -5,36 +5,39 @@
  */
 package root;
 
-import exec.StepExecutor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
 import obj.BusStops;
 
 /**
- *
+ * バス停間のルート管理用のクラス
  * @author murata
  */
 public class RootManager{
     private static RootManager manager = new RootManager();
+    private static Random rand = new Random();
     
-    Map<Object, List<String>> root = new HashMap<>();
-    Map<Object, List<List>> candidatePath = new HashMap();
+    private Map<Object, List<String>> root = new HashMap<>(); //ルート管理
+    private Map<Object, List<List>> candidatePath = new HashMap(); //ルート候補の管理
     
+    //Singleton
     public static RootManager getInstance(){
         return manager;
     }
     
+    //移動経路の作成
     public void createRoot(Map<Object, List<String>> root){
         //root
         this.root = root;
         
+        //ダイクストラ法の準備
         RootDijkstra path = new RootDijkstra();
         int[][] adjRoot = path.createAdjencyMatrix();
         
+        //すべてのバス停を始点，終点とした最短経路を計算
         for(int i=0; i < adjRoot.length; i++){
             List rootShort = new ArrayList();
             BusStopVertex[] busStopPath = path.dijkstra(adjRoot, i);
@@ -49,41 +52,26 @@ public class RootManager{
                 rootShort.add(rootBusStopNames);      
             }
             
+            //経路候補の保存
             candidatePath.put(BusStops.getBusStop(i).name, rootShort);
         }
         
-        //Check
+        //最短経路の道順を保存
         for(Object key : candidatePath.keySet()){
             //System.out.println(key+":"+candidatePath.get(key));
             for(List l : candidatePath.get(key)){
-                Object ra = "";
+                Object rootName = "";
                 for(int i=0; i < l.size()-1; i++){
                     Object r = getRoot((String)l.get(i), (String)l.get(i+1));
-                    if(ra.equals(r)) l.remove((String)l.get(i));
-                    ra = r;
+                    if(rootName.equals(r)) l.remove((String)l.get(i));
+                    rootName = r;
                 }
             }
             System.out.println(key+":"+candidatePath.get(key));
         }
     }
     
-    public Object compareRoot(){
-        Map<Object, Integer> compMap = new HashMap();
-        for(Object rootNo : root.keySet()){
-            int comp = 0;
-            for(String busStopName : root.get(rootNo))
-                comp = comp + BusStops.getBusStop(busStopName).getQueueLength(rootNo);
-            compMap.put(rootNo, comp);
-        }
-        
-        System.out.println(compMap);
-        
-        Entry<Object, Integer> v = compMap.entrySet().stream()
-                                                    .max((e1,e2) -> e1.getValue() - e2.getValue()).get();
-        
-        return v.getKey();
-    }
-    
+    /*
     private Long nstep = 0L;
     private Map<Object, Integer> ncompMap = new HashMap();
     private Entry<Object, Integer> vq;
@@ -123,6 +111,7 @@ public class RootManager{
         }else
             return null;
     }
+    */
     
     //Root List
     public List getRootList(){
@@ -137,23 +126,26 @@ public class RootManager{
     
     //BusStopName -> Root
     public Object getRoot(String dept, String dest){
-        Entry<Object,List<String>> v = root.entrySet().stream()
+        //始点，終点からルートを検索
+        Object rootName = root.entrySet().stream()
                                             .filter(e -> e.getValue().contains(dept) && e.getValue().contains(dest))
-                                            .findFirst().get();
+                                            .findFirst().get().getKey();
         
-        return v.getKey();
+        return rootName;
     }
     
+    //巡回バスの経路を取得
     public List getRootPath(Object rootNo){
         return root.get(rootNo);
     }
     
+    //人の目的地までの経路候補を取得
     public List<String> getCandidatePath(String bsName){
         int n = candidatePath.get(bsName).size();
         return (List<String>) candidatePath.get(bsName).get(rand.nextInt(n));
     }
     
-    private static Random rand = new Random();
+    //経路候補取得時の乱数
     public static void setSeed(long seed){
         if(seed != -1) rand.setSeed(seed);
     }

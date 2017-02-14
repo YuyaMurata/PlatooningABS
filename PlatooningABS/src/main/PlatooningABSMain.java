@@ -22,15 +22,15 @@ public class PlatooningABSMain implements ABSSettings{
         //Parameter
         json.absJSONRead();
         
-        //File
+        //Log File
         OutputInstance.NewFilePeopleLog(json.param.fileName);
         OutputInstance.NewFileTraceLog(json.param.traceFileName);
         
-        //Universe
+        //遊園地クラスの初期化
         AmusementPark park = AmusementPark.getInstance();
         park.init();
         
-        //Agent
+        //Create Agent & Object
         BusStops.generate();  //goal
         BusAgents.generate(); //agent
         
@@ -42,10 +42,12 @@ public class PlatooningABSMain implements ABSSettings{
         StepExecutor step = new StepExecutor();
         long time = 0L;
         while(true){
-            time++;
-            step.execute(time);
+            //1Step 実行
+            step.execute(time++);
             
+            //実験終了処理
             if(step.finishCheck()){
+                //LogFileの出力
                 OutputInstance.dataPeopleLog.write("Finish Steps, "+time);
                 System.out.println("Finish Steps, "+time);
                 OutputInstance.close();
