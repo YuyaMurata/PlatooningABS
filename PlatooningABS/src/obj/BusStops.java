@@ -90,19 +90,6 @@ public class BusStops implements ABSSettings{
         return new ArrayList<BusStop>(busStops.values());
     }
     
-    /*
-    public static List<String> getRootPath(Object rootNo){
-        return RootManager.getInstance().getRootPath(rootNo);
-    }
-    
-    public static Object getRootNO(String busName){
-        return RootManager.getInstance().getRoot(busName);
-    }
-    */    
-
-    //public static Object getRootNO(String deptBusStop, String destBusStop){
-    //    return RootManager.getInstance().getRoot(deptBusStop, destBusStop);
-    //}
     //キューの発生処理
     public static void occureQueue(){
         //各バス停で人の発生処理
@@ -121,30 +108,24 @@ public class BusStops implements ABSSettings{
         }
     }
     
-    //public static Object compareRoot(){
-    //    //return RootManager.getInstance().compareRoot();
-    //    return RootManager.getInstance().compareRootQueue();
-    //}
-    
-    //public static List<String> getCandidatePath(String bsName){
-    //    return RootManager.getInstance().getCandidatePath(bsName);
-    //}
-    
+    //シミュレーションの終了確認
     public static Boolean finish(){
         return busStops.values().stream()
                 .allMatch(stop -> (stop.finish()));
     }
     
+    //コンソールログ出力
     public static void printLog(){
         if(json.param.loggingSW)
             busStops.values().stream().forEach(System.out::println);
     }
     
+    //トレースログ出力
     public static String traceLog(){
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for(String bsName : busStops.keySet()){
-            sb.append(getBusStop(bsName).toString("trace"));
+            sb.append(getBusStop(bsName).toString());
             sb.append(",");
         }
         sb.deleteCharAt(sb.length()-1);
@@ -152,12 +133,8 @@ public class BusStops implements ABSSettings{
         return sb.toString();
     }
     
+    //人発生時の乱数シード
     private static void setSeed(long seed){
         if(seed != -1) rand.setSeed(seed);
-    }
-    
-    public static void main(String[] args) {
-        json.absJSONRead();
-        BusStops.generate();
     }
 }

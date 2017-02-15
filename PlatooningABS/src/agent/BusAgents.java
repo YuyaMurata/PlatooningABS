@@ -9,10 +9,7 @@ import bus.SampleBusAgent;
 import bus.SampleRobotBusAgent;
 import center.CenterInfo;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import obj.BusStops;
 import prop.ABSSettings;
 
 /**
@@ -20,27 +17,21 @@ import prop.ABSSettings;
  * @author murata
  */
 public class BusAgents implements ABSSettings{
-    private static List<AbstractBusAgent> busAgents;
-    private static int man;
-    private static Map<Object, List<BusAgent>>busRoot;
-    private static int leaderNum;
-    public static Boolean changeLineSW;
+    private static List<AbstractBusAgent> busAgents; //BusAgentリスト
+    private static int man; //バス(人)の数
+    private static int leaderNum; //初期のリーダーの振り分け 
+    public static Boolean changeLineSW; //隊列の組み換え　true=あり
     
+    //Bus Agentの作成
     public static void generate(){
+        //リーダーバスの振り分け初期化
         leaderNum = 0;
         
-        if(busAgents != null) {
-            initialize();
-            return ;
-        }
-        
+        //BusAgent 初期化
         int n = json.param.numBusAgents;
         man = json.param.numHuman;
         changeLineSW = json.param.changeLineSW;
-        
         busAgents = new ArrayList();
-        busRoot = new HashMap();
-        
         AbstractBusAgent.setParam(json.param.maxPassengers, 
                                    json.param.lostProb,
                                    json.param.seed);
@@ -53,9 +44,6 @@ public class BusAgents implements ABSSettings{
             busAgents.add(bus);
         }
         
-        //Deploy Bus at BusStop
-        //deployBusAgents();
-        
         //Robot Bus Create
         if(n-man > 0)
             for(int i=man; i < n; i++){
@@ -67,82 +55,42 @@ public class BusAgents implements ABSSettings{
         busAgents.stream().forEach(System.out::println);
     }
     
-    private static void initialize(){
-        //System.out.println("Initalize BusAgents !");
-        
-        //init Human Bus
-        //deployBusAgents();
-        
-        //init Robot Bus
-        //for(BusAgent bus : busAgents)
-        //    bus.init();
-    }
-    
-    /*
-    private static void deployBusAgents(){
-        Map<Object, Integer> rootBusStopDeploy = new HashMap();
-        for(BusAgent bus : busAgents){
-            if(bus.type.equals("robot")) continue;
-            
-            if(rootBusStopDeploy.get(bus.root) == null)
-                rootBusStopDeploy.put(bus.root, -1);
-            List<String> rootBusStop = BusStops.getRootPath(bus.root);
-            
-            //BusStopのみに順に配置
-            int deploy = (rootBusStopDeploy.get(bus.root) + 1) % rootBusStop.size();
-            BusStop busStop = BusStops.getBusStop(rootBusStop.get(deploy));
-            
-            //Set Bus Position and Next BusStop
-            bus.nextBusStop = deploy;
-            bus.setBusPos(busStop.x, busStop.y);
-            
-            rootBusStopDeploy.put(bus.root, deploy);
-        }
-    }*/
-    
+    //全BusAgentの取得
     public static List<AbstractBusAgent> getBuses(){
         return busAgents;
     }
     
+    //BusAgent(Robot)にリーダーを振り分ける
     public static Object getLeader(Object robot){
-        //Test
         return busAgents.get((leaderNum++) % man);
-        //return null;
     }
     
+    //通信障害の発生
     public static Boolean getCommState(){
         return json.param.commFailure;
     }
     
-    public static void setRootBus(BusAgent bus){
-        if(busRoot.get(bus.root) == null)
-            busRoot.put(bus.root, new ArrayList<>());
-        
-        busRoot.get(bus.root).add(bus);
-    }
-    
-    public static BusAgent getRootBus(Object rootNo, String name){
-        int i = Math.abs(name.hashCode()) % busRoot.get(rootNo).size();
-        return busRoot.get(rootNo).get(i);
-    }
-    
+    //TypeごとにBusAgentを実行
     public static void execute(String type, CenterInfo info){
         busAgents.stream()
                 .filter(bus -> bus.type.equals(type))
                 .forEach(bus -> ((AbstractBusAgent)bus).move(info));
     }
     
+    //BusAgentの終了確認
     public static Boolean finish(){
         return busAgents.stream()
                 .allMatch(bus -> bus.finish());
     
     }
     
+    //ログ出力
     public static void printLog(){
         if(json.param.loggingSW)
             busAgents.stream().forEach(System.out::println);
     }
     
+    //トレースログの出力
     public static String traceLog(){
         StringBuilder sb = new StringBuilder();
         sb.append("[");

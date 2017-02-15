@@ -59,17 +59,17 @@ public class ControlCenter{
         }
         
         //センターの通信情報を保存
-        map.put(CenterInfo.paramID.ROOT_QUEUE, rootQueueMap);
-        map.put(CenterInfo.paramID.ROOT_STEP_QUEUE, rootStepQueueMap);
-        map.put(CenterInfo.paramID.ROOT_BUS, rootBusMap);
+        map.put(CenterInfo.infoID.ROOT_QUEUE, rootQueueMap);
+        map.put(CenterInfo.infoID.ROOT_STEP_QUEUE, rootStepQueueMap);
+        map.put(CenterInfo.infoID.ROOT_BUS, rootBusMap);
         
         //stop
         long stop = System.currentTimeMillis();
-        map.put(CenterInfo.paramID.CALC_TIME, stop-start);
+        map.put(CenterInfo.infoID.CALC_TIME, stop-start);
         
         //Set CenterInformation
-        if(commfailur) info.setParam(map);
-        else info.setParam(null);
+        if(commfailur) info.setInfo(map);
+        else info.setInfo(null);
         
         return info;
     }

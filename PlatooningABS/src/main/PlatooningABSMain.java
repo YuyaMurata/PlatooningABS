@@ -31,16 +31,16 @@ public class PlatooningABSMain implements ABSSettings{
         park.init();
         
         //Create Agent & Object
-        BusStops.generate();  //goal
-        BusAgents.generate(); //agent
+        BusStops.generate();  //BusStopの作成
+        BusAgents.generate(); //BusAgentの作成
         
         //GUI Start
         ABSVisualizer abs = ABSVisualizer.getInstance();
         abs.startVisualize();
         
-        //Execute
-        StepExecutor step = new StepExecutor();
+        //シミュレーションの実行
         long time = 0L;
+        StepExecutor step = new StepExecutor();
         while(true){
             //1Step 実行
             step.execute(time++);

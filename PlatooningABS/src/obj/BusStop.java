@@ -27,7 +27,7 @@ public class BusStop {
     private transient Map<Object, List<People>> queue = new HashMap<>();;
     
     //バス停のルートごとのステップキューの増加量
-    private Map<Object, Long> countStepQueue = new HashMap<>();
+    private Map<Object, Integer> countStepQueue = new HashMap<>();
     
     public BusStop(String name, int x, int y) {
         this.name = name;
@@ -69,21 +69,20 @@ public class BusStop {
         queue.get(rootNo).add(people);
         
         //ステップごとに発生する人のカウント
-        Long count = 0L;
+        int count = 0;
         if(countStepQueue.get(rootNo) != null)
             count = countStepQueue.get(rootNo) + 1;
         countStepQueue.put(rootNo, count);
     }
     
     //ステップごとのキューの増加量を取得
-    public Long getStepQueue(Object rootNo){
-        Long queuePeople = countStepQueue.get(rootNo);
+    public Integer getStepQueue(Object rootNo){
+        Integer queuePeople = countStepQueue.get(rootNo);
         countStepQueue = new HashMap<>();
         
-        if(queuePeople != null)
-            return queuePeople;
+        if(queuePeople == null) return 0;
         
-        return 0L;
+        return queuePeople;
     }
     
     //ルートのキューを取得
@@ -118,10 +117,5 @@ public class BusStop {
     public String toString(){
         if(queue == null) return name+":[x="+x+" ,y="+y+"]";
         return name+":[x="+x+" ,y="+y+"]-[QLine="+getAllQueueLength()+"]";
-    }
-    
-    //TraceLog用
-    public String toString(String trace){
-        return "("+name+","+x+" ,"+y+","+getAllQueueLength()+")";
     }
 }

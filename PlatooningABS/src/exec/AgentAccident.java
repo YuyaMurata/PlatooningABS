@@ -13,19 +13,25 @@ import prop.ABSSettings;
  */
 public class AgentAccident implements ABSSettings{
     private Long period, actTime, time;
+    private Boolean failure;
     
     public AgentAccident(Long period, Long actTime) {
         this.period = period;
         this.actTime = actTime;
+        this.failure = false;
     }
     
-    public void accident(Long step){
+    public Boolean accident(Long step){
+        if(!json.param.commFailure) return false;
+        
         if(step % period == 0){
-            json.param.commFailure = true;
             time = 0L;
-        }else{
-            if(time++ > actTime)
-                json.param.commFailure = false;
+            failure = true;
         }
+        
+        if(time++ < actTime) failure = true;
+        else failure = false;
+        
+        return !failure;
     }
 }

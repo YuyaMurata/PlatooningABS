@@ -42,7 +42,7 @@ public class StepExecutor implements ABSSettings{
         //Test
         //if(step == 10L) commFailure = true;
         
-        //Logging
+        //ログ出力
         printLog("Step : "+step);
         traceLog(step);
         
@@ -53,12 +53,12 @@ public class StepExecutor implements ABSSettings{
         }
     }
     
-    //終了可能か確認
+    //シミュレーションの終了確認
     public Boolean finishCheck(){
         return BusAgents.finish() && BusStops.finish();
     }
     
-    //ログの出力
+    //ログ出力
     public static void printLog(String str){
         if(json.param.loggingSW){
             System.out.println(str);
@@ -69,7 +69,7 @@ public class StepExecutor implements ABSSettings{
         }
     }
     
-    //追跡用のログ出力
+    //トレースログ出力
     public static void traceLog(Long step){
         if(json.param.traceSW){
             StringBuilder sb = new StringBuilder();

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import obj.BusStop;
-import obj.BusStops;
 import obj.People;
 import park.AmusementPark;
 import root.RootManager;
