@@ -13,14 +13,15 @@ import java.util.Map;
 import obj.BusStop;
 
 /**
- *
- * @author kaeru
+ * ABSパラメータ
+ * JSONで読み込まれるため，このクラスを書き換えても反映されない
+ * @author murata
  */
 public class ABSParameter {
     //File
-    public String folderName = "experiments"; 
-    public String fileName = "platooning_abs_log.txt";
-    public String fieldName = "PID, BUS, Root, BusTime, QueueTime";
+    public String folderName = "experiments"; //繰り返し実験用のフォルダ 
+    public String peopleFileName = "platooning_abs_log.txt"; //発生した人の行動ログ
+    public String peopleFieldName = "PID, BUS, Root, BusTime, QueueTime"; 
     public String traceFileName = "platooning_abs_tracelog.txt";
     public String traceFieldName = 
             "STEP, BUS(name, type, x, y, n.pass, root, leader), BUSSTOP(name, x, y, queue)";

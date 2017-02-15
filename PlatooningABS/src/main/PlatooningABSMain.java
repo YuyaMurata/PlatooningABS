@@ -23,7 +23,7 @@ public class PlatooningABSMain implements ABSSettings{
         json.absJSONRead();
         
         //Log File
-        OutputInstance.NewFilePeopleLog(json.param.fileName);
+        OutputInstance.NewFilePeopleLog(json.param.peopleFileName);
         OutputInstance.NewFileTraceLog(json.param.traceFileName);
         
         //遊園地クラスの初期化

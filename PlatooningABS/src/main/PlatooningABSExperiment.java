@@ -61,7 +61,7 @@ public class PlatooningABSExperiment implements ABSSettings{
             System.out.println("> Experiment:"+i);
             
             //File
-            OutputInstance.NewFilePeopleLog(dirLogName+"\\exec_"+i+"_"+json.param.fileName);
+            OutputInstance.NewFilePeopleLog(dirLogName+"\\exec_"+i+"_"+json.param.peopleFileName);
             OutputInstance.NewFileTraceLog(dirTraceName+"\\exec_"+i+"_"+json.param.traceFileName);
             
             //Universe

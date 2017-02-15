@@ -71,62 +71,20 @@ public class RootManager{
         }
     }
     
-    /*
-    private Long nstep = 0L;
-    private Map<Object, Integer> ncompMap = new HashMap();
-    private Entry<Object, Integer> vq;
-    public Object compareRootQueue(){
-        long step = StepExecutor.step;
-        if(step == nstep){
-            if(vq == null) return null;
-            else return vq.getKey();
-        }
-        
-        Map<Object, Integer> compMap = new HashMap();
-        for(Object rootNo : root.keySet()){
-            int comp = 0;
-            for(String busStopName : root.get(rootNo))
-                comp = comp + BusStops.getBusStop(busStopName).getStepQueue(rootNo).intValue();
-            compMap.put(rootNo, comp);
-        }
-        
-        System.out.println("comp="+compMap);
-        
-        // M/M/1 W= L/λ
-        Map<Object, Integer> wmap = new HashMap();
-        for(Object rootNo : ncompMap.keySet()){
-            int l = compMap.get(rootNo);
-            System.out.println("L="+l+" step="+step+", "+nstep);
-            int w = (int) (l / (step - nstep));
-            
-            wmap.put(rootNo, w);
-        }
-        
-        nstep = step;
-        
-        if(!wmap.isEmpty()){
-            vq = wmap.entrySet().stream()
-                                    .max((e1,e2) -> e1.getValue() - e2.getValue()).get();
-            return vq.getKey();
-        }else
-            return null;
-    }
-    */
-    
-    //Root List
+    //Rootリストを取得
     public List getRootList(){
         return new ArrayList(root.keySet());
     }
     
-    //BusName -> Root
+    //BusNameからRootを取得
     public Object getRoot(String busName){
         int i = Math.abs(busName.hashCode()) % root.size();
         return root.keySet().toArray()[i];
     }
     
-    //BusStopName -> Root
+    //BusStopNameからRootを取得
     public Object getRoot(String dept, String dest){
-        //始点，終点からルートを検索
+        //始点，終点が属するルートを検索
         Object rootName = root.entrySet().stream()
                                             .filter(e -> e.getValue().contains(dept) && e.getValue().contains(dest))
                                             .findFirst().get().getKey();
@@ -145,7 +103,7 @@ public class RootManager{
         return (List<String>) candidatePath.get(bsName).get(rand.nextInt(n));
     }
     
-    //経路候補取得時の乱数
+    //人の経路候補取得時の乱数
     public static void setSeed(long seed){
         if(seed != -1) rand.setSeed(seed);
     }

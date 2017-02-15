@@ -6,13 +6,13 @@
 package root;
 
 /**
- *
+ * ダイクストラ用のVertexクラス
  * @author murata
  */
 public class BusStopVertex implements Comparable{
-    public int to;
-    public int from;
-    public int cost;
+    public int to; //頂点の接続先　from -> Vertex -> to
+    public int from; //頂点の接続元 
+    public int cost; //接続コスト
     public BusStopVertex(int source, int target, int cost) {
         this.from = source;
         this.to = target;
@@ -23,6 +23,7 @@ public class BusStopVertex implements Comparable{
         return from+"->"+to+"["+cost+"]";
     }
 
+    //接続コスト比較
     @Override
     public int compareTo(Object o) {
         BusStopVertex v = (BusStopVertex) o;

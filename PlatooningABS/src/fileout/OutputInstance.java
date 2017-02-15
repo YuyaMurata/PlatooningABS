@@ -17,7 +17,7 @@ public class OutputInstance {
         dataPeopleLog = new OutputData(filename);
         
         //Field
-        dataPeopleLog.write(json.param.fieldName);
+        dataPeopleLog.write(json.param.peopleFieldName);
     }
     
     public static OutputData dataTraceLog;
