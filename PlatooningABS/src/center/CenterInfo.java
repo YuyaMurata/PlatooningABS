@@ -38,7 +38,13 @@ public class CenterInfo {
         return (Map<Object, List<Integer>>) infoMap.get(infoID.ROOT_STEP_QUEUE);
     }
     
+    //障害が発生 = true
+    public Boolean isEmpty(){
+        return infoMap == null;
+    }
+    
     public String toString(){
+        if(infoMap == null) return "通信障害発生 !";
         return infoMap.toString();
     }
 }

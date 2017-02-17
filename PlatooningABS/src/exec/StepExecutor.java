@@ -13,8 +13,8 @@ import obj.BusStops;
 import prop.ABSSettings;
 
 /**
- * 単一ステップの実行用クラス
- * @author kaeru
+ * 1ステップの実行用クラス
+ * @author murata
  */
 public class StepExecutor implements ABSSettings{
     public static Long step = 0L; //Step数
@@ -34,13 +34,10 @@ public class StepExecutor implements ABSSettings{
         
         //Center Communication
         CenterInfo info = ControlCenter.comm();
-        System.out.println(info.toString());
+        System.out.println(info);
         
         //Agent Execute (robot)
         BusAgents.execute("robot", info);
-        
-        //Test
-        //if(step == 10L) commFailure = true;
         
         //ログ出力
         printLog("Step : "+step);

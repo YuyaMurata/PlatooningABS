@@ -86,12 +86,12 @@ public abstract class AbstractBusAgent {
     //バス位置の設定
     public void setBusPos(int x, int y){        
         //Before
-        key[0] = this.x+"-"+this.y;
+        key[0] = this.x+","+this.y;
         
         //After
         this.x = x;
         this.y = y;
-        key[1] = x+"-"+y;
+        key[1] = x+","+y;
         
         //遊園地に状態を記録
         park.setBusAgent(this);

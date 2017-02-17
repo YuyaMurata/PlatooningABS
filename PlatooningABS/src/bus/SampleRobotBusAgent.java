@@ -19,8 +19,9 @@ import java.util.Map;
  * @author murata
  */
 public class SampleRobotBusAgent extends AbstractBusAgent{
-    private Object leader;
-    private Object root;
+    private Object leader; //ルート内の先頭車両
+    private Object root; //運行ルート
+    private Object follow; //障害時の先頭車両
     //待ち行列理論でのルート比較
     private LinkedList<Map<Object, List<Integer>>> rootTimeToQueue;
     
@@ -42,6 +43,27 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
         root = bus.root();
     }
     
+    //センター通信障害時の処理 近隣バスの探索とFollowの更新
+    public Point nearestBus(){ 
+        List near = BusAgents.nearestBus(super.key[1], 1);
+        System.out.println(name+":"+near);
+        System.out.println(name+"->"+follow);
+        
+        if(near.contains(follow)) return BusAgents.getBusPos(follow);
+        else follow = null;
+        
+        if(near.isEmpty()) return super.getBusPos();
+        else if(near.contains(leader)){
+            System.out.println(name+" Follow Leader:"+leader);
+            follow = leader;
+        } else{
+            System.out.println(name+" Follow:"+near.get(0));
+            follow = near.get(0);
+        }
+        
+        return BusAgents.getBusPos(follow);
+    }
+    
     //隊列変更処理
     public void change(CenterInfo info){
         //乗員がいる場合は，隊列を変更しない
@@ -50,11 +72,16 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
         //ルートごとのキューを比較し，キューが最大のルートを返す
         //root = compRootQueue(info.getRootQueue());
         root = compRootQueue(info.getRootStepQueue(), 3);
+        
+        leader = info.getRootBus(root(), name)[0];
     }
     
     //行動ルール
     @Override
     public Point planning(CenterInfo info) {
+        //センター通信障害時の処理
+        if(info.isEmpty()) return nearestBus();
+        
         //隊列変更
         change(info);
         

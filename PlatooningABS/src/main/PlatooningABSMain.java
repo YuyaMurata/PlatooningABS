@@ -22,7 +22,7 @@ public class PlatooningABSMain implements ABSSettings{
         //Parameter
         json.absJSONRead();
         
-        //Log File
+        //ログファイルの作成
         OutputInstance.NewFilePeopleLog(json.param.peopleFileName);
         OutputInstance.NewFileTraceLog(json.param.traceFileName);
         
@@ -39,7 +39,7 @@ public class PlatooningABSMain implements ABSSettings{
         abs.startVisualize();
         
         //シミュレーションの実行
-        long time = 0L;
+        long time = 1L;
         StepExecutor step = new StepExecutor();
         while(true){
             //1Step 実行
@@ -47,7 +47,7 @@ public class PlatooningABSMain implements ABSSettings{
             
             //実験終了処理
             if(step.finishCheck()){
-                //LogFileの出力
+                //ログファイルの出力
                 OutputInstance.dataPeopleLog.write("Finish Steps, "+time);
                 System.out.println("Finish Steps, "+time);
                 OutputInstance.close();

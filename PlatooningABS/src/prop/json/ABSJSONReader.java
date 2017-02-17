@@ -17,18 +17,22 @@ import prop.ABSParameter;
 import prop.ABSSettings;
 
 /**
- *
- * @author kaeru
+ * JSONファイル(パラメータファイル)の読み込み
+ * gson-2.8.0.jarにパスを通しておく必要あり
+ * @author murata
  */
 public class ABSJSONReader {
-    private static ABSJSONReader paramJSON = new ABSJSONReader();
-    public ABSParameter param;
+    private static ABSJSONReader paramJSON = new ABSJSONReader(); //JSON
+    public ABSParameter param; //パラメータ管理クラス
     
+    //Singleton
     public static ABSJSONReader getInstance(){
         return paramJSON;
     }
     
+    //JSONファイルへの書き込み
     public void absJSONWrite() {
+        //パラメータクラスをJSONWriterに渡す
         try (JsonWriter writer = 
             new JsonWriter(new BufferedWriter(new FileWriter(ABSSettings.settingFileName)))) {
             
@@ -42,6 +46,7 @@ public class ABSJSONReader {
         }
     }
     
+    //JSONファイルの読み込み
     public void absJSONRead() {
         try (JsonReader reader = 
             new JsonReader(new BufferedReader(new FileReader(ABSSettings.settingFileName)))) { 
@@ -56,6 +61,7 @@ public class ABSJSONReader {
         }
     }
     
+    //実行するとABSParameterクラスからJSONファイルを作成可能
     public static void main(String[] args) {
         getInstance().absJSONWrite();
         getInstance().absJSONRead();

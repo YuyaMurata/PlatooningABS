@@ -6,6 +6,7 @@
 package center;
 
 import agent.BusAgents;
+import exec.StepExecutor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ import root.RootManager;
  * @author murata
  */
 public class ControlCenter{
-    public static Boolean commfailur = true;
+    private static CenterAccident fault = new CenterAccident();
     
     //センター間の通信処理
     public static CenterInfo comm(){
@@ -68,8 +69,11 @@ public class ControlCenter{
         map.put(CenterInfo.infoID.CALC_TIME, stop-start);
         
         //Set CenterInformation
-        if(commfailur) info.setInfo(map);
-        else info.setInfo(null);
+        if(fault.accident(StepExecutor.step)) {
+            //通信障害発生
+            info.setInfo(null);
+        }
+        else info.setInfo(map);
         
         return info;
     }

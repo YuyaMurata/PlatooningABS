@@ -6,11 +6,13 @@
 package park;
 
 import agent.AbstractBusAgent;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 import obj.BusStop;
 
 /**
@@ -21,8 +23,8 @@ import obj.BusStop;
 public class AmusementPark { 
     private static AmusementPark park = new AmusementPark();
     
-    private Map objectMap = new ConcurrentHashMap<>(); //オブジェクトの管理
-    private Map agentMap = new ConcurrentHashMap<>(); //Agentの管理
+    private Map<Object, BusStop> objectMap = new ConcurrentHashMap<>(); //オブジェクトの管理
+    private Map<Object, List<AbstractBusAgent>> agentMap = new ConcurrentHashMap<>(); //Agentの管理
     
     
     //Singleton
@@ -78,5 +80,30 @@ public class AmusementPark {
     //可視化用にAgent情報を取得
     public Collection<List<AbstractBusAgent>> getBusAgents(){
         return agentMap.values();
+    }
+    
+    //lowerKey(x,y) upperKey(x,y)に挟まれた範囲に存在するバスを取得
+    public List nearestBus(Object lowerKey, Object upperKey){
+        int[] lowerPos = keyToPos(lowerKey);
+        int[] upperPos = keyToPos(upperKey);
+        
+        return agentMap.entrySet().stream()
+                .filter(e -> {
+                    int[] pos = keyToPos(e.getKey());
+                    Boolean xr = lowerPos[0] <= pos[0] && pos[0] <= upperPos[0];
+                    Boolean yr = lowerPos[1] <= pos[1] && pos[1] <= upperPos[1];
+                    return xr && yr;
+                })
+                .map(e -> e.getValue())
+                .flatMap(list -> list.stream().filter(bus -> !bus.type.equals("robot")).map(bus -> bus.name))
+                .collect(Collectors.toList());
+    }
+    
+    //管理キー(x,y)を座標データに変換
+    public int[] keyToPos(Object key){
+        String pos[] = key.toString().split(",");
+
+        return Arrays.stream(pos)
+                    .mapToInt(s -> Integer.parseInt(s)).toArray();
     }
 }

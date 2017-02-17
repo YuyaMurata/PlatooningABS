@@ -14,7 +14,7 @@ import prop.ABSSettings;
 import root.RootManager;
 
 /**
- * バス停を一括管理するクラス
+ * バス停を管理するクラス
  * @author kaeru
  */
 public class BusStops implements ABSSettings{

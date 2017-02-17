@@ -8,20 +8,20 @@ import java.io.PrintWriter;
 import prop.ABSSettings;
 
 /**
+ * ログデータファイル出力クラス
  * Output Log File
  */
 public class OutputData implements ABSSettings{
-
-    private String filename;
-
+    private String filename; //ログファイル名
+    private PrintWriter pw; //ファイル出力用
+    
     public OutputData(String filename) {
         // TODO 自動生成されたコンストラクター・スタブ
         this.filename = filename;
         init();
     }
 
-    private PrintWriter pw;
-
+    //出力ファイルの初期化
     private void init() {
         try {
             File file = new File(filename);
@@ -30,11 +30,13 @@ public class OutputData implements ABSSettings{
         }
     }
 
+    //ファイルへの書き込み
     public void write(String str) {
         if(json.param.consoleSW) System.out.println(str); 
         else pw.println(str);
     }
 
+    //ファイルのクローズ (実際のファイルに書き込まれる)
     public void close() {
         pw.close();
     }

@@ -1,7 +1,7 @@
 {
   "folderName": "experiments",
-  "fileName": "platooning_abs_log.txt",
-  "fieldName": "PID, BUS, Root, BusTime, QueueTime",
+  "peopleFileName": "platooning_abs_log.txt",
+  "peopleFieldName": "PID, BUS, Root, BusTime, QueueTime",
   "traceFileName": "platooning_abs_tracelog.txt",
   "traceFieldName": "STEP, BUS(name, type, x, y, n.pass, root, leader), BUSSTOP(name, x, y, queue)",
   "consoleSW": false,
@@ -10,12 +10,12 @@
   "renderTime": 200,
   "busStopIMG": {
     "0": "./img/busstop/s_137785.png",
-    "1": "./img/busstop/s_137785b.png",
-    "10": "./img/busstop/s_137785lb.png",
-    "20": "./img/busstop/s_137785g.png",
-    "30": "./img/busstop/s_137785y.png",
-    "40": "./img/busstop/s_137785o.png",
-    "50": "./img/busstop/s_137785r.png"
+    "50": "./img/busstop/s_137785o.png",
+    "20": "./img/busstop/s_137785lb.png",
+    "40": "./img/busstop/s_137785y.png",
+    "10": "./img/busstop/s_137785b.png",
+    "60": "./img/busstop/s_137785r.png",
+    "30": "./img/busstop/s_137785g.png"
   },
   "busIMG": [
     "./img/bus/s_121278.png",
@@ -24,7 +24,7 @@
     "./img/bus/s_121278g.png",
     "./img/bus/s_121278y.png"
   ],
-  "numOfExec": 100,
+  "numOfExec": 10,
   "stepWaitTime": 400,
   "column": 9,
   "row": 9,
@@ -32,8 +32,7 @@
   "numHuman": 2,
   "maxPassengers": 10,
   "lostProb": -1.0,
-  "commFailure": false,
-  "changeLineSW" : true,
+  "changeLineSW": true,
   "root": {
     "root0": [
       "BusStop_0",
@@ -52,29 +51,37 @@
     {
       "name": "BusStop_0",
       "x": 0,
-      "y": 0
+      "y": 0,
+      "countStepQueue": {}
     },
     {
       "name": "BusStop_1",
       "x": 0,
-      "y": 8
+      "y": 8,
+      "countStepQueue": {}
     },
     {
       "name": "BusStop_2",
       "x": 8,
-      "y": 8
+      "y": 8,
+      "countStepQueue": {}
     },
     {
       "name": "BusStop_3",
       "x": 8,
-      "y": 0
+      "y": 0,
+      "countStepQueue": {}
     },
     {
       "name": "BusStop_4",
       "x": 4,
-      "y": 4
+      "y": 4,
+      "countStepQueue": {}
     }
   ],
   "seed": -1,
-  "amountPeople": 100
+  "amountPeople": 100,
+  "failureSW": true,
+  "accidentPeriod": 10,
+  "accidentTime": 2
 }

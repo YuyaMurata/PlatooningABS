@@ -44,7 +44,7 @@ public class BusStop {
         this.y = y;
         
         //遊園地にバス停を配置
-        key = x+"-"+y;
+        key = x+","+y;
         AmusementPark.getInstance().setBusStop(this);
     }
     
