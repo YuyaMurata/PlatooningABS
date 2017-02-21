@@ -166,7 +166,21 @@ public abstract class AbstractBusAgent {
         return passengers.isEmpty();
     }
     
+    @Override
     public String toString(){
-        return name+"<"+type+">:[x="+x+" ,y="+y+"]-["+getNumPassengers()+"]";
+        StringBuilder sb = new StringBuilder();
+        sb.append(name);
+        sb.append("<");
+        sb.append(type);
+        sb.append(">");
+        sb.append(":[x=");
+        sb.append(x);
+        sb.append(" ,y=");
+        sb.append(y);
+        sb.append("]");
+        sb.append("-[PAX=");
+        sb.append(getNumPassengers());
+        sb.append("]");
+        return sb.toString();
     }
 }

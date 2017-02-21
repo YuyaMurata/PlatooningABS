@@ -5,12 +5,16 @@
  */
 package obj;
 
+import fileout.OutputInstance;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 import prop.ABSSettings;
+import queue.type.PopularAtractionQueue;
+import queue.QueueGenerator;
 import root.RootManager;
 
 /**
@@ -18,10 +22,12 @@ import root.RootManager;
  * @author kaeru
  */
 public class BusStops implements ABSSettings{
+    private static int numOfBusStops; //バス停の数
     private static Map<String, BusStop> busStops; //全バス停
     private static List<String>nameList; //全バス停の名前
     private static int amount; //実験で発生する人の数
     private static Random rand = new Random(); //人発生用の乱数
+    private static QueueGenerator queGen; //待ち行列発生
     
     //バス停の作成
     public static void generate(){
@@ -37,7 +43,7 @@ public class BusStops implements ABSSettings{
         }
         
         //バス停の数
-        int n = json.param.numBusStops;
+        numOfBusStops = json.param.numBusStops;
         
         busStops = new HashMap();
         nameList = new ArrayList<>();
@@ -57,6 +63,10 @@ public class BusStops implements ABSSettings{
         //Form Line
         setSeed(json.param.seed);
         RootManager.setSeed(json.param.seed);
+        
+        //QueueGenerator 初期化
+        queGen = new QueueGenerator(new PopularAtractionQueue("Popular"));
+        queGen.setSeed(json.param.seed);
     }
     
     //簡易初期化
@@ -72,7 +82,7 @@ public class BusStops implements ABSSettings{
     
     //バス停の数を取得
     public static Integer getNumBusStop(){
-        return busStops.size();
+        return numOfBusStops;
     }
     
     //バス停を取得
@@ -87,25 +97,22 @@ public class BusStops implements ABSSettings{
     
     //全バス停を取得
     public static List<BusStop> getBusStops(){
-        return new ArrayList<BusStop>(busStops.values());
+        return new ArrayList(busStops.values());
     }
     
     //キューの発生処理
     public static void occureQueue(){
-        //各バス停で人の発生処理
-        for(BusStop bs : busStops.values()){
-            //バス停での人の発生数
-            int n = rand.nextInt(json.param.maxPassengers);
+        //環境の1ステップの人発生数
+        int n = rand.nextInt(json.param.maxPassengers);
             
-            //環境での人の発生限界のチェック
-            if((amount - n) <= 0) n = amount;
+        //発生限界のチェック
+        if((amount - n) <= 0) n = amount;
             amount = amount - n;
             
-            //バス停に人を発生
-            if(n != 0)
-                for(int i=0; i < n; i++)
-                    bs.queuePeople(new People(bs));
-        }
+        //バス停に人を発生
+        if(n != 0)
+            for(int i=0; i < n; i++)
+                queGen.generate(getBusStops());
     }
     
     //シミュレーションの終了確認
@@ -116,8 +123,10 @@ public class BusStops implements ABSSettings{
     
     //コンソールログ出力
     public static void printLog(){
-        if(json.param.loggingSW)
-            busStops.values().stream().forEach(System.out::println);
+        String str = busStops.values().stream()
+                            .map(stop -> stop.toString())
+                            .collect(Collectors.joining("\n"));
+        OutputInstance.consoleOut(str);
     }
     
     //トレースログ出力

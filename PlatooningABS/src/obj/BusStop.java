@@ -22,6 +22,7 @@ public class BusStop {
     public int x, y; //バス停の位置
     
     public transient Object key; //遊園地クラス上でのバス停の管理キー
+    private transient Integer totalQueue;
     
     //バス停のルートごとのキュー
     private transient Map<Object, List<People>> queue = new HashMap<>();;
@@ -33,6 +34,8 @@ public class BusStop {
         this.name = name;
         this.x = x;
         this.y = y;
+        
+        this.totalQueue = 0;
         
         //バス停の配置
         setBusStop(x, y);
@@ -69,16 +72,19 @@ public class BusStop {
         queue.get(rootNo).add(people);
         
         //ステップごとに発生する人のカウント
-        int count = 0;
-        if(countStepQueue.get(rootNo) != null)
-            count = countStepQueue.get(rootNo) + 1;
-        countStepQueue.put(rootNo, count);
+        if(countStepQueue.get(rootNo) == null)
+            countStepQueue.put(rootNo, 0);
+        countStepQueue.put(rootNo, countStepQueue.get(rootNo)+1);
+        totalQueue++;
     }
     
     //ステップごとのキューの増加量を取得
     public Integer getStepQueue(Object rootNo){
+        //1ステップで発生した人数を取得
         Integer queuePeople = countStepQueue.get(rootNo);
-        countStepQueue = new HashMap<>();
+        
+        //人数カウント初期化
+       countStepQueue.put(rootNo, 0);
         
         if(queuePeople == null) return 0;
         
@@ -110,12 +116,24 @@ public class BusStop {
     //終了確認 バス停のキューがなくなったら終了
     public Boolean finish(){
         return queue.values().stream()
-                        .map(q -> q.isEmpty()).reduce((e1, e2) -> e1 && e2)
-                        .get();
+                        .allMatch(q -> q.isEmpty());
     }
     
+    @Override
     public String toString(){
-        if(queue == null) return name+":[x="+x+" ,y="+y+"]";
-        return name+":[x="+x+" ,y="+y+"]-[QLine="+getAllQueueLength()+"]";
+        StringBuilder sb = new StringBuilder();
+        sb.append(name);
+        sb.append(":[x=");
+        sb.append(x);
+        sb.append(" ,y=");
+        sb.append(y);
+        sb.append("]");
+        
+        if(queue == null) return sb.toString();
+        
+        sb.append("-[QLine=");
+        sb.append(getAllQueueLength());
+        sb.append("]");
+        return sb.toString();
     }
 }

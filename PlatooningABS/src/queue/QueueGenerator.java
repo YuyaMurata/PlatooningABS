@@ -5,24 +5,30 @@
  */
 package queue;
 
+import java.util.List;
 import obj.BusStop;
 
 /**
- *
+ * キュー生成用クラス(ストラテジーパターン)
  * @author murata
  */
 public class QueueGenerator {
-    private QueueType type;
+    private QueueType type; //キューの生成パターン
     
     public QueueGenerator(QueueType type){
         this.type = type;
     }
     
-    public void generate(BusStop stop){
-        type.occureQueue(stop);
+    //バス停リストを渡すことでキューを発生
+    public void generate(List<BusStop> busStops){
+        type.occureQueue(busStops);
     }
     
     public String getName(){
         return type.getName();
+    }
+    
+    public void setSeed(long seed){
+        type.setSeed(seed);
     }
 }

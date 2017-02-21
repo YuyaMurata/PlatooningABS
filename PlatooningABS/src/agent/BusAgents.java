@@ -8,11 +8,13 @@ package agent;
 import bus.SampleBusAgent;
 import bus.SampleRobotBusAgent;
 import center.CenterInfo;
+import fileout.OutputInstance;
 import java.awt.Point;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import park.AmusementPark;
 import prop.ABSSettings;
 
@@ -103,8 +105,10 @@ public class BusAgents implements ABSSettings{
     
     //ログ出力
     public static void printLog(){
-        if(json.param.loggingSW)
-            busAgents.values().stream().forEach(System.out::println);
+        String str = busAgents.values().stream()
+                            .map(bus -> bus.toString())
+                            .collect(Collectors.joining("\n"));
+        OutputInstance.consoleOut(str);
     }
     
     //トレースログの出力

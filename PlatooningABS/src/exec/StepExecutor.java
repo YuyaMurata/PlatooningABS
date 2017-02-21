@@ -57,26 +57,22 @@ public class StepExecutor implements ABSSettings{
     
     //ログ出力
     public static void printLog(String str){
-        if(json.param.loggingSW){
-            System.out.println(str);
+        System.out.println(str);
             
-            //ABS State
-            BusStops.printLog();
-            BusAgents.printLog();
-        }
+        //ABS State
+        BusStops.printLog();
+        BusAgents.printLog();
     }
     
     //トレースログ出力
     public static void traceLog(Long step){
-        if(json.param.traceSW){
-            StringBuilder sb = new StringBuilder();
-            sb.append(step);
-            sb.append(",");
-            sb.append(BusAgents.traceLog());
-            sb.append(",");
-            sb.append(BusStops.traceLog());
+        StringBuilder sb = new StringBuilder();
+        sb.append(step);
+        sb.append(",");
+        sb.append(BusAgents.traceLog());
+        sb.append(",");
+        sb.append(BusStops.traceLog());
             
-            OutputInstance.dataTraceLog.write(sb.toString());
-        }
+        OutputInstance.dataTraceLog.write(sb.toString());
     }
 }

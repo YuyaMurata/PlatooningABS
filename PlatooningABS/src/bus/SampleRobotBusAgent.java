@@ -73,7 +73,7 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
         //root = compRootQueue(info.getRootQueue());
         root = compRootQueue(info.getRootStepQueue(), 3);
         
-        leader = info.getRootBus(root(), name)[0];
+        leader = info.getRootBus(root(), name).get(0);
     }
     
     //行動ルール
@@ -86,7 +86,7 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
         change(info);
         
         //追従バスの位置をセンター情報から受け取り，移動目標とする
-        Point p = (Point) info.getRootBus(root(), name)[1];
+        Point p = (Point) info.getRootBus(root(), name).get(1);
         
         //移動目標を返す
         return p;
@@ -137,9 +137,6 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
             
             wmap.put(r, (int)(w * 1000));
         }
-        
-        System.out.println(wmap);
-        
         
         //t時間でのWが最大のルートを返す
         return wmap.entrySet().stream()

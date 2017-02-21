@@ -8,6 +8,7 @@ package center;
 import agent.BusAgents;
 import exec.StepExecutor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,7 @@ public class ControlCenter{
             BusAgents.getBuses().stream()
                             .filter(bus -> bus.type.equals("man") && bus.root().equals(no))
                             .forEach(bus -> {
-                                rootBusList.add(new Object[]{bus.name, bus.getBusPos()});
+                                rootBusList.add(Arrays.asList(new Object[]{bus.name, bus.getBusPos()}));
                             });
             rootBusMap.put(no, rootBusList);
         }

@@ -16,7 +16,7 @@ public class OutputInstance {
     public static OutputData dataPeopleLog; //人ログデータの管理
     public static void NewFilePeopleLog(String filename){
         //Create File
-        dataPeopleLog = new OutputData(filename);
+        dataPeopleLog = new OutputData(filename, json.param.loggingSW);
         
         //Field
         dataPeopleLog.write(json.param.peopleFieldName);
@@ -26,7 +26,7 @@ public class OutputInstance {
     public static OutputData dataTraceLog; //トレースログの管理
     public static void NewFileTraceLog(String filename){
         //CreateFile
-        dataTraceLog = new OutputData(filename);
+        dataTraceLog = new OutputData(filename, json.param.traceSW);
         
         //Field
         dataTraceLog.write(json.param.traceFieldName);
@@ -35,10 +35,16 @@ public class OutputInstance {
     //サマリーデータの作成
     public static OutputData dataSummary; //サマリーの管理
     public static void NewFileSummary(String filename){
-        dataSummary = new OutputData(filename);
+        dataSummary = new OutputData(filename, true);
         
         //Field
         dataSummary.write("n.exp, avg.step, time[ms]");
+    }
+    
+    //コンソール出力
+    public static void consoleOut(String str){
+        if(json.param.consoleSW)
+            System.out.println(str);
     }
     
     //すべてのファイルをクローズ

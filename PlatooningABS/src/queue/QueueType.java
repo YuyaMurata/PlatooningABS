@@ -5,17 +5,20 @@
  */
 package queue;
 
+import java.util.List;
 import obj.BusStop;
 
 /**
- *
+ * キュー生成用抽象クラス
  * @author murata
  */
 public interface QueueType {
-    public abstract Integer occureQueue(BusStop stop);
+    //キュー発生
+    public abstract Object occureQueue(List<BusStop> busStops);
     
     public abstract String getName();
     
+    //キュー生成時の乱数のシード
     public abstract void setSeed(long seed);
     
     @Override

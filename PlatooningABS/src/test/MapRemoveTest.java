@@ -5,7 +5,10 @@
  */
 package test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,8 +23,10 @@ public class MapRemoveTest {
         map.put("B", "TEST-B");
         map.put("C", "TEST-C");
         
+        map.values().toArray()[0] = "TEST-D";
+        
         map.remove("B");
         
-        System.out.println(map.values());
+        System.out.println(map);
     }
 }
