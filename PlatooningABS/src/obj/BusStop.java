@@ -25,16 +25,18 @@ public class BusStop {
     private transient Integer totalQueue;
     
     //バス停のルートごとのキュー
-    private transient Map<Object, List<People>> queue = new HashMap<>();;
+    private transient Map<Object, List<People>> queue;
     
     //バス停のルートごとのステップキューの増加量
-    private Map<Object, Integer> countStepQueue = new HashMap<>();
+    private transient Map<Object, Integer> countStepQueue;
     
     public BusStop(String name, int x, int y) {
         this.name = name;
         this.x = x;
         this.y = y;
         
+        this.queue = new HashMap<>();
+        this.countStepQueue = new HashMap<>();
         this.totalQueue = 0;
         
         //バス停の配置

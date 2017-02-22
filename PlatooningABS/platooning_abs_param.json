@@ -80,8 +80,8 @@
     }
   ],
   "seed": -1,
-  "amountPeople": 100,
-  "failureSW": false,
+  "amountPeople": 1000,
+  "failureSW": true,
   "accidentPeriod": 10,
   "accidentTime": 2
 }
