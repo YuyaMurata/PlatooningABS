@@ -20,7 +20,7 @@ import prop.ABSSettings;
 public class PlatooningABSMain implements ABSSettings{
     public static void main(String[] args) {
         //Parameter
-        json.absJSONRead();
+        json.absJSONRead(settingFileName);
         
         //ログファイルの作成
         OutputInstance.NewFilePeopleLog(json.param.peopleFileName);

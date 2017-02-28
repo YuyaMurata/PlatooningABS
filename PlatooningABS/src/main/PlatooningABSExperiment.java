@@ -25,7 +25,7 @@ import static prop.ABSSettings.json;
 public class PlatooningABSExperiment implements ABSSettings{
     public static void main(String[] args) {
         //Parameter
-        json.absJSONRead();
+        json.absJSONRead(settingFileName);
         
         //高速化
         json.param.stepWaitTime = 0L;

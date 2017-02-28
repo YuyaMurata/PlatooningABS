@@ -5,8 +5,6 @@
  */
 package agent;
 
-import bus.SampleBusAgent;
-import bus.SampleRobotBusAgent;
 import center.CenterInfo;
 import fileout.OutputInstance;
 import java.awt.Point;
@@ -37,30 +35,34 @@ public class BusAgents implements ABSSettings{
         //遊園地クラスの取得
         park = AmusementPark.getInstance();
         
-        //BusAgent 初期化
+        //AbstractBusAgent 初期化
         int n = json.param.numBusAgents;
-        man = json.param.numHuman;
+        man = 0;
         changeLineSW = json.param.changeLineSW;
         busAgents = new LinkedHashMap();
         AbstractBusAgent.setParam(json.param.maxPassengers, 
                                    json.param.lostProb,
                                    json.param.seed);
         
-        //Human Bus Create
-        for(int i=0; i < man; i++){
-            String name = "BUS_"+i;
-            AbstractBusAgent bus = new SampleBusAgent(name);
-            busAgents.put(name, bus);
+        //Bus Agent
+        for(BusAgent bus : json.param.busAgents){
+            try {
+                Class clazz = Class.forName(bus.getClazz());
+                AbstractBusAgent agent = (AbstractBusAgent) clazz.getConstructor(String.class, String.class)
+                                                                    .newInstance(bus.getName(), bus.getType());
+                busAgents.put(bus.getName(), agent);
+                
+                if(bus.getType().equals("man")) man++;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
         
-        //Robot Bus Create
-        if(n-man > 0)
-            for(int i=man; i < n; i++){
-                String name = "BUS_RB_"+i;
-                busAgents.put(name, new SampleRobotBusAgent(name));
-            }
+        //Bus Agent Initialize
+        for(BusAgent bus : json.param.busAgents)
+            busAgents.get(bus.getName()).init(bus.getParam());
         
-        //Check BusStop
+        //Check BusAgents
         busAgents.values().stream().forEach(System.out::println);
     }
     

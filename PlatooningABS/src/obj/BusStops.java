@@ -11,10 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import prop.ABSSettings;
-import queue.type.PopularAtractionQueue;
+import queue.PopularAtractionQueue;
 import queue.QueueGenerator;
+import queue.QueueType;
 import root.RootManager;
 
 /**
@@ -64,9 +67,14 @@ public class BusStops implements ABSSettings{
         setSeed(json.param.seed);
         RootManager.setSeed(json.param.seed);
         
-        //QueueGenerator 初期化
-        queGen = new QueueGenerator(new PopularAtractionQueue("Popular"));
-        queGen.setSeed(json.param.seed);
+        try {
+            //QueueGenerator 初期化
+            Class clazz = Class.forName(json.param.queueClassName);
+            queGen = new QueueGenerator((QueueType) clazz.getConstructor(String.class).newInstance(clazz.toString()));
+            queGen.setSeed(json.param.seed);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
     //簡易初期化

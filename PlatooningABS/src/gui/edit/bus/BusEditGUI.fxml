@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.edit.bus.BusEditGUIController">
+   <children>
+      <VBox>
+         <children>
+            <TableView fx:id="bus_table" editable="true" layoutX="6.0" layoutY="7.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                <TableColumn fx:id="name_col" prefWidth="101.0" text="Name" />
+                <TableColumn fx:id="type_col" prefWidth="74.0" text="Type" />
+                  <TableColumn fx:id="class_col" prefWidth="199.0" text="Class" />
+                  <TableColumn fx:id="param_col" prefWidth="225.0" text="Parameter" />
+              </columns>
+            </TableView>
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                  <Button fx:id="bus_edit_apply" minWidth="-Infinity" mnemonicParsing="false" onAction="#busEditApply" prefHeight="23.0" prefWidth="65.0" text="Apply" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

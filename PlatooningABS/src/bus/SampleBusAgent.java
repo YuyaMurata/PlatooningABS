@@ -23,12 +23,15 @@ public class SampleBusAgent extends AbstractBusAgent{
     private Point p;
     private List<String> rootPath;
     
-    public SampleBusAgent(String name) {
-        super(name, "man");
-        
+    public SampleBusAgent(String name, String type) {
+        super(name, type);
+    }
+    
+    @Override
+    public void init(String param){
         //ルート情報の設定と初期化
         RootManager rootManager = RootManager.getInstance();
-        this.root = rootManager.getRoot(name);
+        this.root = rootManager.getRoot(super.name);
         this.next = 0;
         this.rootPath = rootManager.getRootPath(root);
         BusStop busStop = BusStops.getBusStop(rootPath.get(next));

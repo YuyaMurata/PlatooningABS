@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
@@ -8,167 +9,293 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <items>
-      <AnchorPane>
+<AnchorPane prefHeight="685.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ABSGUIController">
+   <children>
+      <GridPane prefHeight="685.0" prefWidth="384.0" SplitPane.resizableWithParent="false">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="0.0" prefHeight="54.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="124.0" minHeight="4.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="187.0" minHeight="0.0" prefHeight="107.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="283.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="259.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="224.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="204.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Pane prefHeight="398.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox>
                <children>
-                  <GridPane prefHeight="398.0" prefWidth="287.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="26.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="76.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <Label text="ABS パラメータ" />
+                  <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label text="ABS パラメータ" />
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                        <Label text="File:" />
+                        <TextArea fx:id="param_file" minHeight="23.0" prefHeight="23.0" prefWidth="145.0" promptText="*.json" wrapText="true" HBox.hgrow="ALWAYS" />
+                        <Region prefHeight="29.0" prefWidth="15.0" />
+                        <Button fx:id="param_save" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveABSParameter" prefWidth="50.0" text="Save" />
+                        <Region prefHeight="23.0" prefWidth="7.0" />
+                        <Button fx:id="param_open" minWidth="-Infinity" mnemonicParsing="false" onAction="#openABSParameter" prefWidth="50.0" text="Open" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
+               <children>
+                  <Label text="Visual" />
+                  <HBox>
+                     <children>
+                        <CheckBox fx:id="visual_gui_check" mnemonicParsing="false" text="GUI" />
+                        <Region prefHeight="16.0" prefWidth="30.0" />
+                        <Label text="Speed:" />
+                        <Slider fx:id="visual_gui_slider" value="50.0" />
+                        <Text fx:id="visual_gui_text" strokeType="OUTSIDE" strokeWidth="0.0" text="500ms" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <opaqueInsets>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="349.0" GridPane.rowIndex="2">
+               <children>
+                  <Label text="実験条件" />
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="実験回数:" />
+                        <TextArea fx:id="exp_num" minHeight="23.0" prefHeight="23.0" prefWidth="36.0" promptText="1" />
+                        <Region prefHeight="15.0" prefWidth="23.0" />
+                        <Label text="セル:" />
+                        <TextArea fx:id="cell_col" minHeight="23.0" prefHeight="23.0" prefWidth="36.0" promptText="9" />
+                        <Label text="×" />
+                        <TextArea fx:id="cell_row" minHeight="23.0" prefHeight="23.0" prefWidth="38.0" promptText="9" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Mode" />
+                        <Region prefHeight="61.0" prefWidth="39.0" />
+                        <VBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="272.0" spacing="5.0">
                            <children>
-                              <Label text="実験条件" />
-                              <HBox>
+                              <HBox alignment="CENTER_LEFT">
                                  <children>
-                                    <Label text="回数" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-                                    <CheckBox mnemonicParsing="false" text="GUI" />
-                                    <Label text="Speed" />
-                                    <Slider value="50.0" />
+                                    <RadioButton fx:id="mode_queue_radio" mnemonicParsing="false" selected="true" text="人発生数制限:">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="mode" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <Region prefHeight="23.0" prefWidth="11.0" />
+                                    <TextArea fx:id="mode_limit_queue" minHeight="23.0" prefHeight="23.0" prefWidth="25.0" promptText="100" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
-                              <HBox>
+                              <HBox alignment="CENTER_LEFT">
                                  <children>
-                                    <Label text="セル" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="9" />
-                                    <Label text="×" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="9" />
+                                    <RadioButton fx:id="mode_step_radio" mnemonicParsing="false" selected="true" text="実行ステップ制限:" toggleGroup="$mode" />
+                                    <TextArea fx:id="mode_limit_step" minHeight="23.0" prefHeight="23.0" prefWidth="31.0" promptText="100" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
-                        </VBox>
-                        <VBox prefHeight="90.0" prefWidth="287.0" GridPane.rowIndex="2">
-                           <children>
-                              <HBox>
-                                 <children>
-                                    <Label text="バスエージェント" />
-                                    <Label text="N=" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
-                                    <Label text="最大乗客数=" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10" />
-                                    <Label text="喪失率=" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" />
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                    <CheckBox mnemonicParsing="false" text="隊列変更" />
-                                    <Button mnemonicParsing="false" text="Edit" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
-                           <children>
-                              <HBox>
-                                 <children>
-                                    <Label text="バス停" />
-                                    <Label text="N=" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
-                                    <Button mnemonicParsing="false" text="Edit" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="4">
-                           <children>
-                              <Label text="Queue" />
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Mode" />
-                                    <RadioButton mnemonicParsing="false" text="人発生数制限" />
-                                    <RadioButton mnemonicParsing="false" text="実行ステップ制限" />
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                    <Label text="ステップ発生数" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="20" />
-                                    <Label text="全発生数" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="100" />
-                                    <Label text="全ステップ数" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="81.0" prefWidth="287.0" GridPane.rowIndex="6">
-                           <children>
-                              <Label text="ログ" />
-                              <HBox>
-                                 <children>
-                                    <CheckBox mnemonicParsing="false" text="人ログ" />
-                                    <CheckBox mnemonicParsing="false" text="トレースログ" />
-                                    <CheckBox mnemonicParsing="false" text="コンソールログ" />
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                    <Label text="フォルダパス:" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                    <Label text="人ログ ファイル名:" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                    <Label text="トレースログ ファイル名:" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                                 </children>
-                              </HBox>
-                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                         </VBox>
                      </children>
-                  </GridPane>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
-            </Pane>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" GridPane.rowIndex="3">
+               <children>
+                  <Label text="バスエージェント" />
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="N=" />
+                        <TextArea fx:id="bus_num" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="57.0" promptText="0" HBox.hgrow="ALWAYS" />
+                        <Region prefHeight="25.0" prefWidth="45.0" />
+                        <Label text="最大乗客数=">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <TextArea fx:id="bus_pax_num" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="57.0" promptText="0" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="喪失率=" />
+                        <TextArea fx:id="bus_lost_prob" minHeight="23.0" prefHeight="23.0" prefWidth="119.0" promptText="0.0" HBox.hgrow="ALWAYS" />
+                        <Region prefHeight="23.0" prefWidth="27.0" />
+                        <CheckBox fx:id="bus_platoon_check" mnemonicParsing="false" text="隊列変更" />
+                        <Region prefHeight="23.0" prefWidth="36.0" />
+                        <Button fx:id="busagent_edit" minWidth="-Infinity" mnemonicParsing="false" onAction="#editBusAgent" prefWidth="50.0" text="Edit" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="323.0" GridPane.rowIndex="4">
+               <children>
+                  <Label text="バス停" />
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label minWidth="-Infinity" prefWidth="19.0" text="N=" />
+                        <TextArea fx:id="busstop_num" minHeight="23.0" prefHeight="23.0" prefWidth="114.0" promptText="0" HBox.hgrow="ALWAYS" />
+                        <Region prefHeight="23.0" prefWidth="183.0" />
+                        <Button fx:id="busstop_edit" minWidth="-Infinity" mnemonicParsing="false" onAction="#editBusStop" prefWidth="50.0" text="Edit" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
+               <children>
+                  <Label text="Queue" />
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Step:" />
+                        <TextArea fx:id="queue_step_num" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="23.0" prefWidth="48.0" promptText="20" />
+                        <Region prefHeight="23.0" prefWidth="12.0" />
+                        <Label text="Class:" />
+                        <TextArea fx:id="queue_class" maxHeight="-Infinity" minHeight="23.0" prefHeight="23.0" prefWidth="172.0" promptText="*.class" wrapText="true" HBox.hgrow="ALWAYS" />
+                        <Region />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
+               <children>
+                  <Label text="Center" />
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <CheckBox fx:id="comm_fault_check" mnemonicParsing="false" text="通信障害" />
+                        <Region prefHeight="31.0" prefWidth="11.0" />
+                        <Label text="障害間隔:" />
+                        <TextArea fx:id="comm_fault_period" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="38.0" promptText="10" HBox.hgrow="ALWAYS" />
+                        <Region prefHeight="31.0" prefWidth="10.0" />
+                        <Label text="障害継続時間:" />
+                        <TextArea fx:id="comm_fault_time" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="33.0" promptText="5" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" GridPane.rowIndex="7">
+               <children>
+                  <Label text="ログ" />
+                  <HBox>
+                     <children>
+                        <CheckBox fx:id="log_people_check" mnemonicParsing="false" text="人ログ" />
+                        <Region prefHeight="16.0" prefWidth="16.0" />
+                        <CheckBox fx:id="log_trace_check" mnemonicParsing="false" text="トレースログ" />
+                        <Region prefHeight="16.0" prefWidth="19.0" />
+                        <CheckBox fx:id="log_consol_check" mnemonicParsing="false" text="コンソールログ" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="Folder:" />
+                        <Region prefHeight="23.0" prefWidth="10.0" />
+                        <TextArea fx:id="log_folder" minHeight="23.0" prefHeight="23.0" prefWidth="154.0" promptText="log" wrapText="true" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="People:" />
+                        <Region prefHeight="23.0" prefWidth="8.0" />
+                        <TextArea fx:id="log_people_file" minHeight="23.0" prefHeight="23.0" prefWidth="154.0" promptText="people.log" wrapText="true" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="Trace:" />
+                        <Region prefHeight="15.0" prefWidth="13.0" />
+                        <TextArea fx:id="log_trace_file" minHeight="23.0" prefHeight="23.0" prefWidth="153.0" promptText="trace.log" wrapText="true" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="8">
+               <children>
+                  <Button fx:id="abs_run" layoutX="314.0" layoutY="2.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#runABS" prefHeight="23.0" prefWidth="50.0" text="Run" />
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </AnchorPane>
          </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <GridPane gridLinesVisible="true" layoutX="14.0" layoutY="96.0" prefHeight="398.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-         </children>
-      </AnchorPane>
-   </items>
-</SplitPane>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </GridPane>
+   </children>
+</AnchorPane>

@@ -25,11 +25,14 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
     //待ち行列理論でのルート比較
     private LinkedList<Map<Object, List<Integer>>> rootTimeToQueue;
     
-    public SampleRobotBusAgent(String name) {
-        super(name, "robot");
-        
+    public SampleRobotBusAgent(String name, String type) {
+        super(name, type);
+    }
+    
+    @Override
+    public void init(String param){
         //初期の追従バスを設定し，ルートと位置を初期化
-        AbstractBusAgent leaderBus = (AbstractBusAgent)BusAgents.getLeader(name);
+        AbstractBusAgent leaderBus = (AbstractBusAgent)BusAgents.getLeader(super.name);
         setLeader(leaderBus);
         super.setBusPos(leaderBus.x, leaderBus.y);
         

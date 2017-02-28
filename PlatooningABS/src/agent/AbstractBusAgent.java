@@ -32,6 +32,8 @@ public abstract class AbstractBusAgent {
     public int x, y; //位置
     private List<People> passengers = new ArrayList(); //乗車リスト
     
+    //BusAgent 初期化
+    public abstract void init(String param);
     //Bus Agent 行動ルール
     public abstract Point planning(CenterInfo info);
     //Bus Agent の巡回ルート
@@ -57,8 +59,8 @@ public abstract class AbstractBusAgent {
         //Move
         deltaMove(x, target.x, y, target.y);
         
-        //バス停の到着処理
-        busStopCheck();
+        //バス停での乗降処理
+        boarding(arrivalBusStop());
     }
     
     //Agent 1マス移動 (現在地(x,y start)　→　移動目標(x,y goal))
@@ -103,15 +105,20 @@ public abstract class AbstractBusAgent {
     }
     
     //バス停処理
-    private void busStopCheck(){
+    public BusStop arrivalBusStop(){
         //現在地にバス停が存在するかチェック
-        BusStop busStop = park.arrivalBusStop(key[1]);
-        if(busStop != null){
-            //降車
-            getOff(busStop);
-            //乗車
-            getOn(busStop);
-        }
+        return park.arrivalBusStop(key[1]);
+    }
+    
+    //乗降処理
+    private void boarding(BusStop busStop){
+        if(busStop == null) return ;
+        
+        //降車
+        getOff(busStop);
+        
+        //乗車
+        getOn(busStop);
     }
     
     //乗車処理
@@ -154,6 +161,11 @@ public abstract class AbstractBusAgent {
             }
         }
         return num;
+    }
+    
+    //乗客の人数の取得
+    public List<People> getPassengers(){
+        return passengers;
     }
     
     //乗客の人数の取得

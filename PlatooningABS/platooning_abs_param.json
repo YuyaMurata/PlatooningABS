@@ -5,8 +5,9 @@
   "traceFileName": "platooning_abs_tracelog.txt",
   "traceFieldName": "STEP, BUS(name, type, x, y, n.pass, root, leader), BUSSTOP(name, x, y, queue)",
   "consoleSW": false,
-  "loggingSW": false,
-  "traceSW": false,
+  "loggingSW": true,
+  "traceSW": true,
+  "guiSW": true,
   "renderTime": 200,
   "busStopIMG": {
     "0": "./img/busstop/s_137785.png",
@@ -26,13 +27,42 @@
   ],
   "numOfExec": 10,
   "stepWaitTime": 400,
+  "mode": 0,
+  "seed": -1,
+  "amountPeople": 100,
+  "amountStep": 100,
   "column": 9,
   "row": 9,
   "numBusAgents": 4,
-  "numHuman": 2,
   "maxPassengers": 10,
   "lostProb": -1.0,
   "changeLineSW": true,
+  "busAgents": [
+    {
+      "name": "Bus_0",
+      "type": "man",
+      "clazz": "bus.SampleBusAgent",
+      "param": "param1,param2"
+    },
+    {
+      "name": "Bus_1",
+      "type": "man",
+      "clazz": "bus.SampleBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_2",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_3",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    }
+  ],
   "root": {
     "root0": [
       "BusStop_0",
@@ -46,41 +76,35 @@
     ]
   },
   "numBusStops": 5,
-  "queuingByStep": 20,
   "busStops": [
     {
       "name": "BusStop_0",
       "x": 0,
-      "y": 0,
-      "countStepQueue": {}
+      "y": 0
     },
     {
       "name": "BusStop_1",
       "x": 0,
-      "y": 8,
-      "countStepQueue": {}
+      "y": 8
     },
     {
       "name": "BusStop_2",
       "x": 8,
-      "y": 8,
-      "countStepQueue": {}
+      "y": 8
     },
     {
       "name": "BusStop_3",
       "x": 8,
-      "y": 0,
-      "countStepQueue": {}
+      "y": 0
     },
     {
       "name": "BusStop_4",
       "x": 4,
-      "y": 4,
-      "countStepQueue": {}
+      "y": 4
     }
   ],
-  "seed": -1,
-  "amountPeople": 1000,
+  "queueClassName": "queue.PopularAtractionQueue",
+  "queuingByStep": 20,
   "failureSW": true,
   "accidentPeriod": 10,
   "accidentTime": 2

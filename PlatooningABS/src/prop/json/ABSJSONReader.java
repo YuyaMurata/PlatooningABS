@@ -23,7 +23,7 @@ import prop.ABSSettings;
  */
 public class ABSJSONReader {
     private static ABSJSONReader paramJSON = new ABSJSONReader(); //JSON
-    public ABSParameter param; //パラメータ管理クラス
+    public ABSParameter param = new ABSParameter(); //パラメータ管理クラス
     
     //Singleton
     public static ABSJSONReader getInstance(){
@@ -31,25 +31,25 @@ public class ABSJSONReader {
     }
     
     //JSONファイルへの書き込み
-    public void absJSONWrite() {
+    public void absJSONWrite(String fileName) {
         //パラメータクラスをJSONWriterに渡す
         try (JsonWriter writer = 
-            new JsonWriter(new BufferedWriter(new FileWriter(ABSSettings.settingFileName)))) {
+            new JsonWriter(new BufferedWriter(new FileWriter(fileName)))) {
             
             //Format JSON
             writer.setIndent("  ");
             
             Gson gson = new Gson();
-            gson.toJson(new ABSParameter(), ABSParameter.class, writer);          
+            gson.toJson(param, ABSParameter.class, writer);          
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
     
     //JSONファイルの読み込み
-    public void absJSONRead() {
+    public void absJSONRead(String fileName) {
         try (JsonReader reader = 
-            new JsonReader(new BufferedReader(new FileReader(ABSSettings.settingFileName)))) { 
+            new JsonReader(new BufferedReader(new FileReader(fileName)))) { 
             
             // JSONからオブジェクトへの変換
             Gson gson = new Gson();
@@ -63,8 +63,8 @@ public class ABSJSONReader {
     
     //実行するとABSParameterクラスからJSONファイルを作成可能
     public static void main(String[] args) {
-        getInstance().absJSONWrite();
-        getInstance().absJSONRead();
+        getInstance().absJSONWrite(ABSSettings.settingFileName);
+        getInstance().absJSONRead(ABSSettings.settingFileName);
         System.out.println(getInstance().param);
     }
 }

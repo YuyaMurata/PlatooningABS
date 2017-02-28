@@ -5,6 +5,7 @@
  */
 package prop;
 
+import agent.BusAgent;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class ABSParameter {
     public Boolean traceSW = true; //トレースログの出力切り替え
     
     //Visual
+    public Boolean guiSW = true;    //可視化の切り替え
     public long renderTime = 200; //GUIの表示間隔 [ms]
     //バス停の画像 待ち人数で色を変更可能 put(待ち人数，バス停の色)
     public Map<Integer, String> busStopIMG = new HashMap(){
@@ -53,6 +55,11 @@ public class ABSParameter {
     //Executable
     public int numOfExec = 10; //繰り返し実験の回数
     public long stepWaitTime = 400; //[ms] 1ステップの時間
+    //People -1 = random else set seed
+    public int mode = 0; //0=people 1=step
+    public long seed = -1;// ABS内で利用される全乱数のSeed
+    public int amountPeople = 100; //環境で発生する最大人数
+    public int amountStep = 100; //最大実行ステップ
     
     //Environment　セル[col×row]
     public int column = 9;
@@ -60,10 +67,16 @@ public class ABSParameter {
     
     //BusAgent
     public int numBusAgents = 4; //バス台数
-    public int numHuman = 2; //有人のバス台数
+    //public int numHuman = 2; //有人のバス台数
     public int maxPassengers = 10; //バスの最大乗車数 
     public double lostProb = -1; //無人バスの迷子率
     public Boolean changeLineSW = true; //隊列変更のあり=true，なし
+    public List<BusAgent> busAgents = Arrays.asList(
+            new BusAgent("Bus_0", "man", "bus.SampleBusAgent", "param1,param2"),
+            new BusAgent("Bus_1", "man", "bus.SampleBusAgent", ""),
+            new BusAgent("Bus_RB_2","robot", "bus.SampleRobotBusAgent", ""),
+            new BusAgent("Bus_RB_3","robot", "bus.SampleRobotBusAgent", "")
+        );
     
     //Bus Root
     public Map<Object, List<String>> root = new HashMap(){
@@ -73,7 +86,6 @@ public class ABSParameter {
     
     //BusStop
     public int numBusStops = 5; //バス停数
-    public int queuingByStep = 20; //1ステップでのバス停の最大待ち発生数
     public List<BusStop> busStops = Arrays.asList(
             new BusStop("BusStop_0",0, 0),
             new BusStop("BusStop_1",0, 8),
@@ -82,9 +94,9 @@ public class ABSParameter {
             new BusStop("BusStop_4",4, 4)
         );
     
-    //People -1 = random else set seed
-    public long seed = -1;// ABS内で利用される全乱数のSeed
-    public int amountPeople = 100; //環境で発生する最大人数
+    //Queue
+    public String queueClassName = "queue.PopularAtractionQueue";
+    public int queuingByStep = 20; //1ステップでのバス停の最大待ち発生数
     
     //Accident
     public Boolean failureSW = true; //障害のあり=true，なし
