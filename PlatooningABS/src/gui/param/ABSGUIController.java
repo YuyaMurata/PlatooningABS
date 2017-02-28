@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package gui.param;
 
 import gui.edit.bus.BusEditGUIMain;
+import gui.edit.busstop.BusStopEditGUIMain;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -190,6 +189,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
     @FXML
     void editBusAgent(ActionEvent event) {
         json.param.numBusAgents = Integer.valueOf(bus_num.getText());
+
         BusEditGUIMain busEdit = new BusEditGUIMain();
         
         Stage editStage = new Stage();
@@ -203,12 +203,25 @@ public class ABSGUIController implements Initializable, ABSSettings{
 
     @FXML
     void editBusStop(ActionEvent event) {
-
+        json.param.numBusStops = Integer.valueOf(busstop_num.getText());
+        json.param.column = Integer.valueOf(cell_col.getText());
+        json.param.row = Integer.valueOf(cell_row.getText());
+        
+        BusStopEditGUIMain busStopedit = new BusStopEditGUIMain();
+        busStopedit.busstop_num = busstop_num;
+        
+        Stage editStage = new Stage();
+        editStage.initOwner(busagent_edit.getScene().getWindow());
+        try {
+            busStopedit.start(editStage);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML
     void runABS(ActionEvent event) {
-        System.out.println(mode.getToggles());
+        
     }
 
     @Override
@@ -219,7 +232,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
         
         //Set JSON File
         setParamToGUI();
-        
+            
         //add EventListener
         addEvent();
     }
@@ -237,8 +250,13 @@ public class ABSGUIController implements Initializable, ABSSettings{
     
     private void setParamToGUI(){
         //JSON Read
-        json.absJSONRead(param_file.getText());
-        
+        try{
+            json.absJSONRead(param_file.getText());
+        }catch(Exception e){
+            //JSONファイルの取得を失敗
+            //デフォルトのパラメータを各項目に設定
+        }
+            
         //ABS Visualize
         visual_gui_check.setSelected(json.param.guiSW);
         visual_gui_slider.setValue((double)json.param.stepWaitTime / 10);

@@ -25,6 +25,7 @@ public class StepExecutor implements ABSSettings{
     //1Step 実行処理
     public void execute(long t){
         step = t;
+        printLog("Step : "+step);
         
         //バス停の人の発生処理
         BusStops.occureQueue();
@@ -40,7 +41,6 @@ public class StepExecutor implements ABSSettings{
         BusAgents.execute("robot", info);
         
         //ログ出力
-        printLog("Step : "+step);
         traceLog(step);
         
         //Step TimeSpan
@@ -52,6 +52,8 @@ public class StepExecutor implements ABSSettings{
     
     //シミュレーションの終了確認
     public Boolean finishCheck(){
+        if(json.param.mode == 1)
+            return json.param.amountStep == step;
         return BusAgents.finish() && BusStops.finish();
     }
     

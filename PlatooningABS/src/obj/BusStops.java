@@ -11,11 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import prop.ABSSettings;
-import queue.PopularAtractionQueue;
 import queue.QueueGenerator;
 import queue.QueueType;
 import root.RootManager;
@@ -31,6 +28,7 @@ public class BusStops implements ABSSettings{
     private static int amount; //実験で発生する人の数
     private static Random rand = new Random(); //人発生用の乱数
     private static QueueGenerator queGen; //待ち行列発生
+    private static int mode;
     
     //バス停の作成
     public static void generate(){
@@ -44,6 +42,9 @@ public class BusStops implements ABSSettings{
             initialize();
             return ;
         }
+        
+        //Mode
+        mode = json.param.mode;
         
         //バス停の数
         numOfBusStops = json.param.numBusStops;
@@ -69,7 +70,7 @@ public class BusStops implements ABSSettings{
         
         try {
             //QueueGenerator 初期化
-            Class clazz = Class.forName(json.param.queueClassName);
+            Class clazz = Class.forName(json.param.queueClassName, true, absClassLoader);
             queGen = new QueueGenerator((QueueType) clazz.getConstructor(String.class).newInstance(clazz.toString()));
             queGen.setSeed(json.param.seed);
         } catch (Exception ex) {
@@ -111,10 +112,10 @@ public class BusStops implements ABSSettings{
     //キューの発生処理
     public static void occureQueue(){
         //環境の1ステップの人発生数
-        int n = rand.nextInt(json.param.maxPassengers);
+        int n = json.param.maxPassengers;
             
         //発生限界のチェック
-        if((amount - n) <= 0) n = amount;
+        if((amount - n) <= 0 && (mode == 0)) n = amount;
             amount = amount - n;
             
         //バス停に人を発生
@@ -125,6 +126,7 @@ public class BusStops implements ABSSettings{
     
     //シミュレーションの終了確認
     public static Boolean finish(){
+        if(amount > 0) return false;
         return busStops.values().stream()
                 .allMatch(stop -> (stop.finish()));
     }

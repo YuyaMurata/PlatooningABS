@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package gui.param;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,9 +20,17 @@ public class ABSGUIInitializeFile {
     private static final Properties iniProp = new Properties();
     
     public void readINIFile(){
+        //INIファイルの作成
+        File newfile = new File(iniFile);
+        try {
+            newfile.createNewFile();
+        } catch (IOException ex) {
+        }
+        
+        //INIファイルの読み込み
         try {
             iniProp.load(new FileInputStream(iniFile));
-        } catch (IOException ex) {
+        } catch (IOException ex) { 
         }
     }
     

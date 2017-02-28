@@ -8,7 +8,7 @@ package main;
 import agent.BusAgents;
 import exec.StepExecutor;
 import fileout.OutputInstance;
-import gui.ABSVisualizer;
+import gui.abs.ABSVisualizer;
 import obj.BusStops;
 import park.AmusementPark;
 import prop.ABSSettings;
@@ -43,7 +43,7 @@ public class PlatooningABSMain implements ABSSettings{
         StepExecutor step = new StepExecutor();
         while(true){
             //1Step 実行
-            step.execute(time++);
+            step.execute(time);
             
             //実験終了処理
             if(step.finishCheck()){
@@ -53,6 +53,9 @@ public class PlatooningABSMain implements ABSSettings{
                 OutputInstance.close();
                 System.exit(0);
             }
+            
+            //時間経過
+            time++;
         }
     }
 }

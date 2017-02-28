@@ -40,6 +40,8 @@ public class SampleBusAgent extends AbstractBusAgent{
     
     @Override
     public Point planning(CenterInfo info) {
+        //迷子
+        
         //目標バス停到着後，次のバス停の設定
         if(super.getBusPos().equals(p)) 
             next = (next + 1) % rootPath.size();
@@ -55,5 +57,5 @@ public class SampleBusAgent extends AbstractBusAgent{
     @Override
     public Object root() {
         return root;
-    } 
+    }
 }

@@ -47,7 +47,7 @@ public class BusAgents implements ABSSettings{
         //Bus Agent
         for(BusAgent bus : json.param.busAgents){
             try {
-                Class clazz = Class.forName(bus.getClazz());
+                Class clazz = Class.forName(bus.getClazz(), true, absClassLoader);
                 AbstractBusAgent agent = (AbstractBusAgent) clazz.getConstructor(String.class, String.class)
                                                                     .newInstance(bus.getName(), bus.getType());
                 busAgents.put(bus.getName(), agent);

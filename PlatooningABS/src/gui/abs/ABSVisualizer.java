@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package gui.abs;
 
 import agent.AbstractBusAgent;
 import java.awt.Color;
@@ -149,14 +149,16 @@ public class ABSVisualizer implements Runnable, ABSSettings{
     private void loadAgentImage(){
         //BusAgent Image
         origBusImg = new ArrayList<>();
-        for(String img : json.param.busIMG)
-            origBusImg.add(new ImageIcon(img));
-        
+        for(String img : json.param.busIMG){
+            System.out.println(getClass().getResource(img));
+            origBusImg.add(new ImageIcon(getClass().getResource(img)));
+        }
         //BusStop Image
         origBusStopImg = new TreeMap<>();
         busStopImg = new TreeMap();
         for(Integer th : json.param.busStopIMG.keySet())
-            origBusStopImg.put(th, new ImageIcon(json.param.busStopIMG.get(th)));
+            origBusStopImg.put(th, new ImageIcon(
+                        getClass().getResource(json.param.busStopIMG.get(th))));
     }
     
     //Agent Image サイズ変更

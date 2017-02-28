@@ -22,6 +22,8 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
     private Object leader; //ルート内の先頭車両
     private Object root; //運行ルート
     private Object follow; //障害時の先頭車両
+    private String param;
+    
     //待ち行列理論でのルート比較
     private LinkedList<Map<Object, List<Integer>>> rootTimeToQueue;
     
@@ -31,6 +33,8 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
     
     @Override
     public void init(String param){
+        this.param = param;
+        
         //初期の追従バスを設定し，ルートと位置を初期化
         AbstractBusAgent leaderBus = (AbstractBusAgent)BusAgents.getLeader(super.name);
         setLeader(leaderBus);
@@ -73,15 +77,19 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
         if(super.getNumPassengers() != 0) return ;
         
         //ルートごとのキューを比較し，キューが最大のルートを返す
-        //root = compRootQueue(info.getRootQueue());
-        root = compRootQueue(info.getRootStepQueue(), 3);
+        if(param.contains("simple")) root = compRootQueue(info.getRootQueue());
+        else root = compRootQueue(info.getRootStepQueue(), 3);
         
+        //Leaderの変更
         leader = info.getRootBus(root(), name).get(0);
     }
     
     //行動ルール
     @Override
     public Point planning(CenterInfo info) {
+        //迷子時に停止する
+        if(lost()) return super.getBusPos();
+        
         //センター通信障害時の処理
         if(info.isEmpty()) return nearestBus();
         
@@ -99,6 +107,11 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
     @Override
     public Object root() {
         return root;
+    }
+    
+    //迷子
+    public Boolean lost(){
+        return super.getLostProb() > super.getRandom();
     }
     
     // ルート待ち人数の比較

@@ -6,6 +6,7 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,12 +15,13 @@ import java.util.List;
  */
 public class ListTest {
     public static void main(String[] args) {
-        List testList = new ArrayList();
-        testList.add("A");testList.add("B");testList.add("C");testList.add("D");
+        List testList = Arrays.asList("A","B","C");
         List subList = new ArrayList();
         subList.addAll(testList);
         
         subList.remove("B");
+        
+        testList = subList;
         
         System.out.println(testList+"\n"+subList);
     }

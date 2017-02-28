@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import obj.BusStop;
 
 /**
@@ -34,22 +35,22 @@ public class ABSParameter {
     public Boolean guiSW = true;    //可視化の切り替え
     public long renderTime = 200; //GUIの表示間隔 [ms]
     //バス停の画像 待ち人数で色を変更可能 put(待ち人数，バス停の色)
-    public Map<Integer, String> busStopIMG = new HashMap(){
-        {put(0, "./img/busstop/s_137785.png");}
-        {put(10, "./img/busstop/s_137785b.png");}
-        {put(20, "./img/busstop/s_137785lb.png");}
-        {put(30, "./img/busstop/s_137785g.png");}
-        {put(40, "./img/busstop/s_137785y.png");}
-        {put(50, "./img/busstop/s_137785o.png");}
-        {put(60, "./img/busstop/s_137785r.png");}
+    public Map<Integer, String> busStopIMG = new TreeMap(){
+        {put(0, "/img/busstop/s_137785.png");
+        put(10, "/img/busstop/s_137785b.png");
+        put(20, "/img/busstop/s_137785lb.png");
+        put(30, "/img/busstop/s_137785g.png");
+        put(40, "/img/busstop/s_137785y.png");
+        put(50, "/img/busstop/s_137785o.png");
+        put(60, "/img/busstop/s_137785r.png");}
         };
     //バス画像　色を変更可能(ABSVisualizerで編集する必要あり)
     public List<String> busIMG = Arrays.asList(
-            "./img/bus/s_121278.png",
-            "./img/bus/s_121278r.png",
-            "./img/bus/s_121278b.png",
-            "./img/bus/s_121278g.png",
-            "./img/bus/s_121278y.png"
+            "/img/bus/s_121278.png",
+            "/img/bus/s_121278r.png",
+            "/img/bus/s_121278b.png",
+            "/img/bus/s_121278g.png",
+            "/img/bus/s_121278y.png"
             );
     
     //Executable
@@ -67,7 +68,6 @@ public class ABSParameter {
     
     //BusAgent
     public int numBusAgents = 4; //バス台数
-    //public int numHuman = 2; //有人のバス台数
     public int maxPassengers = 10; //バスの最大乗車数 
     public double lostProb = -1; //無人バスの迷子率
     public Boolean changeLineSW = true; //隊列変更のあり=true，なし
@@ -80,8 +80,10 @@ public class ABSParameter {
     
     //Bus Root
     public Map<Object, List<String>> root = new HashMap(){
-        {put("root0", Arrays.asList("BusStop_0", "BusStop_1", "BusStop_4"));}
-        {put("root1", Arrays.asList("BusStop_2", "BusStop_3", "BusStop_4"));}
+        {
+            put("root0", Arrays.asList("BusStop_0", "BusStop_1", "BusStop_4"));
+            put("root1", Arrays.asList("BusStop_2", "BusStop_3", "BusStop_4"));
+        }
     };
     
     //BusStop
@@ -96,7 +98,7 @@ public class ABSParameter {
     
     //Queue
     public String queueClassName = "queue.PopularAtractionQueue";
-    public int queuingByStep = 20; //1ステップでのバス停の最大待ち発生数
+    public int queuingByStep = 20; //1ステップでの全体の待ち発生数
     
     //Accident
     public Boolean failureSW = true; //障害のあり=true，なし

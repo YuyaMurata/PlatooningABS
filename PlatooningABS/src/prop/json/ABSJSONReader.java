@@ -32,6 +32,7 @@ public class ABSJSONReader {
     
     //JSONファイルへの書き込み
     public void absJSONWrite(String fileName) {
+        
         //パラメータクラスをJSONWriterに渡す
         try (JsonWriter writer = 
             new JsonWriter(new BufferedWriter(new FileWriter(fileName)))) {

@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import obj.BusStop;
 import obj.People;
 import park.AmusementPark;
@@ -31,6 +32,7 @@ public abstract class AbstractBusAgent {
     public Object[] key = new Object[2]; //現在と前の状態をキーとする(遊園地への記録用)
     public int x, y; //位置
     private List<People> passengers = new ArrayList(); //乗車リスト
+    private static Random rand = new Random();
     
     //BusAgent 初期化
     public abstract void init(String param);
@@ -49,6 +51,9 @@ public abstract class AbstractBusAgent {
         maxPassengers = m;
         lostProb = prob;
         seed = s;
+        
+        if(seed != -1)
+            rand.setSeed(seed);
     }
     
     //Agentの移動
@@ -176,6 +181,16 @@ public abstract class AbstractBusAgent {
     //Bus Agent の終了チェック
     public Boolean finish(){
         return passengers.isEmpty();
+    }
+    
+    //Get 喪失率
+    public Double getLostProb(){
+        return lostProb;
+    }
+    
+    //Random
+    public Double getRandom(){
+        return (double)rand.nextInt(1000) / 1000;
     }
     
     @Override
