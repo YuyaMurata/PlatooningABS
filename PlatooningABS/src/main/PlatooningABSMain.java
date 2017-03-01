@@ -63,13 +63,20 @@ public class PlatooningABSMain implements ABSSettings{
             if(step.finishCheck()){
                 //ログファイルの出力
                 OutputInstance.dataPeopleLog.write("Finish Steps, "+time);
-                System.out.println("Finish Steps, "+time);
                 OutputInstance.close();
                 break;
             }
             
             //時間経過
             time++;
+        }
+        
+        System.out.println("Finish ABS ");
+        
+        //GUI Start
+        if(json.param.guiSW){
+            ABSVisualizer abs = ABSVisualizer.getInstance();
+            abs.stopVisualize();
         }
     }
 }

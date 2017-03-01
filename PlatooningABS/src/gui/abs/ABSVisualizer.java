@@ -91,6 +91,7 @@ public class ABSVisualizer implements Runnable, ABSSettings{
     }
     
     //可視化のスタート
+    Thread thread;
     public void startVisualize(){
         //初期化
         setABSArea(frame.getABSPanel());
@@ -102,13 +103,14 @@ public class ABSVisualizer implements Runnable, ABSSettings{
         redrawABS();
         
         //可視化の実行
-        Thread thread = new Thread(this);
+        thread = new Thread(this);
         thread.start();
     }
     
     //可視化の終了
     public void stopVisualize(){
         state = false;
+        thread.interrupt();
     }
     
     //ABS座標　→　フレーム座標　に変換

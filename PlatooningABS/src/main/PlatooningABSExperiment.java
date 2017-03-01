@@ -8,6 +8,7 @@ package main;
 import agent.BusAgents;
 import exec.StepExecutor;
 import fileout.OutputInstance;
+import gui.abs.ABSVisualizer;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -62,7 +63,13 @@ public class PlatooningABSExperiment implements ABSSettings{
                         new File(dirName+"\\"+paramFile).toPath());
         } catch (IOException ex) {
         }
-            
+        
+        //GUI Start
+        if(json.param.guiSW){
+            ABSVisualizer abs = ABSVisualizer.getInstance();
+            abs.startVisualize();
+        }
+        
         //Time
         Long start = System.currentTimeMillis();
         Long totalStep = 0L;
@@ -109,6 +116,12 @@ public class PlatooningABSExperiment implements ABSSettings{
             Long execStop = System.currentTimeMillis() - execStart;
             System.out.println("> Finish Experiment:"+i+" time="+execStop+"[ms]");
             OutputInstance.dataSummary.write("Experiment:"+i+", "+time+", "+execStop+", ms");
+        }
+        
+        //GUI Stop
+        if(json.param.guiSW){
+            ABSVisualizer abs = ABSVisualizer.getInstance();
+            abs.stopVisualize();
         }
         
         //Finish
