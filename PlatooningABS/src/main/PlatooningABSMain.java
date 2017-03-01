@@ -18,9 +18,21 @@ import prop.ABSSettings;
  * @author murata
  */
 public class PlatooningABSMain implements ABSSettings{
+    
+    public void run(String paramFile){
+        if(paramFile != null)
+            PlatooningABSMain.execute(paramFile);
+        else
+            PlatooningABSMain.execute(settingFileName);
+    }
+    
     public static void main(String[] args) {
+        execute(settingFileName);
+    }
+    
+    private static void execute(String paramFile){
         //Parameter
-        json.absJSONRead(settingFileName);
+        json.absJSONRead(paramFile);
         
         //ログファイルの作成
         OutputInstance.NewFilePeopleLog(json.param.peopleFileName);
@@ -35,9 +47,11 @@ public class PlatooningABSMain implements ABSSettings{
         BusAgents.generate(); //BusAgentの作成
         
         //GUI Start
-        ABSVisualizer abs = ABSVisualizer.getInstance();
-        abs.startVisualize();
-        
+        if(json.param.guiSW){
+            ABSVisualizer abs = ABSVisualizer.getInstance();
+            abs.startVisualize();
+        }
+            
         //シミュレーションの実行
         long time = 1L;
         StepExecutor step = new StepExecutor();
@@ -51,7 +65,7 @@ public class PlatooningABSMain implements ABSSettings{
                 OutputInstance.dataPeopleLog.write("Finish Steps, "+time);
                 System.out.println("Finish Steps, "+time);
                 OutputInstance.close();
-                System.exit(0);
+                break;
             }
             
             //時間経過

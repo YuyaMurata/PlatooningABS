@@ -22,7 +22,7 @@ public class People {
         PID, BUS, ROOT, BTIME, QTIME
     }
     public static long pid; //PeopleID
-    private Long waitTime, getTime; //待ち時間，乗車時間
+    private long waitTime, getTime; //待ち時間，乗車時間
     public LinkedList path = new LinkedList<>(); //移動経路の管理
     private Map log = new LinkedHashMap(); //人の行動ログ管理
     private static Random rand = new Random(); //乱数

@@ -23,14 +23,24 @@ import static prop.ABSSettings.json;
  * @author murata
  */
 public class PlatooningABSExperiment implements ABSSettings{
+    public void run(String paramFile){
+        if(paramFile != null)
+            PlatooningABSExperiment.execute(paramFile);
+        else
+            PlatooningABSExperiment.execute(settingFileName);
+    }
+    
     public static void main(String[] args) {
+        execute(settingFileName);
+    }
+    
+    public static void execute(String paramFile){
         //Parameter
-        json.absJSONRead(settingFileName);
+        json.absJSONRead(paramFile);
         
         //高速化
         json.param.stepWaitTime = 0L;
-        json.param.loggingSW = false;
-
+        
         //実験時のログデータの初期化
         //ログの日付
         Date date = new Date();
@@ -48,11 +58,11 @@ public class PlatooningABSExperiment implements ABSSettings{
         
         //パラメータファイルをコピー
         try {
-            Files.copy (new File(ABSSettings.settingFileName).toPath(), 
-                        new File(dirName+"\\"+ABSSettings.settingFileName).toPath());
+            Files.copy (new File(paramFile).toPath(), 
+                        new File(dirName+"\\"+paramFile).toPath());
         } catch (IOException ex) {
         }
-        
+            
         //Time
         Long start = System.currentTimeMillis();
         Long totalStep = 0L;
@@ -79,7 +89,7 @@ public class PlatooningABSExperiment implements ABSSettings{
             StepExecutor step = new StepExecutor();
             while(true){
                 //1Step 実行
-                step.execute(time++);
+                step.execute(time);
                 
                 //実験終了処理
                 if(step.finishCheck()){
@@ -90,6 +100,9 @@ public class PlatooningABSExperiment implements ABSSettings{
                     OutputInstance.close();
                     break;
                 }
+                
+                //時間経過
+                time++;
             }
             
             //実験の結果を出力
@@ -106,5 +119,6 @@ public class PlatooningABSExperiment implements ABSSettings{
         Long avg = totalStep / json.param.numOfExec;
         OutputInstance.dataSummary.write("Platooning ABS Total Experiment:"+json.param.numOfExec+", "+avg+", "+stop+", ms");
         OutputInstance.dataSummary.close();
+    
     }
 }

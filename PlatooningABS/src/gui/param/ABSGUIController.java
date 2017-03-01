@@ -26,6 +26,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import main.PlatooningABSExperiment;
+import main.PlatooningABSMain;
 import prop.ABSSettings;
 
 /**
@@ -221,7 +223,16 @@ public class ABSGUIController implements Initializable, ABSSettings{
 
     @FXML
     void runABS(ActionEvent event) {
-        
+        //Write JSON
+        if(!param_file.getText().contains("json"))
+            param_file.setText(settingFileName);
+        setGUIToParam();
+
+        //ABS Run
+        if(json.param.numOfExec == 1)
+            new PlatooningABSMain().run(param_file.getText());
+        else
+            new PlatooningABSExperiment().run(param_file.getText());
     }
 
     @Override

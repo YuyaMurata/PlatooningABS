@@ -28,7 +28,7 @@ public class BusStops implements ABSSettings{
     private static int amount; //実験で発生する人の数
     private static Random rand = new Random(); //人発生用の乱数
     private static QueueGenerator queGen; //待ち行列発生
-    private static int mode;
+    private static int mode; //Mode 0 = PeopleMode 1 = StepMode
     
     //バス停の作成
     public static void generate(){
@@ -80,11 +80,10 @@ public class BusStops implements ABSSettings{
     
     //簡易初期化
     private static void initialize(){
-        //System.out.println("Initalize BusStops !");
-        
         //init BusStop
         for(BusStop bs : json.param.busStops){
             BusStop busStop = getBusStop(bs.name);
+            busStop.init();
             busStop.setBusStop(bs.x, bs.y);
         }
     }

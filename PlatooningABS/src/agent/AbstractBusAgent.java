@@ -29,10 +29,10 @@ public abstract class AbstractBusAgent {
     private static RootManager rootManager = RootManager.getInstance(); //ルート管理
     
     public String name, type; //type = Human or Robot
-    public Object[] key = new Object[2]; //現在と前の状態をキーとする(遊園地への記録用)
+    public Object[] key; //現在と前の状態をキーとする(遊園地への記録用)
     public int x, y; //位置
-    private List<People> passengers = new ArrayList(); //乗車リスト
-    private static Random rand = new Random();
+    private List<People> passengers; //乗車リスト
+    private static Random rand;
     
     //BusAgent 初期化
     public abstract void init(String param);
@@ -44,6 +44,9 @@ public abstract class AbstractBusAgent {
     public AbstractBusAgent(String name, String type) {
         this.name = name;
         this.type = type;
+        
+        this.key = new Object[2];
+        this.passengers = new ArrayList();
     }
     
     //パラメータセット(最大乗車数)
@@ -52,6 +55,7 @@ public abstract class AbstractBusAgent {
         lostProb = prob;
         seed = s;
         
+        rand = new Random();
         if(seed != -1)
             rand.setSeed(seed);
     }

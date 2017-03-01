@@ -86,7 +86,7 @@
                   <HBox alignment="CENTER_LEFT">
                      <children>
                         <Label text="実験回数:" />
-                        <TextArea fx:id="exp_num" minHeight="23.0" prefHeight="23.0" prefWidth="36.0" promptText="1" />
+                        <TextArea fx:id="exp_num" minHeight="25.0" prefHeight="25.0" prefWidth="36.0" promptText="1" />
                         <Region prefHeight="15.0" prefWidth="23.0" />
                         <Label text="セル:" />
                         <TextArea fx:id="cell_col" minHeight="23.0" prefHeight="23.0" prefWidth="36.0" promptText="9" />

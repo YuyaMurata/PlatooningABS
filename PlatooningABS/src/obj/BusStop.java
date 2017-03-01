@@ -35,12 +35,16 @@ public class BusStop {
         this.x = x;
         this.y = y;
         
-        this.queue = new HashMap<>();
-        this.countStepQueue = new HashMap<>();
-        this.totalQueue = 0;
+        init();
         
         //バス停の配置
         setBusStop(x, y);
+    }
+    
+    public void init(){
+        this.queue = new HashMap<>();
+        this.countStepQueue = new HashMap<>();
+        this.totalQueue = 0;
     }
     
     //バス停の配置
@@ -86,7 +90,7 @@ public class BusStop {
         Integer queuePeople = countStepQueue.get(rootNo);
         
         //人数カウント初期化
-       countStepQueue.put(rootNo, 0);
+        countStepQueue.put(rootNo, 0);
         
         if(queuePeople == null) return 0;
         
@@ -113,6 +117,10 @@ public class BusStop {
     public int getAllQueueLength(){
         if(queue == null) return 0;
         return queue.values().stream().mapToInt(q -> q.size()).sum();
+    }
+    
+    public int getTotalQueue(){
+        return totalQueue;
     }
     
     //終了確認 バス停のキューがなくなったら終了
