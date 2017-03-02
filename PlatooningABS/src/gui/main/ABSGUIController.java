@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.param;
+package gui.main;
 
+import gui.abs.ABSVisualizeMain;
 import gui.edit.bus.BusEditGUIMain;
 import gui.edit.busstop.BusStopEditGUIMain;
 import java.io.File;
@@ -26,8 +27,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import main.PlatooningABSExperiment;
-import main.PlatooningABSMain;
+import main.ABSThreadRun;
 import prop.ABSSettings;
 
 /**
@@ -227,12 +227,22 @@ public class ABSGUIController implements Initializable, ABSSettings{
         if(!param_file.getText().contains("json"))
             param_file.setText(settingFileName);
         setGUIToParam();
-
+        
+        //ABS GUI
+        if(visual_gui_check.isSelected()){
+            ABSVisualizeMain abs = new ABSVisualizeMain();
+            Stage absStage = new Stage();
+            absStage.initOwner(abs_run.getScene().getWindow());
+            try {
+                abs.start(absStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        
         //ABS Run
-        if(json.param.numOfExec == 1)
-            new PlatooningABSMain().run(param_file.getText());
-        else
-            new PlatooningABSExperiment().run(param_file.getText());
+        Thread thread = new ABSThreadRun(param_file.getText(), json.param.numOfExec);
+        thread.start();
     }
 
     @Override
@@ -248,6 +258,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
         addEvent();
     }
     
+    //独自イベントの追加
     public void addEvent(){
         // Listen for Slider value changes
         visual_gui_slider.valueProperty().addListener(new ChangeListener<Number>() {

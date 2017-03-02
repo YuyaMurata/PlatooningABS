@@ -67,6 +67,7 @@ public class ABSEditVisualizer {
         }
     }
     
+    //画像の描画
     public void drawImage(String obj, int x, int y){
         int sizeX = w / col;
         int sizeY = h / row;
@@ -80,6 +81,7 @@ public class ABSEditVisualizer {
             g.fillRect(p.x, p.y, sizeX, sizeY);
     }
     
+    //ルートの描画
     public void drawRoot(int rootNo, BusStop start , BusStop stop){
         int sizeX = w / col /2;
         int sizeY = h / row /2;

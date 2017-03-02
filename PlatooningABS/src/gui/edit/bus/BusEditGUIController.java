@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DefaultStringConverter;
@@ -47,6 +48,9 @@ public class BusEditGUIController implements Initializable, ABSSettings {
 
     @FXML // fx:id="bus_edit_apply"
     private Button bus_edit_apply; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="bus_img_text"
+    private TextField bus_img_text; // Value injected by FXMLLoader
     
     /**
      * Initializes the controller class.
@@ -105,11 +109,15 @@ public class BusEditGUIController implements Initializable, ABSSettings {
             
             bus_table.getItems().add(bus);
         }
+        
+        bus_img_text.setText(json.param.busIMG.get(0));
     }
     
     //バス情報を更新
     void setTableToABSParam(){
         json.param.busAgents = bus_table.getItems();
+        json.param.busIMG.clear();
+        json.param.busIMG.add(bus_img_text.getText());
         System.out.println(json.param.busAgents);
     }
 }

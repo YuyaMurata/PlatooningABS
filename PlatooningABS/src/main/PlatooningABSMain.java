@@ -8,13 +8,12 @@ package main;
 import agent.BusAgents;
 import exec.StepExecutor;
 import fileout.OutputInstance;
-import gui.abs.ABSVisualizer;
 import obj.BusStops;
 import park.AmusementPark;
 import prop.ABSSettings;
 
 /**
- *
+ * 単一実験用のクラス
  * @author murata
  */
 public class PlatooningABSMain implements ABSSettings{
@@ -45,12 +44,6 @@ public class PlatooningABSMain implements ABSSettings{
         //Create Agent & Object
         BusStops.generate();  //BusStopの作成
         BusAgents.generate(); //BusAgentの作成
-        
-        //GUI Start
-        if(json.param.guiSW){
-            ABSVisualizer abs = ABSVisualizer.getInstance();
-            abs.startVisualize();
-        }
             
         //シミュレーションの実行
         long time = 1L;
@@ -72,11 +65,5 @@ public class PlatooningABSMain implements ABSSettings{
         }
         
         System.out.println("Finish ABS ");
-        
-        //GUI Start
-        if(json.param.guiSW){
-            ABSVisualizer abs = ABSVisualizer.getInstance();
-            abs.stopVisualize();
-        }
     }
 }

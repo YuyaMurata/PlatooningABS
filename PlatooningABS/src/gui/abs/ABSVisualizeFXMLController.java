@@ -14,15 +14,24 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import prop.ABSSettings;
 
-public class ABSVisualizeFXMLController implements Initializable{
+public class ABSVisualizeFXMLController implements Initializable, ABSSettings{
 
     @FXML // fx:id="abs_visual"
     private Canvas abs_visual; // Value injected by FXMLLoader
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+        ABSVisualizerFXML abs = new ABSVisualizerFXML(abs_visual);
+        abs.setABSVisualParam(
+                json.param.column, 
+                json.param.row, 
+                json.param.busIMG, 
+                json.param.busStopIMG
+        );
+        
+        abs.startVisualize();
+    }     
 }

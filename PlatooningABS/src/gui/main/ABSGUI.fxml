@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="685.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.param.ABSGUIController">
+<AnchorPane prefHeight="685.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.main.ABSGUIController">
    <children>
       <GridPane prefHeight="685.0" prefWidth="384.0" SplitPane.resizableWithParent="false">
          <columnConstraints>

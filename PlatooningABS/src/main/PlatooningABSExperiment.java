@@ -8,7 +8,6 @@ package main;
 import agent.BusAgents;
 import exec.StepExecutor;
 import fileout.OutputInstance;
-import gui.abs.ABSVisualizer;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,7 +19,7 @@ import prop.ABSSettings;
 import static prop.ABSSettings.json;
 
 /**
- *
+ * 繰り返し実験用のクラス
  * @author murata
  */
 public class PlatooningABSExperiment implements ABSSettings{
@@ -40,7 +39,7 @@ public class PlatooningABSExperiment implements ABSSettings{
         json.absJSONRead(paramFile);
         
         //高速化
-        json.param.stepWaitTime = 0L;
+        //json.param.stepWaitTime = 0L;
         
         //実験時のログデータの初期化
         //ログの日付
@@ -62,12 +61,6 @@ public class PlatooningABSExperiment implements ABSSettings{
             Files.copy (new File(paramFile).toPath(), 
                         new File(dirName+"\\"+paramFile).toPath());
         } catch (IOException ex) {
-        }
-        
-        //GUI Start
-        if(json.param.guiSW){
-            ABSVisualizer abs = ABSVisualizer.getInstance();
-            abs.startVisualize();
         }
         
         //Time
@@ -116,12 +109,6 @@ public class PlatooningABSExperiment implements ABSSettings{
             Long execStop = System.currentTimeMillis() - execStart;
             System.out.println("> Finish Experiment:"+i+" time="+execStop+"[ms]");
             OutputInstance.dataSummary.write("Experiment:"+i+", "+time+", "+execStop+", ms");
-        }
-        
-        //GUI Stop
-        if(json.param.guiSW){
-            ABSVisualizer abs = ABSVisualizer.getInstance();
-            abs.stopVisualize();
         }
         
         //Finish

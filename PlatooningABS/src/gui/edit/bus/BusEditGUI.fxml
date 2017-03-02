@@ -21,6 +21,9 @@
             </TableView>
             <HBox alignment="CENTER_RIGHT">
                <children>
+                  <Label text="Bus IMG:" />
+                  <TextField fx:id="bus_img_text" HBox.hgrow="ALWAYS" />
+                  <Region prefHeight="23.0" prefWidth="248.0" />
                   <Button fx:id="bus_edit_apply" minWidth="-Infinity" mnemonicParsing="false" onAction="#busEditApply" prefHeight="23.0" prefWidth="65.0" text="Apply" />
                </children>
                <opaqueInsets>
