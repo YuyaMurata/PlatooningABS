@@ -25,7 +25,7 @@
     "./img/bus/s_121278g.png",
     "./img/bus/s_121278y.png"
   ],
-  "numOfExec": 10,
+  "numOfExec": 1,
   "stepWaitTime": 400,
   "mode": 0,
   "seed": -1,

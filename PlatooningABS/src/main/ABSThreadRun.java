@@ -5,8 +5,6 @@
  */
 package main;
 
-import gui.abs.ABSVisualizeMain;
-
 /**
  * ABSのスレッド実行
  * @author murata
@@ -35,8 +33,6 @@ public class ABSThreadRun extends Thread{
         }
             
         System.out.println("Finish ABSMain Thread!");
-        
-        ABSVisualizeMain.closeWindow();
     }
     
     //強制終了

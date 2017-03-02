@@ -19,6 +19,9 @@ public interface ABSSettings {
     //JSONファイルのリーダー
     public static ABSJSONReader json = ABSJSONReader.getInstance();
     
+    //出力の切り替え true = console false = File
+    public static Boolean logConsoleFileSW = false;
+    
     //ClassLoader
     public static String classFolder = "./class/";
     public static ClassLoader absClassLoader = createClassLoader(classFolder);

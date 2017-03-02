@@ -13,12 +13,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import log.LoggingFileStream;
+import prop.ABSSettings;
 
 /**
  *
  * @author murata
  */
-public class ABSGUIMain extends Application{
+public class ABSGUIMain extends Application implements ABSSettings{
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ABSGUI.fxml"));
@@ -33,12 +34,13 @@ public class ABSGUIMain extends Application{
      */
     public static void main(String[] args) {
         //標準出力の変更
-        try {
-            System.setOut(new LoggingFileStream("abs_syslog.log"));
-            System.setErr(new LoggingFileStream("abs_errlog.log"));
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        }
+        if(logConsoleFileSW)
+            try {
+                System.setOut(new LoggingFileStream("abs_syslog.log"));
+                System.setErr(new LoggingFileStream("abs_errlog.log"));
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
         
         launch(args);
     }
