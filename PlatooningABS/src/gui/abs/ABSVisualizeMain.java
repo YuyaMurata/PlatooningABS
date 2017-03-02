@@ -19,6 +19,7 @@ import main.ABSThreadRun;
  * @author murata
  */
 public class ABSVisualizeMain  extends Application{
+    private static Stage st;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -30,6 +31,7 @@ public class ABSVisualizeMain  extends Application{
         stage.setScene(scene);
         stage.show();
         
+        st = stage;
         addEvent(stage);
     }
     
@@ -37,6 +39,10 @@ public class ABSVisualizeMain  extends Application{
         stage.setOnHidden((WindowEvent t) ->{
             closeAction(t);
         });
+    }
+    
+    public static void closeWindow(){
+        st.hide();
     }
     
     private void closeAction(WindowEvent t){

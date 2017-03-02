@@ -5,10 +5,10 @@
   "traceFileName": "platooning_abs_tracelog.txt",
   "traceFieldName": "STEP, BUS(name, type, x, y, n.pass, root, leader), BUSSTOP(name, x, y, queue)",
   "consoleSW": false,
-  "loggingSW": false,
-  "traceSW": false,
+  "loggingSW": true,
+  "traceSW": true,
   "guiSW": true,
-  "renderTime": 100,
+  "renderTime": 200,
   "busStopIMG": {
     "0": "./img/busstop/s_137785.png",
     "10": "./img/busstop/s_137785b.png",
@@ -19,10 +19,14 @@
     "60": "./img/busstop/s_137785r.png"
   },
   "busIMG": [
-    "./img/bus/s_121278.png"
+    "./img/bus/s_121278.png",
+    "./img/bus/s_121278r.png",
+    "./img/bus/s_121278b.png",
+    "./img/bus/s_121278g.png",
+    "./img/bus/s_121278y.png"
   ],
-  "numOfExec": 1,
-  "stepWaitTime": 300,
+  "numOfExec": 10,
+  "stepWaitTime": 400,
   "mode": 0,
   "seed": -1,
   "amountPeople": 100,

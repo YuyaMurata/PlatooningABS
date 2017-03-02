@@ -36,21 +36,21 @@ public class ABSParameter {
     public long renderTime = 200; //GUIの表示間隔 [ms]
     //バス停の画像 待ち人数で色を変更可能 put(待ち人数，バス停の色)
     public Map<Integer, String> busStopIMG = new TreeMap(){
-        {put(0, "/img/busstop/s_137785.png");
-        put(10, "/img/busstop/s_137785b.png");
-        put(20, "/img/busstop/s_137785lb.png");
-        put(30, "/img/busstop/s_137785g.png");
-        put(40, "/img/busstop/s_137785y.png");
-        put(50, "/img/busstop/s_137785o.png");
-        put(60, "/img/busstop/s_137785r.png");}
+        {put(0, "./img/busstop/s_137785.png");
+        put(10, "./img/busstop/s_137785b.png");
+        put(20, "./img/busstop/s_137785lb.png");
+        put(30, "./img/busstop/s_137785g.png");
+        put(40, "./img/busstop/s_137785y.png");
+        put(50, "./img/busstop/s_137785o.png");
+        put(60, "./img/busstop/s_137785r.png");}
         };
     //バス画像　色を変更可能(ABSVisualizerで編集する必要あり)
     public List<String> busIMG = Arrays.asList(
-            "/img/bus/s_121278.png",
-            "/img/bus/s_121278r.png",
-            "/img/bus/s_121278b.png",
-            "/img/bus/s_121278g.png",
-            "/img/bus/s_121278y.png"
+            "./img/bus/s_121278.png",
+            "./img/bus/s_121278r.png",
+            "./img/bus/s_121278b.png",
+            "./img/bus/s_121278g.png",
+            "./img/bus/s_121278y.png"
             );
     
     //Executable

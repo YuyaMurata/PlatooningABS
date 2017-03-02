@@ -33,12 +33,12 @@ public class ABSGUIMain extends Application{
      */
     public static void main(String[] args) {
         //標準出力の変更
-        /*try {
+        try {
             System.setOut(new LoggingFileStream("abs_syslog.log"));
             System.setErr(new LoggingFileStream("abs_errlog.log"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
-        }*/
+        }
         
         launch(args);
     }
