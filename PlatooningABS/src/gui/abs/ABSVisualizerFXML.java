@@ -7,6 +7,9 @@ package gui.abs;
 
 import agent.AbstractBusAgent;
 import java.awt.Point;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -86,21 +89,32 @@ public class ABSVisualizerFXML{
         //BusAgent Image
         origBusImg = new ArrayList<>();
         for(String img : busImg){
-            System.out.println(getClass().getResource(img));
-            origBusImg.add(new Image(getClass().getResourceAsStream(img)));
+            try{
+                InputStream in = new BufferedInputStream(new FileInputStream(img));
+                origBusImg.add(new Image(in));
+            }catch(Exception e){
+                origBusImg.add(null);
+            }
         }
         
         //BusStop Image
         origBusStopImg = new TreeMap<>();
-        for(Integer th : busStopImg.keySet())
-            origBusStopImg.put(th, 
-                    new Image(getClass().getResourceAsStream(busStopImg.get(th))));
+        for(Integer th : busStopImg.keySet()){
+            try{
+                InputStream in = new BufferedInputStream(new FileInputStream(busStopImg.get(th)));
+                origBusStopImg.put(th, new Image(in));
+            }catch(Exception e){
+                origBusStopImg.put(th, null);
+            }
+        }
     }
     
     //BusAgent Image 描画
     public void drawBusAgents(){
         int sizeX = w / col;
-        int sizeY = (int) (origBusImg.get(0).getHeight() * sizeX / origBusImg.get(0).getWidth());
+        int sizeY = h / row;
+        if(origBusImg.get(0) != null)
+            sizeY = (int) (origBusImg.get(0).getHeight() * sizeX / origBusImg.get(0).getWidth());
         
         GraphicsContext g = canvas.getGraphicsContext2D();
         
@@ -109,9 +123,12 @@ public class ABSVisualizerFXML{
             int i = 0;
             for(AbstractBusAgent bus : busAgents){
                 Point p = mappingArea(bus.x, bus.y);
-                if(origBusImg != null)
-                    g.drawImage(origBusImg.get(0), p.x + i*sizeX/5, p.y - i*sizeY/5, sizeX, sizeY);
-                else
+                if(origBusImg != null){
+                    if(origBusImg.get(0) != null)
+                        g.drawImage(origBusImg.get(0), p.x + i*sizeX/5, p.y - i*sizeY/5, sizeX, sizeY);
+                    else
+                        g.fillOval(p.x + i*sizeX/5, p.y - i*sizeY/5, sizeX, sizeY);
+                }else
                     g.fillOval(p.x + i*sizeX/5, p.y - i*sizeY/5, sizeX, sizeY);
                 i++;
             }
@@ -120,19 +137,24 @@ public class ABSVisualizerFXML{
     
     //BusStop Image 描画
     public void drawBusStops(){
+        int sizeX = w / col;
         int sizeY = h / row;
-        int sizeX = (int) (origBusStopImg.get(0).getWidth() * sizeY / origBusImg.get(0).getHeight());
+        if(origBusStopImg.get(0) != null)
+            sizeX = (int) (origBusStopImg.get(0).getWidth() * sizeY / origBusImg.get(0).getHeight());
         int sizeCol = w / col;
         
         GraphicsContext g = canvas.getGraphicsContext2D();
         
         for(BusStop busStop : park.getBusStops()){
             Point p = mappingArea(busStop.x, busStop.y);
-            if(origBusStopImg != null)
-                g.drawImage(
-                    origBusStopImg.floorEntry(busStop.getAllQueueLength()).getValue(),
-                    p.x + sizeCol/2-sizeX/2, p.y, sizeX, sizeY);
-            else
+            if(origBusImg != null){
+                if(origBusStopImg.get(0) != null)
+                    g.drawImage(
+                        origBusStopImg.floorEntry(busStop.getAllQueueLength()).getValue(),
+                        p.x + sizeCol/2-sizeX/2, p.y, sizeX, sizeY);
+                else
+                    g.fillRect(p.x, p.y, sizeX, sizeY);
+            }else
                 g.fillRect(p.x, p.y, sizeX, sizeY);
         }
     }
@@ -150,13 +172,18 @@ public class ABSVisualizerFXML{
         drawCell();
     }
     
+    private static AnimationTimer animationTimer;
     public void startVisualize(){
-        AnimationTimer animationTimer = new AnimationTimer() {
+        animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 redrawABS();
             }
         };
         animationTimer.start();
+    }
+    
+    public static void stopVisualize(){
+        animationTimer.stop();
     }
 }

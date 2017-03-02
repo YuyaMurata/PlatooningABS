@@ -10,27 +10,23 @@
   "guiSW": true,
   "renderTime": 100,
   "busStopIMG": {
-    "0": "/img/busstop/s_137785.png",
-    "10": "/img/busstop/s_137785b.png",
-    "20": "/img/busstop/s_137785lb.png",
-    "30": "/img/busstop/s_137785g.png",
-    "40": "/img/busstop/s_137785y.png",
-    "50": "/img/busstop/s_137785o.png",
-    "60": "/img/busstop/s_137785r.png"
+    "0": "./img/busstop/s_137785.png",
+    "10": "./img/busstop/s_137785b.png",
+    "20": "./img/busstop/s_137785lb.png",
+    "30": "./img/busstop/s_137785g.png",
+    "40": "./img/busstop/s_137785y.png",
+    "50": "./img/busstop/s_137785o.png",
+    "60": "./img/busstop/s_137785r.png"
   },
   "busIMG": [
-    "/img/bus/s_121278.png",
-    "/img/bus/s_121278r.png",
-    "/img/bus/s_121278b.png",
-    "/img/bus/s_121278g.png",
-    "/img/bus/s_121278y.png"
+    "./img/bus/s_121278.png"
   ],
-  "numOfExec": 5,
+  "numOfExec": 1,
   "stepWaitTime": 300,
-  "mode": 1,
+  "mode": 0,
   "seed": -1,
   "amountPeople": 100,
-  "amountStep": 10,
+  "amountStep": 100,
   "column": 9,
   "row": 9,
   "numBusAgents": 4,

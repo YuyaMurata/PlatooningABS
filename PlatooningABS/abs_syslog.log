@@ -1,0 +1,76 @@
+[2017-03-02 22:19:39] Initialize:platooning_abs_param.json
+[2017-03-02 22:19:41] file:/C:/Users/kaeru/Documents/NetBeansProjects/PlatooningABS/PlatooningABS/resource/img/bus/s_121278.png
+[2017-03-02 22:19:41] file:/C:/Users/kaeru/Documents/NetBeansProjects/PlatooningABS/PlatooningABS/resource/img/bus/s_121278r.png
+[2017-03-02 22:19:41] file:/C:/Users/kaeru/Documents/NetBeansProjects/PlatooningABS/PlatooningABS/resource/img/bus/s_121278b.png
+[2017-03-02 22:19:41] file:/C:/Users/kaeru/Documents/NetBeansProjects/PlatooningABS/PlatooningABS/resource/img/bus/s_121278g.png
+[2017-03-02 22:19:41] file:/C:/Users/kaeru/Documents/NetBeansProjects/PlatooningABS/PlatooningABS/resource/img/bus/s_121278y.png
+[2017-03-02 22:19:41] BusStop_0:[x=0 ,y=0]-[QLine=0]
+[2017-03-02 22:19:41] BusStop_4:[x=4 ,y=4]-[QLine=0]
+[2017-03-02 22:19:41] BusStop_3:[x=8 ,y=0]-[QLine=0]
+[2017-03-02 22:19:41] BusStop_2:[x=8 ,y=8]-[QLine=0]
+[2017-03-02 22:19:41] BusStop_1:[x=0 ,y=8]-[QLine=0]
+[2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 8 [2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 4 
+[2017-03-02 22:19:41] 8 [2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 4 
+[2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 8 [2017-03-02 22:19:41] 4 
+[2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 8 [2017-03-02 22:19:41] 0 [2017-03-02 22:19:41] 4 
+[2017-03-02 22:19:41] 4 [2017-03-02 22:19:41] 4 [2017-03-02 22:19:41] 4 [2017-03-02 22:19:41] 4 [2017-03-02 22:19:41] 0 
+[2017-03-02 22:19:41] BusStop_0:[[BusStop_0, BusStop_1], [BusStop_0, BusStop_4, BusStop_2], [BusStop_0, BusStop_4, BusStop_3], [BusStop_0, BusStop_4]]
+[2017-03-02 22:19:41] BusStop_4:[[BusStop_4, BusStop_0], [BusStop_4, BusStop_1], [BusStop_4, BusStop_2], [BusStop_4, BusStop_3]]
+[2017-03-02 22:19:41] BusStop_3:[[BusStop_3, BusStop_4, BusStop_0], [BusStop_3, BusStop_4, BusStop_1], [BusStop_3, BusStop_2], [BusStop_3, BusStop_4]]
+[2017-03-02 22:19:41] BusStop_2:[[BusStop_2, BusStop_4, BusStop_0], [BusStop_2, BusStop_4, BusStop_1], [BusStop_2, BusStop_3], [BusStop_2, BusStop_4]]
+[2017-03-02 22:19:41] BusStop_1:[[BusStop_1, BusStop_0], [BusStop_1, BusStop_4, BusStop_2], [BusStop_1, BusStop_4, BusStop_3], [BusStop_1, BusStop_4]]
+[2017-03-02 22:19:41] class queue.PopularAtractionQueue-{0=0, 20=1, 40=2, 60=3, 80=4}
+[2017-03-02 22:19:41] Bus_0<man>:[x=8 ,y=8]-[PAX=0]
+[2017-03-02 22:19:41] Bus_1<man>:[x=0 ,y=0]-[PAX=0]
+[2017-03-02 22:19:41] Bus_RB_2<robot>:[x=8 ,y=8]-[PAX=0]
+[2017-03-02 22:19:41] Bus_RB_3<robot>:[x=0 ,y=0]-[PAX=0]
+[2017-03-02 22:19:41] Step : 1
+[2017-03-02 22:19:41] Accident = false
+[2017-03-02 22:19:41] {ROOT_QUEUE={root0=[0, 1, 0, 0, 0], root1=[0, 1, 5, 0, 0]}, ROOT_BUS={root0=[[Bus_1, java.awt.Point[x=0,y=0]]], root1=[[Bus_0, java.awt.Point[x=8,y=8]]]}, ROOT_STEP_QUEUE={root0=[0, 1, 0, 0, 0], root1=[0, 1, 5, 3, 0]}, CALC_TIME=2}
+[2017-03-02 22:19:41] L=1 W=1.0 Nstep=1
+[2017-03-02 22:19:41] L=9 W=9.0 Nstep=1
+[2017-03-02 22:19:41] L=1 W=1.0 Nstep=1
+[2017-03-02 22:19:41] L=9 W=9.0 Nstep=1
+[2017-03-02 22:19:42] Step : 2
+[2017-03-02 22:19:42] Accident = false
+[2017-03-02 22:19:42] {ROOT_QUEUE={root0=[1, 3, 0, 0, 2], root1=[0, 2, 9, 0, 0]}, ROOT_BUS={root0=[[Bus_1, java.awt.Point[x=0,y=1]]], root1=[[Bus_0, java.awt.Point[x=8,y=7]]]}, ROOT_STEP_QUEUE={root0=[1, 2, 0, 0, 2], root1=[0, 1, 4, 0, 0]}, CALC_TIME=0}
+[2017-03-02 22:19:42] L=6 W=3.0 Nstep=2
+[2017-03-02 22:19:42] L=14 W=7.0 Nstep=2
+[2017-03-02 22:19:42] L=6 W=3.0 Nstep=2
+[2017-03-02 22:19:42] L=14 W=7.0 Nstep=2
+[2017-03-02 22:19:42] Step : 3
+[2017-03-02 22:19:42] Accident = false
+[2017-03-02 22:19:42] {ROOT_QUEUE={root0=[1, 4, 0, 0, 2], root1=[0, 3, 17, 0, 0]}, ROOT_BUS={root0=[[Bus_1, java.awt.Point[x=0,y=2]]], root1=[[Bus_0, java.awt.Point[x=8,y=6]]]}, ROOT_STEP_QUEUE={root0=[0, 1, 0, 0, 0], root1=[0, 1, 8, 0, 0]}, CALC_TIME=1}
+[2017-03-02 22:19:42] L=7 W=2.3333333333333335 Nstep=3
+[2017-03-02 22:19:42] L=23 W=7.666666666666667 Nstep=3
+[2017-03-02 22:19:42] L=7 W=2.3333333333333335 Nstep=3
+[2017-03-02 22:19:42] L=23 W=7.666666666666667 Nstep=3
+[2017-03-02 22:19:42] Step : 4
+[2017-03-02 22:19:42] Accident = false
+[2017-03-02 22:19:42] {ROOT_QUEUE={root0=[1, 6, 0, 0, 3], root1=[0, 6, 17, 4, 0]}, ROOT_BUS={root0=[[Bus_1, java.awt.Point[x=0,y=3]]], root1=[[Bus_0, java.awt.Point[x=8,y=5]]]}, ROOT_STEP_QUEUE={root0=[0, 2, 0, 0, 1], root1=[0, 3, 0, 4, 0]}, CALC_TIME=0}
+[2017-03-02 22:19:42] L=9 W=3.0 Nstep=3
+[2017-03-02 22:19:42] L=21 W=7.0 Nstep=3
+[2017-03-02 22:19:42] L=9 W=3.0 Nstep=3
+[2017-03-02 22:19:42] L=21 W=7.0 Nstep=3
+[2017-03-02 22:19:43] Step : 5
+[2017-03-02 22:19:43] Accident = false
+[2017-03-02 22:19:43] {ROOT_QUEUE={root0=[1, 7, 0, 0, 4], root1=[0, 1, 21, 7, 0]}, ROOT_BUS={root0=[[Bus_1, java.awt.Point[x=0,y=4]]], root1=[[Bus_0, java.awt.Point[x=8,y=4]]]}, ROOT_STEP_QUEUE={root0=[0, 1, 0, 0, 1], root1=[0, 1, 4, 3, 0]}, CALC_TIME=0}
+[2017-03-02 22:19:43] L=6 W=2.0 Nstep=3
+[2017-03-02 22:19:43] L=24 W=8.0 Nstep=3
+[2017-03-02 22:19:43] Step : 6
+[2017-03-02 22:19:43] Accident = false
+[2017-03-02 22:19:43] {ROOT_QUEUE={root0=[2, 8, 0, 0, 5], root1=[0, 3, 25, 8, 0]}, ROOT_BUS={root0=[[Bus_1, java.awt.Point[x=0,y=5]]], root1=[[Bus_0, java.awt.Point[x=8,y=3]]]}, ROOT_STEP_QUEUE={root0=[1, 1, 0, 0, 1], root1=[0, 2, 4, 1, 0]}, CALC_TIME=0}
+[2017-03-02 22:19:43] L=8 W=2.6666666666666665 Nstep=3
+[2017-03-02 22:19:43] L=22 W=7.333333333333333 Nstep=3
+[2017-03-02 22:19:43] Step : 7
+[2017-03-02 22:19:43] Accident = false
+[2017-03-02 22:19:43] {ROOT_QUEUE={root0=[3, 9, 0, 0, 5], root1=[0, 5, 29, 10, 0]}, ROOT_BUS={root0=[[Bus_1, java.awt.Point[x=0,y=6]]], root1=[[Bus_0, java.awt.Point[x=8,y=2]]]}, ROOT_STEP_QUEUE={root0=[1, 1, 0, 0, 0], root1=[0, 2, 4, 2, 0]}, CALC_TIME=0}
+[2017-03-02 22:19:43] L=7 W=2.3333333333333335 Nstep=3
+[2017-03-02 22:19:43] L=23 W=7.666666666666667 Nstep=3
+[2017-03-02 22:19:43] Step : 8
+[2017-03-02 22:19:43] Accident = false
+[2017-03-02 22:19:43] {ROOT_QUEUE={root0=[3, 10, 0, 0, 5], root1=[0, 6, 33, 14, 0]}, ROOT_BUS={root0=[[Bus_1, java.awt.Point[x=0,y=7]]], root1=[[Bus_0, java.awt.Point[x=8,y=1]]]}, ROOT_STEP_QUEUE={root0=[0, 1, 0, 0, 0], root1=[0, 1, 4, 4, 0]}, CALC_TIME=0}
+[2017-03-02 22:19:43] L=6 W=2.0 Nstep=3
+[2017-03-02 22:19:43] L=24 W=8.0 Nstep=3
+[2017-03-02 22:19:44] Finish ABS 
+[2017-03-02 22:19:44] Finish ABSMain Thread!

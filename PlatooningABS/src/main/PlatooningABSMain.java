@@ -17,8 +17,11 @@ import prop.ABSSettings;
  * @author murata
  */
 public class PlatooningABSMain implements ABSSettings{
+    public static Boolean runnable;
     
     public void run(String paramFile){
+        runnable = true;
+        
         if(paramFile != null)
             PlatooningABSMain.execute(paramFile);
         else
@@ -48,7 +51,7 @@ public class PlatooningABSMain implements ABSSettings{
         //シミュレーションの実行
         long time = 1L;
         StepExecutor step = new StepExecutor();
-        while(true){
+        while(runnable){
             //1Step 実行
             step.execute(time);
             
@@ -65,5 +68,9 @@ public class PlatooningABSMain implements ABSSettings{
         }
         
         System.out.println("Finish ABS ");
+    }
+    
+    public void stop(){
+        runnable = false;
     }
 }

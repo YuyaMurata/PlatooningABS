@@ -73,8 +73,8 @@ public class BusStops implements ABSSettings{
             Class clazz = Class.forName(json.param.queueClassName, true, absClassLoader);
             queGen = new QueueGenerator((QueueType) clazz.getConstructor(String.class).newInstance(clazz.toString()));
             queGen.setSeed(json.param.seed);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     

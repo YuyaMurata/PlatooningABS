@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- *
+ * INIファイルのリードライト
  * @author murata
  */
 public class ABSGUIInitializeFile {
@@ -34,6 +34,7 @@ public class ABSGUIInitializeFile {
         }
     }
     
+    //INIファイルの書き込み
     public void writeINIFile(){
         try {
             iniProp.store(new FileOutputStream(iniFile), null);
@@ -41,11 +42,14 @@ public class ABSGUIInitializeFile {
         }
     }
     
+    //ABSパラメータファイルの設定
     public String getABSParamFile(){
         readINIFile();
         return iniProp.getProperty("file");
     }
     
+    
+    //ABSパラメータファイルの変更
     public void setABSParamFile(String fileName){
         iniProp.setProperty("file", fileName);
         writeINIFile();

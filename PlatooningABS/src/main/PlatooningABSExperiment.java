@@ -23,7 +23,11 @@ import static prop.ABSSettings.json;
  * @author murata
  */
 public class PlatooningABSExperiment implements ABSSettings{
+    public static Boolean runnable;
+    
     public void run(String paramFile){
+        runnable = true;
+        
         if(paramFile != null)
             PlatooningABSExperiment.execute(paramFile);
         else
@@ -60,7 +64,8 @@ public class PlatooningABSExperiment implements ABSSettings{
         try {
             Files.copy (new File(paramFile).toPath(), 
                         new File(dirName+"\\"+paramFile).toPath());
-        } catch (IOException ex) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         
         //Time
@@ -68,6 +73,8 @@ public class PlatooningABSExperiment implements ABSSettings{
         Long totalStep = 0L;
         System.out.println("Start Platooning ABS.");
         for(int i=0; i < json.param.numOfExec; i++){
+            if(!runnable) break;
+            
             //Start
             Long execStart = System.currentTimeMillis();
             System.out.println("> Experiment:"+i);
@@ -87,7 +94,7 @@ public class PlatooningABSExperiment implements ABSSettings{
             //シミュレーションの実行
             long time = 1L;
             StepExecutor step = new StepExecutor();
-            while(true){
+            while(runnable){
                 //1Step 実行
                 step.execute(time);
                 
@@ -120,5 +127,9 @@ public class PlatooningABSExperiment implements ABSSettings{
         OutputInstance.dataSummary.write("Platooning ABS Total Experiment:"+json.param.numOfExec+", "+avg+", "+stop+", ms");
         OutputInstance.dataSummary.close();
     
+    }
+    
+    public void stop(){
+        runnable = false;
     }
 }

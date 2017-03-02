@@ -29,6 +29,7 @@ public class OutputData implements ABSSettings{
             File file = new File(filename);
             pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file, true)));
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

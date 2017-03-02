@@ -47,6 +47,7 @@ public class BusStopEditGUIController implements Initializable, ABSSettings{
         try{
             busstop_num.setText(String.valueOf(json.param.numBusStops));
         }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -62,10 +63,12 @@ public class BusStopEditGUIController implements Initializable, ABSSettings{
         visualizeParam();
     }
     
+    //編集後にバス停数を変更
     public void setNumBusStop(TextArea busstop_num){
         this.busstop_num = busstop_num;
     }
     
+    //バス停をテキストエリアに表示
     public void setParamToBusStop(){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         
@@ -82,6 +85,7 @@ public class BusStopEditGUIController implements Initializable, ABSSettings{
         busstop_json_text.setText(busStopJson);
     }
     
+    //イメージをテキストエリアに表示
     public void setParamToImage(){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String busStopImgJson = gson.toJson(json.param.busStopIMG, Map.class);
@@ -89,6 +93,7 @@ public class BusStopEditGUIController implements Initializable, ABSSettings{
         img_json_text.setText(busStopImgJson);
     }
     
+    //ルートをテキストエリアに表示
     public void setParamToRoot(){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String rootJson = gson.toJson(json.param.root, Map.class);
@@ -96,6 +101,7 @@ public class BusStopEditGUIController implements Initializable, ABSSettings{
         root_json_text.setText(rootJson);
     }
     
+    //可視化
     public void visualizeParam(){
         ABSEditVisualizer visualizer = new ABSEditVisualizer(visual_edit_canvas, 9, 9, json.param.busStopIMG.get(0));
         
@@ -127,18 +133,23 @@ public class BusStopEditGUIController implements Initializable, ABSSettings{
         }
     }
     
+    //編集内容をパラメータクラスに反映
     public void setTextToParam(){
         Gson gson = new Gson();
         
+        //ルートの更新
         Type listType = new TypeToken<Map<Object, List<String>>>() { }. getType();
         json.param.root = gson.fromJson(root_json_text.getText(), listType);
         
+        //バス停のイメージの更新
         listType = new TypeToken<Map<Integer, String>>() { }. getType();
         json.param.busStopIMG =  gson.fromJson(img_json_text.getText(), listType);
         
+        //バス停情報の更新
         listType = new TypeToken<List<BusStop>>() { }. getType();
         json.param.busStops = gson.fromJson(busstop_json_text.getText(), listType);
         
+        //バス停数の更新
         json.param.numBusStops = json.param.busStops.size();
         
         visualizeParam();

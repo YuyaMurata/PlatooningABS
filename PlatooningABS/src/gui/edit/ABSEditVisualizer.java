@@ -6,6 +6,10 @@
 package gui.edit;
 
 import java.awt.Point;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -30,7 +34,8 @@ public class ABSEditVisualizer {
         this.row = row;
         
         try{
-            this.img = new Image(getClass().getResourceAsStream(img)); 
+            InputStream in = new BufferedInputStream(new FileInputStream(img));
+            this.img = new Image(in); 
         }catch(Exception e){
             this.img = null;
         }

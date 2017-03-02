@@ -25,7 +25,7 @@ import prop.ABSSettings;
 
 /**
  * FXML Controller class
- *
+ * バス編集GUI
  * @author murata
  */
 public class BusEditGUIController implements Initializable, ABSSettings {
@@ -71,6 +71,7 @@ public class BusEditGUIController implements Initializable, ABSSettings {
     void setABSParamToTable(){
         bus_table.setItems(tableRecord);
         
+        //各セルに情報を表示
         name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
         name_col.setCellFactory(cell -> new TextFieldTableCell<>(new DefaultStringConverter()));
         name_col.setOnEditCommit((TableColumn.CellEditEvent<BusAgent, String> event) -> {
@@ -118,6 +119,5 @@ public class BusEditGUIController implements Initializable, ABSSettings {
         json.param.busAgents = bus_table.getItems();
         json.param.busIMG.clear();
         json.param.busIMG.add(bus_img_text.getText());
-        System.out.println(json.param.busAgents);
     }
 }

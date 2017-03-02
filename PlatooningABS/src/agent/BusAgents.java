@@ -53,8 +53,8 @@ public class BusAgents implements ABSSettings{
                 busAgents.put(bus.getName(), agent);
                 
                 if(bus.getType().equals("man")) man++;
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         

@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import main.ABSThreadRun;
 
 /**
  *
@@ -27,6 +29,19 @@ public class ABSVisualizeMain  extends Application{
         
         stage.setScene(scene);
         stage.show();
+        
+        addEvent(stage);
+    }
+    
+    private void addEvent(Stage stage){
+        stage.setOnHidden((WindowEvent t) ->{
+            closeAction(t);
+        });
+    }
+    
+    private void closeAction(WindowEvent t){
+        ABSThreadRun.close();
+        ABSVisualizerFXML.stopVisualize();
     }
     
     /**

@@ -6,7 +6,6 @@
 package prop;
 
 import java.net.MalformedURLException;
-import java.util.logging.Level;
 import prop.json.ABSJSONReader;
 
 /**
@@ -24,6 +23,7 @@ public interface ABSSettings {
     public static String classFolder = "./class/";
     public static ClassLoader absClassLoader = createClassLoader(classFolder);
     
+    //クラスローダー　classフォルダ内のファイルを読み込む
     public static ClassLoader createClassLoader(String dirname) {
         java.net.URL[] url = new java.net.URL[1];
         java.io.File file;
@@ -39,8 +39,8 @@ public interface ABSSettings {
             java.net.URLClassLoader loader = new java.net.URLClassLoader(url, parent);
 
             return loader;
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
             return null;
         }
     }

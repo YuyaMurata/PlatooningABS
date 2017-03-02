@@ -19,13 +19,24 @@ public class ABSThreadRun extends Thread{
         this.num = num;
     }
     
+    private static PlatooningABSMain abs1;
+    private static PlatooningABSExperiment abs2;
+    
     public void run(){
         
-        if(num == 1)
-            new PlatooningABSMain().run(file);
-        else
-            new PlatooningABSExperiment().run(file);
-        
+        if(num == 1){
+            abs1 = new PlatooningABSMain();
+            abs1.run(file);
+        }else{
+            abs2 = new PlatooningABSExperiment();
+            abs2.run(file);
+        }
+            
         System.out.println("Finish ABSMain Thread!");
+    }
+    
+    public static void close(){
+        if(abs1 != null)abs1.stop();
+        if(abs2 != null)abs2.stop();
     }
 }

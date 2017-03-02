@@ -162,6 +162,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
             //Update INI File
             iniFIle.setABSParamFile(fileName);
         }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -185,6 +186,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
             //Update INI File
             iniFIle.setABSParamFile(fileName);
         }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -198,8 +200,8 @@ public class ABSGUIController implements Initializable, ABSSettings{
         editStage.initOwner(busagent_edit.getScene().getWindow());
         try {
             busEdit.start(editStage);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -216,8 +218,8 @@ public class ABSGUIController implements Initializable, ABSSettings{
         editStage.initOwner(busagent_edit.getScene().getWindow());
         try {
             busStopedit.start(editStage);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -235,8 +237,8 @@ public class ABSGUIController implements Initializable, ABSSettings{
             absStage.initOwner(abs_run.getScene().getWindow());
             try {
                 abs.start(absStage);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         
@@ -276,7 +278,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
             json.absJSONRead(param_file.getText());
         }catch(Exception e){
             //JSONファイルの取得を失敗
-            //デフォルトのパラメータを各項目に設定
+            e.printStackTrace();
         }
             
         //ABS Visualize
@@ -367,7 +369,6 @@ public class ABSGUIController implements Initializable, ABSSettings{
         json.param.consoleSW = log_consol_check.isSelected();
         
         //JSON Write
-        System.out.println(param_file.getText());
         json.absJSONWrite(param_file.getText());
     }
 }
