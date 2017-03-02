@@ -25,7 +25,13 @@ public class CenterInfo {
     
     //巡回バスの位置情報を取得
     public List getRootBus(Object root, String name){
-        return (List) ((Map<Object, List>)infoMap.get(infoID.ROOT_BUS)).get(root).get(0);
+        try{
+            List busInfo = (List) ((Map<Object, List>)infoMap.get(infoID.ROOT_BUS)).get(root).get(0);
+            Object check = busInfo.get(0);
+            return busInfo;
+        }catch(IndexOutOfBoundsException e){
+            return null;
+        }
     }
     
     //ルートの待ち人数を取得
