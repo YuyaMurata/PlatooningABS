@@ -16,7 +16,7 @@ import log.LoggingFileStream;
 import prop.ABSSettings;
 
 /**
- *
+ * パラメタ管理GUI
  * @author murata
  */
 public class ABSGUIMain extends Application implements ABSSettings{

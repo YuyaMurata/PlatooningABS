@@ -11,7 +11,6 @@ import obj.BusStop;
 import obj.BusStops;
 import obj.People;
 import org.apache.commons.math3.random.RandomDataGenerator;
-import queue.QueueType;
 
 /**
  * 人気アトラクションのバス停に待ち行列を発生させるクラス
@@ -23,8 +22,8 @@ public class PopularAtractionQueue implements QueueType{
     private static Integer mu, sigma; //乱数の平均値と分散
     private TreeMap map = new TreeMap(); //バス停のインデックスと乱数値を関連付ける変数
     
-    public PopularAtractionQueue(String name) {
-        this.name = name;
+    public PopularAtractionQueue() {
+        this.name = "PopularAtraction";
         init();
         setSeed(-1);
     }
@@ -40,13 +39,11 @@ public class PopularAtractionQueue implements QueueType{
     
     //待ち行列発生
     @Override
-    public Object occureQueue(List<BusStop> busStops) {
+    public void occureQueue(List<BusStop> busStops) {
         int i = (int)map.floorEntry(getGaussRandom()).getValue();
         
         BusStop bs = busStops.get(i);
         bs.queuePeople(new People(bs));
-        
-        return bs.name;
     }
 
     @Override

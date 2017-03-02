@@ -14,7 +14,7 @@ import obj.BusStop;
  */
 public interface QueueType {
     //キュー発生
-    public abstract Object occureQueue(List<BusStop> busStops);
+    public abstract void occureQueue(List<BusStop> busStops);
     
     public abstract String getName();
     

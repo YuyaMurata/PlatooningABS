@@ -71,7 +71,7 @@ public class BusStops implements ABSSettings{
         try {
             //QueueGenerator 初期化
             Class clazz = Class.forName(json.param.queueClassName, true, absClassLoader);
-            queGen = new QueueGenerator((QueueType) clazz.getConstructor(String.class).newInstance(clazz.toString()));
+            queGen = new QueueGenerator((QueueType) clazz.newInstance());
             queGen.setSeed(json.param.seed);
         } catch (Exception e) {
             e.printStackTrace();
