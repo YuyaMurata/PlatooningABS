@@ -10,23 +10,19 @@
   "guiSW": true,
   "renderTime": 100,
   "busStopIMG": {
-    "0": "/img/busstop/s_137785.png",
-    "10": "/img/busstop/s_137785b.png",
-    "20": "/img/busstop/s_137785lb.png",
-    "30": "/img/busstop/s_137785g.png",
-    "40": "/img/busstop/s_137785y.png",
-    "50": "/img/busstop/s_137785o.png",
-    "60": "/img/busstop/s_137785r.png"
+    "0": "./img/busstop/s_137785.png",
+    "10": "./img/busstop/s_137785b.png",
+    "20": "./img/busstop/s_137785lb.png",
+    "30": "./img/busstop/s_137785g.png",
+    "40": "./img/busstop/s_137785y.png",
+    "50": "./img/busstop/s_137785o.png",
+    "60": "./img/busstop/s_137785r.png"
   },
   "busIMG": [
-    "/img/bus/s_121278.png",
-    "/img/bus/s_121278r.png",
-    "/img/bus/s_121278b.png",
-    "/img/bus/s_121278g.png",
-    "/img/bus/s_121278y.png"
+    "./img/bus/s_121278.png"
   ],
   "numOfExec": 1,
-  "stepWaitTime": 210,
+  "stepWaitTime": 400,
   "mode": 0,
   "seed": -1,
   "amountPeople": 100,
@@ -42,7 +38,7 @@
       "name": "Bus_0",
       "type": "man",
       "clazz": "bus.SampleBusAgent",
-      "param": "param1,param2"
+      "param": ""
     },
     {
       "name": "Bus_1",
@@ -51,15 +47,15 @@
       "param": ""
     },
     {
-      "name": "Bus_RB_2",
-      "type": "robot",
-      "clazz": "bus.SampleRobotBusAgent",
+      "name": "Bus_2",
+      "type": "man",
+      "clazz": "bus.SampleBusAgent",
       "param": ""
     },
     {
-      "name": "Bus_RB_3",
-      "type": "robot",
-      "clazz": "bus.SampleRobotBusAgent",
+      "name": "Bus_3",
+      "type": "man",
+      "clazz": "bus.SampleBusAgent",
       "param": ""
     },
     {

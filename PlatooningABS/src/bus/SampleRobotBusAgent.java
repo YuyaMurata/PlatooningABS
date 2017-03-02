@@ -81,7 +81,8 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
         else root = compRootQueue(info.getRootStepQueue(), 3);
         
         //Leaderの変更
-        leader = info.getRootBus(root(), name);
+        if(info.getRootBus(root(), name) != null)
+            leader = info.getRootBus(root(), name).get(0);
     }
     
     //行動ルール
@@ -99,7 +100,7 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
         //追従バスの位置をセンター情報から受け取り，移動目標とする
         //リーダーが見つからない場合はその場で待機
         Point p = super.getBusPos();
-        if(leader != null)
+        if(info.getRootBus(root(), name) != null)
             p = (Point) info.getRootBus(root(), name).get(1);
         
         //移動目標を返す

@@ -30,6 +30,7 @@ public class CenterInfo {
             Object check = busInfo.get(0);
             return busInfo;
         }catch(IndexOutOfBoundsException e){
+            e.printStackTrace();
             return null;
         }
     }
