@@ -44,6 +44,7 @@ public class PlatooningABSExperiment implements ABSSettings{
         
         //高速化
         //json.param.stepWaitTime = 0L;
+        AmusementPark park = AmusementPark.getInstance();
         
         //実験時のログデータの初期化
         //ログの日付
@@ -84,7 +85,6 @@ public class PlatooningABSExperiment implements ABSSettings{
             OutputInstance.NewFileTraceLog(dirTraceName+"\\exec_"+i+"_"+json.param.traceFileName);
             
             //遊園地クラスの初期化
-            AmusementPark park = AmusementPark.getInstance();
             park.init();
             
             //Create Agent & Object
@@ -121,12 +121,13 @@ public class PlatooningABSExperiment implements ABSSettings{
         //Finish
         Long stop = System.currentTimeMillis() -  start;
         System.out.println("Stop Platooning ABS. Time : "+stop+" [ms]");
+        park.state = false;
         
         //平均ステップ数を出力
         Long avg = totalStep / json.param.numOfExec;
         OutputInstance.dataSummary.write("Platooning ABS Total Experiment:"+json.param.numOfExec+", "+avg+", "+stop+", ms");
         OutputInstance.dataSummary.close();
-    
+        
     }
     
     public void stop(){

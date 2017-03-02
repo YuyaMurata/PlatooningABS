@@ -68,6 +68,7 @@ public class PlatooningABSMain implements ABSSettings{
         }
         
         System.out.println("Finish ABS ");
+        park.state = false;
     }
     
     public void stop(){

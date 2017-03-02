@@ -7,7 +7,6 @@ package gui.edit;
 
 import java.awt.Point;
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import javafx.scene.canvas.Canvas;
@@ -17,7 +16,7 @@ import javafx.scene.paint.Color;
 import obj.BusStop;
 
 /**
- *
+ * バス停編集クラスの可視化
  * @author murata
  */
 public class ABSEditVisualizer {
@@ -60,13 +59,13 @@ public class ABSEditVisualizer {
         
         g.setStroke(Color.BLACK);
         //Column
-        for(int i=0; i < col; i++){
+        for(int i=0; i < col+1; i++){
             Point p = mappingArea(i, 0);
             g.strokeLine(p.x, 0, p.x, canvas.getHeight());
         }
         
         //Row
-        for(int i=0; i < row; i++){
+        for(int i=0; i < row+1; i++){
             Point p = mappingArea(0, i);
             g.strokeLine(0, p.y, canvas.getWidth(), p.y);
         }

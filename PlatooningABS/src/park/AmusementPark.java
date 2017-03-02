@@ -22,10 +22,10 @@ import obj.BusStop;
  */
 public class AmusementPark { 
     private static AmusementPark park = new AmusementPark();
+    public Boolean state;
     
     private Map<Object, BusStop> objectMap = new ConcurrentHashMap<>(); //オブジェクトの管理
     private Map<Object, List<AbstractBusAgent>> agentMap = new ConcurrentHashMap<>(); //Agentの管理
-    
     
     //Singleton
     public static AmusementPark getInstance(){
@@ -36,6 +36,7 @@ public class AmusementPark {
     public void init() {
         if(!objectMap.isEmpty()) objectMap = new ConcurrentHashMap<>();
         if(!agentMap.isEmpty()) agentMap = new ConcurrentHashMap<>();
+        state = true;
     }
     
     //バス停(オブジェクト)の登録

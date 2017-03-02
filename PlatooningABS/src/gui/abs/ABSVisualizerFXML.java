@@ -28,6 +28,7 @@ import park.AmusementPark;
  */
 public class ABSVisualizerFXML{
     private Canvas canvas;
+    private static AnimationTimer animationTimer;
     
     //遊園地クラスの取得
     private static AmusementPark park = AmusementPark.getInstance();
@@ -72,13 +73,13 @@ public class ABSVisualizerFXML{
         
         g.setStroke(Color.BLACK);
         //Column
-        for(int i=0; i < col; i++){
+        for(int i=0; i < col+1; i++){
             Point p = mappingArea(i, 0);
             g.strokeLine(p.x, 0, p.x, h);
         }
         
         //Row
-        for(int i=0; i < row; i++){
+        for(int i=0; i < row+1; i++){
             Point p = mappingArea(0, i);
             g.strokeLine(0, p.y, w, p.y);
         }
@@ -125,7 +126,7 @@ public class ABSVisualizerFXML{
                 Point p = mappingArea(bus.x, bus.y);
                 if(origBusImg != null){
                     if(origBusImg.get(0) != null)
-                        g.drawImage(origBusImg.get(0), p.x + i*sizeX/5, p.y - i*sizeY/5, sizeX, sizeY);
+                        g.drawImage(origBusImg.get(0), p.x + i*sizeX/5, p.y - sizeY/10 - i*sizeY/5, sizeX, sizeY);
                     else
                         g.fillOval(p.x + i*sizeX/5, p.y - i*sizeY/5, sizeX, sizeY);
                 }else
@@ -151,12 +152,18 @@ public class ABSVisualizerFXML{
                 if(origBusStopImg.get(0) != null)
                     g.drawImage(
                         origBusStopImg.floorEntry(busStop.getAllQueueLength()).getValue(),
-                        p.x + sizeCol/2-sizeX/2, p.y, sizeX, sizeY);
+                        p.x + sizeCol/2.4-sizeX/2.4, p.y - sizeY/10, sizeX*1.2, sizeY*1.2);
                 else
                     g.fillRect(p.x, p.y, sizeX, sizeY);
             }else
                 g.fillRect(p.x, p.y, sizeX, sizeY);
         }
+    }
+    
+    //ウィンドウサイズ変更時に呼び出される
+    public void resize(){
+        this.w = (int)canvas.getWidth();
+        this.h = (int)canvas.getHeight();
     }
     
     //ABSの描画
@@ -168,11 +175,16 @@ public class ABSVisualizerFXML{
         //Cell & Image 描画 
         drawBusStops();
         drawBusAgents();
-        
         drawCell();
+        
+        //ウィンドウを閉じる処理
+        if(!park.state) canvas.getScene().getWindow().hide();
+        
+        //戻しておかないと次の実行が不可能となる．
+        park.state = true;
     }
     
-    private static AnimationTimer animationTimer;
+    //可視化スタート
     public void startVisualize(){
         animationTimer = new AnimationTimer() {
             @Override
@@ -183,6 +195,7 @@ public class ABSVisualizerFXML{
         animationTimer.start();
     }
     
+    //可視化のストップ
     public static void stopVisualize(){
         animationTimer.stop();
     }

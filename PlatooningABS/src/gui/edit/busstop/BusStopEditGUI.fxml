@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,56 +8,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.edit.busstop.BusStopEditGUIController">
+<VBox prefHeight="595.0" prefWidth="757.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.edit.busstop.BusStopEditGUIController">
    <children>
-      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <SplitPane dividerPositions="0.29797979797979796" layoutX="143.0" layoutY="82.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.3" prefHeight="551.0" prefWidth="757.0" VBox.vgrow="ALWAYS">
+        <items>
+            <TextArea fx:id="busstop_json_text" />
+            <SplitPane dividerPositions="0.4" orientation="VERTICAL">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <TextArea fx:id="busstop_json_text" layoutY="65.0" prefHeight="398.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                <AnchorPane>
-                     <children>
-                        <SplitPane dividerPositions="0.3409090909090909" layoutX="98.0" layoutY="77.0" orientation="VERTICAL" prefHeight="398.0" prefWidth="417.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <SplitPane dividerPositions="0.5012106537530266" prefHeight="132.0" prefWidth="415.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <items>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                             <children>
-                                                <TextArea fx:id="img_json_text" prefHeight="130.0" prefWidth="204.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                          </AnchorPane>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                             <children>
-                                                <TextArea fx:id="root_json_text" prefHeight="130.0" prefWidth="203.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                          </AnchorPane>
-                                      </items>
-                                    </SplitPane>
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <Canvas fx:id="visual_edit_canvas" height="258.0" width="415.0" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                  </AnchorPane>
+                  <SplitPane dividerPositions="0.5" SplitPane.resizableWithParent="false">
+                    <items>
+                        <TextArea fx:id="img_json_text" />
+                        <TextArea fx:id="root_json_text" />
+                    </items>
+                  </SplitPane>
+                  <Canvas fx:id="visual_edit_canvas" height="258.0" width="415.0" />
               </items>
             </SplitPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane>
+        </items>
+      </SplitPane>
+      <HBox alignment="CENTER_RIGHT" fillHeight="false" maxHeight="30.0" prefHeight="30.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="busstrop_edit_apply" layoutX="525.0" layoutY="3.0" mnemonicParsing="false" onAction="#editApply" text="Apply" />
          </children>
-      </AnchorPane>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets right="10.0" />
+         </VBox.margin>
+      </HBox>
    </children>
 </VBox>

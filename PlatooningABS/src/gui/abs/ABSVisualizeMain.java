@@ -20,7 +20,6 @@ import main.ABSThreadRun;
  */
 public class ABSVisualizeMain  extends Application{
     private static Stage st;
-    private static Boolean shut;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -34,8 +33,6 @@ public class ABSVisualizeMain  extends Application{
         
         st = stage;
         addEvent(stage);
-        
-        shut = true;
     }
     
     //イベントの追加(ウィンドウクローズ)
@@ -47,7 +44,6 @@ public class ABSVisualizeMain  extends Application{
     
     //終了時のイベント
     private void closeAction(WindowEvent t){
-        shut = false;
         ABSThreadRun.close();
         ABSVisualizerFXML.stopVisualize();
     }
