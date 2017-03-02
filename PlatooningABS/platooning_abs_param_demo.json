@@ -21,7 +21,7 @@
   "busIMG": [
     "./img/bus/s_121278.png"
   ],
-  "numOfExec": 1,
+  "numOfExec": 5,
   "stepWaitTime": 400,
   "mode": 0,
   "seed": -1,

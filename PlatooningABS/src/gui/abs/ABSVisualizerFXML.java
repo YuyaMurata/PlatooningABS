@@ -178,7 +178,8 @@ public class ABSVisualizerFXML{
         drawCell();
         
         //ウィンドウを閉じる処理
-        if(!park.state) canvas.getScene().getWindow().hide();
+        if(canvas!= null)
+            if(!park.state) canvas.getScene().getWindow().hide();
         
         //戻しておかないと次の実行が不可能となる．
         park.state = true;

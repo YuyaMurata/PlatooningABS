@@ -20,7 +20,7 @@ public interface ABSSettings {
     public static ABSJSONReader json = ABSJSONReader.getInstance();
     
     //出力の切り替え File = true console = false
-    public static Boolean logConsoleFileSW = true;
+    public static Boolean logConsoleFileSW = false;
     
     //ClassLoader
     public static String classFolder = "./class/";
