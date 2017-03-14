@@ -24,24 +24,42 @@ public class StepExecutor implements ABSSettings{
     
     //1Step 実行処理
     public void execute(long t){
+        //Performance
+        long start = System.currentTimeMillis();
+        
         step = t;
         printLog("Step : "+step);
+        
+        long pstop = System.currentTimeMillis();
         
         //バス停の人の発生処理
         BusStops.occureQueue();
         
+        long bsstop = System.currentTimeMillis();
+        
         //Agent Execute (man)
         BusAgents.execute("man", null);
         
+        long bstop = System.currentTimeMillis();
+        
         //Center Communication
         CenterInfo info = ControlCenter.comm();
-        System.out.println(info);
+        
+        long cstop = System.currentTimeMillis();
         
         //Agent Execute (robot)
         BusAgents.execute("robot", info);
         
+        long brstop = System.currentTimeMillis();
+        
         //ログ出力
         traceLog(step);
+        
+        long tlstop = System.currentTimeMillis();
+        
+        System.out.print(", exec(print, busstop, bus, center, bus(robo), log)"+
+                (pstop-start)+","+(bsstop-pstop)+","+(bstop-bsstop)+","+(cstop-bstop)+
+                ","+(brstop-cstop)+","+(tlstop-brstop)+",");
         
         //Step TimeSpan
         try {
@@ -59,7 +77,7 @@ public class StepExecutor implements ABSSettings{
     
     //ログ出力
     public static void printLog(String str){
-        System.out.println(str);
+        System.out.print(str);
             
         //ABS State
         BusStops.printLog();

@@ -142,6 +142,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
         visual_gui_text.setText((speed*10)+"ms");
     }
     
+    //パラメータファイルの保存
     @FXML
     void saveABSParameter(ActionEvent event) {
         FileChooser fc = new FileChooser();
@@ -157,7 +158,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
             
             //Save (JSON and SetParam)
             param_file.setText(fileName);
-            setGUIToParam();
+            setGUIToABSParam();
             
             //Update INI File
             iniFIle.setABSParamFile(fileName);
@@ -166,6 +167,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
         }
     }
 
+    //パラメータファイルのオープン
     @FXML
     void openABSParameter(ActionEvent event) {
         final FileChooser fc = new FileChooser();
@@ -181,7 +183,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
             
             //Open (JSON Read)
             param_file.setText(fileName);
-            setParamToGUI();
+            setABSParamToGUI();
             
             //Update INI File
             iniFIle.setABSParamFile(fileName);
@@ -190,11 +192,13 @@ public class ABSGUIController implements Initializable, ABSSettings{
         }
     }
 
+    //バス編集GUIの表示
     @FXML
     void editBusAgent(ActionEvent event) {
         json.param.numBusAgents = Integer.valueOf(bus_num.getText());
 
         BusEditGUIMain busEdit = new BusEditGUIMain();
+        busEdit.bus_num = bus_num;
         
         Stage editStage = new Stage();
         editStage.initOwner(busagent_edit.getScene().getWindow());
@@ -205,6 +209,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
         }
     }
 
+    //バス停編集GUIの表示
     @FXML
     void editBusStop(ActionEvent event) {
         json.param.numBusStops = Integer.valueOf(busstop_num.getText());
@@ -223,12 +228,13 @@ public class ABSGUIController implements Initializable, ABSSettings{
         }
     }
 
+    //ABSの実行
     @FXML
     void runABS(ActionEvent event) {
         //Write JSON
         if(!param_file.getText().contains("json"))
             param_file.setText(settingFileName);
-        setGUIToParam();
+        setGUIToABSParam();
         
         //ABS GUI
         if(visual_gui_check.isSelected()){
@@ -254,7 +260,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
         param_file.setText(iniFIle.getABSParamFile());
         
         //Set JSON File
-        setParamToGUI();
+        setABSParamToGUI();
             
         //add EventListener
         addEvent();
@@ -272,7 +278,8 @@ public class ABSGUIController implements Initializable, ABSSettings{
         });
     }
     
-    private void setParamToGUI(){
+    //ABSパラメータの内容をGUIに適用
+    private void setABSParamToGUI(){
         //JSON Read
         try{
             json.absJSONRead(param_file.getText());
@@ -326,7 +333,8 @@ public class ABSGUIController implements Initializable, ABSSettings{
         log_consol_check.setSelected(json.param.consoleSW);
     }
     
-    private void setGUIToParam(){
+    //GUIの内容をABSパラメータに適用
+    private void setGUIToABSParam(){
         //ABS Visualize
         json.param.guiSW = visual_gui_check.isSelected();
         json.param.stepWaitTime = Long.valueOf(visual_gui_text.getText().replace("ms", ""));

@@ -7,7 +7,7 @@
   "consoleSW": false,
   "loggingSW": true,
   "traceSW": true,
-  "guiSW": true,
+  "guiSW": false,
   "renderTime": 200,
   "busStopIMG": {
     "0": "./img/busstop/s_137785.png",
@@ -21,18 +21,18 @@
   "busIMG": [
     "./img/bus/s_121278.png"
   ],
-  "numOfExec": 1,
-  "stepWaitTime": 400,
+  "numOfExec": 100,
+  "stepWaitTime": 0,
   "mode": 0,
   "seed": -1,
-  "amountPeople": 100,
+  "amountPeople": 1000,
   "amountStep": 100,
   "column": 9,
   "row": 9,
-  "numBusAgents": 4,
+  "numBusAgents": 10,
   "maxPassengers": 10,
   "lostProb": -1.0,
-  "changeLineSW": true,
+  "changeLineSW": false,
   "busAgents": [
     {
       "name": "Bus_0",
@@ -50,13 +50,49 @@
       "name": "Bus_RB_2",
       "type": "robot",
       "clazz": "bus.SampleRobotBusAgent",
-      "param": ""
+      "param": "simple"
     },
     {
       "name": "Bus_RB_3",
       "type": "robot",
       "clazz": "bus.SampleRobotBusAgent",
-      "param": ""
+      "param": "simple"
+    },
+    {
+      "name": "Bus_RB_4",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": "simple"
+    },
+    {
+      "name": "Bus_RB_5",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": "simple"
+    },
+    {
+      "name": "Bus_RB_6",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": "simple"
+    },
+    {
+      "name": "Bus_RB_7",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": "simple"
+    },
+    {
+      "name": "Bus_RB_8",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": "simple"
+    },
+    {
+      "name": "Bus_RB_9",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": "simple"
     }
   ],
   "root": {
@@ -101,7 +137,7 @@
   ],
   "queueClassName": "queue.PopularAtractionQueue",
   "queuingByStep": 20,
-  "failureSW": true,
+  "failureSW": false,
   "accidentPeriod": 10,
   "accidentTime": 2
 }

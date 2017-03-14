@@ -4,7 +4,7 @@
   "peopleFieldName": "PID, BUS, Root, BusTime, QueueTime",
   "traceFileName": "platooning_abs_tracelog.txt",
   "traceFieldName": "STEP, BUS(name, type, x, y, n.pass, root, leader), BUSSTOP(name, x, y, queue)",
-  "consoleSW": true,
+  "consoleSW": false,
   "loggingSW": true,
   "traceSW": true,
   "guiSW": true,
@@ -21,15 +21,15 @@
   "busIMG": [
     "./img/bus/s_121278.png"
   ],
-  "numOfExec": 5,
-  "stepWaitTime": 400,
+  "numOfExec": 1,
+  "stepWaitTime": 0,
   "mode": 0,
   "seed": -1,
-  "amountPeople": 100,
+  "amountPeople": 1000,
   "amountStep": 100,
   "column": 9,
   "row": 9,
-  "numBusAgents": 27,
+  "numBusAgents": 100,
   "maxPassengers": 10,
   "lostProb": -1.0,
   "changeLineSW": true,
@@ -195,6 +195,444 @@
       "type": "robot",
       "clazz": "bus.SampleRobotBusAgent",
       "param": ""
+    },
+    {
+      "name": "Bus_RB_27",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_28",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_29",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_30",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_31",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_32",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_33",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_34",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_35",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_36",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_37",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_38",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_39",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_40",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_41",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_42",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_43",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_44",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_45",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_46",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_47",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_48",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_49",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_50",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_51",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_52",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_53",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_54",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_55",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_56",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_57",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_58",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_59",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_60",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_61",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_62",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_63",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_64",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_65",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_66",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_67",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_68",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_69",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_70",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_71",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_72",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_73",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_74",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_75",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_76",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_77",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_78",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_79",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_80",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_81",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_82",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_83",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_84",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_85",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_86",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_87",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_88",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_89",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_90",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_91",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_92",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_93",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_94",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_95",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_96",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_97",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_98",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
+    },
+    {
+      "name": "Bus_RB_99",
+      "type": "robot",
+      "clazz": "bus.SampleRobotBusAgent",
+      "param": ""
     }
   ],
   "root": {
@@ -273,7 +711,7 @@
   ],
   "queueClassName": "queue.PopularAtractionQueue",
   "queuingByStep": 20,
-  "failureSW": false,
+  "failureSW": true,
   "accidentPeriod": 10,
   "accidentTime": 2
 }

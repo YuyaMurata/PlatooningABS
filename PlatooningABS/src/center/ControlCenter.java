@@ -76,6 +76,13 @@ public class ControlCenter{
         }
         else info.setInfo(map);
         
+        //情報の表示
+        //infoPrint(info);
+        
         return info;
+    }
+    
+    public static void infoPrint(CenterInfo info){
+        System.out.println(info);
     }
 }

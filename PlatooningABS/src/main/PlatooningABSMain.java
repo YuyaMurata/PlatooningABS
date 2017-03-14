@@ -53,7 +53,9 @@ public class PlatooningABSMain implements ABSSettings{
         StepExecutor step = new StepExecutor();
         while(runnable){
             //1Step 実行
+            long start = System.currentTimeMillis();
             step.execute(time);
+            long stop1 = System.currentTimeMillis();
             
             //実験終了処理
             if(step.finishCheck()){
@@ -62,6 +64,9 @@ public class PlatooningABSMain implements ABSSettings{
                 OutputInstance.close();
                 break;
             }
+            long stop2 = System.currentTimeMillis();
+            
+            System.out.println("Performance Main (exec, finish)=,"+(stop1-start)+","+(stop2-stop1));
             
             //時間経過
             time++;

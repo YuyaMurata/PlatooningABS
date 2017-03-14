@@ -35,7 +35,7 @@ public class CenterAccident implements ABSSettings{
         //actTime間 障害を維持
         if(time++ > actTime && failure) failure = false;
         
-        System.out.println("Accident = "+failure);
+        //System.out.println("Accident = "+failure);
         
         return failure;
     }

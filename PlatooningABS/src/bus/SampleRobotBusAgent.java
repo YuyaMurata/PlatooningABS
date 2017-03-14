@@ -53,18 +53,18 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
     //センター通信障害時の処理 近隣バスの探索とFollowの更新
     public Point nearestBus(){ 
         List near = BusAgents.nearestBus(super.key[1], 1);
-        System.out.println(name+":"+near);
-        System.out.println(name+"->"+follow);
+        //System.out.println(name+":"+near);
+        //System.out.println(name+"->"+follow);
         
         if(near.contains(follow)) return BusAgents.getBusPos(follow);
         else follow = null;
         
         if(near.isEmpty()) return super.getBusPos();
         else if(near.contains(leader)){
-            System.out.println(name+" Follow Leader:"+leader);
+            //System.out.println(name+" Follow Leader:"+leader);
             follow = leader;
         } else{
-            System.out.println(name+" Follow:"+near.get(0));
+            //System.out.println(name+" Follow:"+near.get(0));
             follow = near.get(0);
         }
         
@@ -152,9 +152,7 @@ public class SampleRobotBusAgent extends AbstractBusAgent{
         for(Object r : queueMap.keySet()){
             int line = queueMap.get(r);
             double w = (double)line / (double)rootTimeToQueue.size();
-            
-            System.out.println("L="+line+" W="+w+" Nstep="+rootTimeToQueue.size());
-            
+            //System.out.println("L="+line+" W="+w+" Nstep="+rootTimeToQueue.size());
             wmap.put(r, (int)(w * 1000));
         }
         
