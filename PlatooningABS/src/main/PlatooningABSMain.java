@@ -33,24 +33,33 @@ public class PlatooningABSMain implements ABSSettings{
     }
     
     private static void execute(String paramFile){
+        System.out.println("Runnnable1="+runnable);
+        
         //Parameter
         json.absJSONRead(paramFile);
+        
+        System.out.println("Runnnable2="+runnable);
         
         //ログファイルの作成
         OutputInstance.NewFilePeopleLog(json.param.peopleFileName);
         OutputInstance.NewFileTraceLog(json.param.traceFileName);
         
+        System.out.println("Runnnable3="+runnable);
+        
         //遊園地クラスの初期化
         AmusementPark park = AmusementPark.getInstance();
         park.init();
         
+        System.out.println("Runnnable4="+runnable);
+        
         //Create Agent & Object
         BusStops.generate();  //BusStopの作成
         BusAgents.generate(); //BusAgentの作成
-            
+        
         //シミュレーションの実行
         long time = 1L;
         StepExecutor step = new StepExecutor();
+        
         while(runnable){
             //1Step 実行
             long start = System.currentTimeMillis();

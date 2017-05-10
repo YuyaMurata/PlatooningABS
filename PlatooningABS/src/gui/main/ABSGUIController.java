@@ -196,7 +196,7 @@ public class ABSGUIController implements Initializable, ABSSettings{
     @FXML
     void editBusAgent(ActionEvent event) {
         json.param.numBusAgents = Integer.valueOf(bus_num.getText());
-
+        
         BusEditGUIMain busEdit = new BusEditGUIMain();
         busEdit.bus_num = bus_num;
         

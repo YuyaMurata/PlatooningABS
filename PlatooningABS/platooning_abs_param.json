@@ -7,7 +7,7 @@
   "consoleSW": false,
   "loggingSW": true,
   "traceSW": true,
-  "guiSW": false,
+  "guiSW": true,
   "renderTime": 200,
   "busStopIMG": {
     "0": "./img/busstop/s_137785.png",
@@ -21,15 +21,15 @@
   "busIMG": [
     "./img/bus/s_121278.png"
   ],
-  "numOfExec": 100,
-  "stepWaitTime": 0,
+  "numOfExec": 1,
+  "stepWaitTime": 410,
   "mode": 0,
   "seed": -1,
   "amountPeople": 1000,
   "amountStep": 100,
   "column": 9,
   "row": 9,
-  "numBusAgents": 10,
+  "numBusAgents": 5,
   "maxPassengers": 10,
   "lostProb": -1.0,
   "changeLineSW": false,
@@ -103,6 +103,11 @@
     ],
     "root1": [
       "BusStop_2",
+      "BusStop_3",
+      "BusStop_4"
+    ],
+    "root2": [
+      "BusStop_0",
       "BusStop_3",
       "BusStop_4"
     ]
