@@ -49,47 +49,17 @@
     {
       "name": "Bus_RB_2",
       "type": "robot",
-      "clazz": "bus.SampleRobotBusAgent",
+      "clazz": "bus.TestBusAgent",
       "param": "simple"
     },
     {
       "name": "Bus_RB_3",
       "type": "robot",
-      "clazz": "bus.SampleRobotBusAgent",
+      "clazz": "bus.BusAgentInfo",
       "param": "simple"
     },
     {
       "name": "Bus_RB_4",
-      "type": "robot",
-      "clazz": "bus.SampleRobotBusAgent",
-      "param": "simple"
-    },
-    {
-      "name": "Bus_RB_5",
-      "type": "robot",
-      "clazz": "bus.SampleRobotBusAgent",
-      "param": "simple"
-    },
-    {
-      "name": "Bus_RB_6",
-      "type": "robot",
-      "clazz": "bus.SampleRobotBusAgent",
-      "param": "simple"
-    },
-    {
-      "name": "Bus_RB_7",
-      "type": "robot",
-      "clazz": "bus.SampleRobotBusAgent",
-      "param": "simple"
-    },
-    {
-      "name": "Bus_RB_8",
-      "type": "robot",
-      "clazz": "bus.SampleRobotBusAgent",
-      "param": "simple"
-    },
-    {
-      "name": "Bus_RB_9",
       "type": "robot",
       "clazz": "bus.SampleRobotBusAgent",
       "param": "simple"
